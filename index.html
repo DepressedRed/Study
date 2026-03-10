@@ -7,26 +7,30 @@
 
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
 body{
-font-family:Arial;
+margin:0;
+font-family:'Cairo',sans-serif;
 background:#020617;
 color:white;
 text-align:center;
-margin:0;
+overflow-x:hidden;
 }
 
 header{
+padding:25px;
 font-size:28px;
-padding:20px;
 background:#0f172a;
+border-bottom:1px solid #1e293b;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-gap:15px;
-padding:20px;
-max-width:900px;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:20px;
+padding:25px;
+max-width:1000px;
 margin:auto;
 }
 
@@ -34,29 +38,38 @@ button{
 padding:14px;
 border:none;
 border-radius:10px;
-background:#2563eb;
+background:linear-gradient(135deg,#2563eb,#06b6d4);
 color:white;
-font-size:15px;
+font-size:16px;
 cursor:pointer;
+transition:.25s;
 }
 
 button:hover{
-background:#1d4ed8;
+transform:scale(1.05);
+box-shadow:0 0 15px #38bdf8;
+}
+
+.card{
+background:#0f172a;
+padding:18px;
+border-radius:12px;
 }
 
 iframe{
 width:95%;
-height:700px;
+height:720px;
 border:none;
 margin-top:20px;
+border-radius:10px;
 }
 
 .quiz{
 background:#0f172a;
 padding:20px;
-border-radius:10px;
-max-width:600px;
-margin:20px auto;
+border-radius:12px;
+max-width:650px;
+margin:30px auto;
 }
 
 .answer{
@@ -69,38 +82,33 @@ width:90%;
 display:none;
 }
 
-</style>
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
 
+</style>
 </head>
 
 <body>
 
-<header>بوابة التعلم</header>
+<canvas id="bg"></canvas>
+
+<header>
+بوابة التعلم للصف العاشر
+</header>
 
 <h2>اختر الكتاب</h2>
 
-<div class="grid" id="books">
+<div id="books" class="grid"></div>
 
-<button onclick="openBook('ma','الرياضيات')">الرياضيات</button>
-<button onclick="openBook('ara','اللغة العربية')">العربية</button>
-<button onclick="openBook('en','الانجليزية')">الانجليزية</button>
-<button onclick="openBook('sc','العلوم')">العلوم</button>
-
-</div>
-
-<div id="lessonArea" class="hidden">
-
-<h2 id="bookTitle"></h2>
-
-<div id="lessons" class="grid"></div>
-
-<button onclick="goHome()">رجوع</button>
-
-</div>
+<div id="lessons" class="grid hidden"></div>
 
 <div id="viewer"></div>
 
-<div id="quizArea" class="quiz hidden">
+<div id="quiz" class="quiz hidden">
 
 <h3 id="question"></h3>
 
@@ -114,38 +122,93 @@ display:none;
 
 <script>
 
-const pdfs={
-ma:"https://elearn.azureedge.net/Books/c10/ma10-p2.pdf",
-ara:"https://elearn.azureedge.net/Books/c10/ara10-p2.pdf",
-en:"https://elearn.azureedge.net/Books/c10/en10-p2.pdf",
-sc:"https://elearn.azureedge.net/Books/c10/sc10.pdf"
-}
+/* BOOKS */
 
-/* LESSON TITLES */
+const books={
 
-const lessons={
-
-ma:[
+"الرياضيات":{
+pdf:"https://elearn.azureedge.net/Books/c10/ma10-p2.pdf",
+lessons:[
 {name:"الدوال",page:1},
 {name:"النهايات",page:20},
-{name:"الاشتقاق",page:40}
-],
+{name:"الاشتقاق",page:40},
+{name:"التكامل",page:60}
+]
+},
 
-ara:[
+"العربية":{
+pdf:"https://elearn.azureedge.net/Books/c10/ara10-p2.pdf",
+lessons:[
 {name:"القراءة",page:1},
-{name:"النحو",page:15},
-{name:"البلاغة",page:30}
-],
+{name:"النحو",page:20},
+{name:"البلاغة",page:40}
+]
+},
 
-en:[
+"الانجليزية":{
+pdf:"https://elearn.azureedge.net/Books/c10/en10-p2.pdf",
+lessons:[
 {name:"Unit 1",page:1},
-{name:"Unit 2",page:20}
-],
+{name:"Unit 2",page:20},
+{name:"Unit 3",page:40}
+]
+},
 
-sc:[
+"الدين":{
+pdf:"https://elearn.azureedge.net/Books/c10/re10-p2.pdf",
+lessons:[
+{name:"العقيدة",page:1},
+{name:"السيرة",page:20}
+]
+},
+
+"العلوم":{
+pdf:"https://elearn.azureedge.net/Books/c10/sc10.pdf",
+lessons:[
 {name:"الطاقة",page:1},
+{name:"القوة",page:30}
+]
+},
+
+"الكيمياء":{
+pdf:"https://elearn.azureedge.net/Books/c10/chm10.pdf",
+lessons:[
+{name:"الذرة",page:1},
+{name:"التفاعلات",page:20}
+]
+},
+
+"الفيزياء":{
+pdf:"https://elearn.azureedge.net/Books/c10/py10.pdf",
+lessons:[
+{name:"الحركة",page:1},
 {name:"القوة",page:25}
 ]
+},
+
+"الجغرافيا":{
+pdf:"https://elearn.azureedge.net/Books/c10/ge10-p2.pdf",
+lessons:[
+{name:"المناخ",page:1},
+{name:"السكان",page:20}
+]
+},
+
+"تكنولوجيا المعلومات":{
+pdf:"https://elearn.azureedge.net/Books/c10/it10.pdf",
+lessons:[
+{name:"الحاسوب",page:1},
+{name:"الانترنت",page:20}
+]
+},
+
+"التجويد":{
+pdf:"https://elearn.azureedge.net/Books/c10/taj10.pdf",
+lessons:[
+{name:"مخارج الحروف",page:1},
+{name:"احكام النون",page:20}
+]
+}
 
 }
 
@@ -154,11 +217,16 @@ sc:[
 const quizzes={
 
 "الدوال":[
-{q:"ما هي الدالة؟",a:["علاقة بين متغيرين","عدد فقط","زاوية"],c:0}
+{q:"الدالة هي علاقة بين؟",a:["متغيرين","زاويتين","عددين"],c:0},
+{q:"قيمة f(x) تمثل؟",a:["مخرج الدالة","زاوية","مساحة"],c:0}
 ],
 
 "النهايات":[
-{q:"النهاية تستخدم لدراسة؟",a:["السلوك قرب نقطة","الجمع","الطرح"],c:0}
+{q:"النهاية تستخدم لدراسة؟",a:["السلوك قرب نقطة","الطرح","الضرب"],c:0}
+],
+
+"القراءة":[
+{q:"القراءة تساعد على؟",a:["زيادة المعرفة","تقليل المعرفة"],c:0}
 ]
 
 }
@@ -167,55 +235,71 @@ let currentBook=""
 let currentLesson=""
 let qIndex=0
 
-function openBook(code,name){
+/* LOAD BOOKS */
 
-currentBook=code
+const bookDiv=document.getElementById("books")
 
-document.getElementById("books").style.display="none"
-document.getElementById("lessonArea").classList.remove("hidden")
+Object.keys(books).forEach(name=>{
 
-document.getElementById("bookTitle").innerText=name
+let btn=document.createElement("button")
+btn.innerText=name
 
-let html=""
+btn.onclick=()=>openBook(name)
 
-lessons[code].forEach(l=>{
-
-html+=`
-<button onclick="openLesson('${l.name}',${l.page})">
-${l.name}
-</button>
-`
+bookDiv.appendChild(btn)
 
 })
 
-document.getElementById("lessons").innerHTML=html
+/* OPEN BOOK */
+
+function openBook(name){
+
+currentBook=name
+
+document.getElementById("books").style.display="none"
+
+const lessonDiv=document.getElementById("lessons")
+
+lessonDiv.innerHTML=""
+lessonDiv.classList.remove("hidden")
+
+books[name].lessons.forEach(l=>{
+
+let b=document.createElement("button")
+
+b.innerText=l.name
+
+b.onclick=()=>openLesson(l.name,l.page)
+
+lessonDiv.appendChild(b)
+
+})
 
 }
+
+/* OPEN LESSON */
 
 function openLesson(name,page){
 
 currentLesson=name
 
 document.getElementById("viewer").innerHTML=
-'<iframe src="'+pdfs[currentBook]+'#page='+page+'"></iframe>'
+'<iframe src="'+books[currentBook].pdf+'#page='+page+'"></iframe>'
 
-showQuiz()
-
-}
-
-function showQuiz(){
-
-if(!quizzes[currentLesson]) return
-
-document.getElementById("quizArea").classList.remove("hidden")
+if(quizzes[name]){
 
 qIndex=0
-
 loadQuestion()
 
-document.getElementById("quizArea").scrollIntoView({behavior:"smooth"})
+document.getElementById("quiz").classList.remove("hidden")
+
+document.getElementById("quiz").scrollIntoView({behavior:"smooth"})
 
 }
+
+}
+
+/* QUIZ */
 
 function loadQuestion(){
 
@@ -232,7 +316,6 @@ html+='<button class="answer" onclick="check('+i+')">'+ans+'</button>'
 })
 
 document.getElementById("answers").innerHTML=html
-
 document.getElementById("result").innerText=""
 
 }
@@ -257,14 +340,53 @@ loadQuestion()
 
 }
 
-function goHome(){
+/* BACKGROUND */
 
-document.getElementById("books").style.display="grid"
-document.getElementById("lessonArea").classList.add("hidden")
-document.getElementById("viewer").innerHTML=""
-document.getElementById("quizArea").classList.add("hidden")
+const canvas=document.getElementById("bg")
+const ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let particles=[]
+
+for(let i=0;i<120;i++){
+
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+vx:(Math.random()-.5)*.3,
+vy:(Math.random()-.5)*.3
+})
 
 }
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="white"
+
+particles.forEach(p=>{
+
+p.x+=p.vx
+p.y+=p.vy
+
+if(p.x<0||p.x>canvas.width)p.vx*=-1
+if(p.y<0||p.y>canvas.height)p.vy*=-1
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+ctx.fill()
+
+})
+
+requestAnimationFrame(animate)
+
+}
+
+animate()
 
 </script>
 
