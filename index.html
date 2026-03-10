@@ -1,394 +1,595 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>بوابة الصف العاشر</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math 10 - Part 2 Study Tool</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --border: #e2e8f0;
+        }
 
-<style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
 
-body{
-margin:0;
-font-family:'Cairo',sans-serif;
-background:#020617;
-color:white;
-text-align:center;
-overflow-x:hidden;
-}
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
 
-header{
-padding:25px;
-font-size:28px;
-background:#0f172a;
-border-bottom:1px solid #1e293b;
-}
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-gap:20px;
-padding:25px;
-max-width:1000px;
-margin:auto;
-}
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
 
-button{
-padding:14px;
-border:none;
-border-radius:10px;
-background:linear-gradient(135deg,#2563eb,#06b6d4);
-color:white;
-font-size:16px;
-cursor:pointer;
-transition:.25s;
-}
+        .lesson-selector {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
 
-button:hover{
-transform:scale(1.05);
-box-shadow:0 0 15px #38bdf8;
-}
+        select {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            margin: 1rem 0;
+            cursor: pointer;
+            outline: none;
+        }
 
-.card{
-background:#0f172a;
-padding:18px;
-border-radius:12px;
-}
+        select:focus {
+            border-color: var(--primary);
+        }
 
-iframe{
-width:95%;
-height:720px;
-border:none;
-margin-top:20px;
-border-radius:10px;
-}
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: 600;
+        }
 
-.quiz{
-background:#0f172a;
-padding:20px;
-border-radius:12px;
-max-width:650px;
-margin:30px auto;
-}
+        button:hover {
+            background-color: var(--primary-hover);
+        }
 
-.answer{
-display:block;
-margin:10px auto;
-width:90%;
-}
+        button:disabled {
+            background-color: var(--text-muted);
+            cursor: not-allowed;
+        }
 
-.hidden{
-display:none;
-}
+        .quiz-container {
+            display: none;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
 
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
+        .progress-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
 
-</style>
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-btn {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            color: var(--text-main);
+            text-align: left;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .option-btn.correct {
+            background: #dcfce7;
+            border-color: var(--success);
+            color: #166534;
+        }
+
+        .option-btn.wrong {
+            background: #fee2e2;
+            border-color: var(--danger);
+            color: #991b1b;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .score-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            background: var(--card-bg);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-container h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .final-score {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+    </style>
 </head>
-
 <body>
 
-<canvas id="bg"></canvas>
+<div class="container">
+    <header>
+        <h1>Math Study Tool</h1>
+        <p>Select a lesson below to begin your 50-question quiz.</p>
+    </header>
 
-<header>
-بوابة التعلم للصف العاشر
-</header>
+    <div id="selection-screen" class="lesson-selector">
+        <h2>Choose a Lesson</h2>
+        <select id="lesson-select">
+            <option value="" disabled selected>Select a lesson...</option>
+            <option value="lesson1">Lesson 1: Algebra & Equations (50 Qs)</option>
+            <option value="lesson2">Lesson 2: Geometry & Areas (50 Qs)</option>
+            <option value="lesson3">Lesson 3: Number Theory & Arithmetic (50 Qs)</option>
+        </select>
+        <br>
+        <button id="start-btn" onclick="startQuiz()">Start Studying</button>
+    </div>
 
-<h2>اختر الكتاب</h2>
+    <div id="quiz-screen" class="quiz-container">
+        <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        
+        <div class="question-header">
+            <span id="question-counter">Question 1 of 50</span>
+            <span class="score-display">Score: <span id="current-score">0</span></span>
+        </div>
 
-<div id="books" class="grid"></div>
+        <div id="question-text" class="question-text">
+            Loading question...
+        </div>
 
-<div id="lessons" class="grid hidden"></div>
+        <div id="options-grid" class="options-grid">
+            </div>
 
-<div id="viewer"></div>
+        <div class="controls">
+            <button id="quit-btn" onclick="quitQuiz()" style="background: var(--text-muted)">Quit</button>
+            <button id="next-btn" onclick="nextQuestion()" disabled>Next Question</button>
+        </div>
+    </div>
 
-<div id="quiz" class="quiz hidden">
-
-<h3 id="question"></h3>
-
-<div id="answers"></div>
-
-<p id="result"></p>
-
-<button onclick="nextQuestion()">السؤال التالي</button>
-
+    <div id="results-screen" class="results-container">
+        <h2>Quiz Complete!</h2>
+        <p>Your final score is</p>
+        <div id="final-score" class="final-score">0 / 50</div>
+        <div class="nav-buttons">
+            <button onclick="retryQuiz()">Retry Lesson</button>
+            <button onclick="quitQuiz()" style="background: var(--text-muted)">Choose Another Lesson</button>
+        </div>
+    </div>
 </div>
 
 <script>
-
-/* BOOKS */
-
-const books={
-
-"الرياضيات":{
-pdf:"https://elearn.azureedge.net/Books/c10/ma10-p2.pdf",
-lessons:[
-{name:"الدوال",page:1},
-{name:"النهايات",page:20},
-{name:"الاشتقاق",page:40},
-{name:"التكامل",page:60}
-]
-},
-
-"العربية":{
-pdf:"https://elearn.azureedge.net/Books/c10/ara10-p2.pdf",
-lessons:[
-{name:"القراءة",page:1},
-{name:"النحو",page:20},
-{name:"البلاغة",page:40}
-]
-},
-
-"الانجليزية":{
-pdf:"https://elearn.azureedge.net/Books/c10/en10-p2.pdf",
-lessons:[
-{name:"Unit 1",page:1},
-{name:"Unit 2",page:20},
-{name:"Unit 3",page:40}
-]
-},
-
-"الدين":{
-pdf:"https://elearn.azureedge.net/Books/c10/re10-p2.pdf",
-lessons:[
-{name:"العقيدة",page:1},
-{name:"السيرة",page:20}
-]
-},
-
-"العلوم":{
-pdf:"https://elearn.azureedge.net/Books/c10/sc10.pdf",
-lessons:[
-{name:"الطاقة",page:1},
-{name:"القوة",page:30}
-]
-},
-
-"الكيمياء":{
-pdf:"https://elearn.azureedge.net/Books/c10/chm10.pdf",
-lessons:[
-{name:"الذرة",page:1},
-{name:"التفاعلات",page:20}
-]
-},
-
-"الفيزياء":{
-pdf:"https://elearn.azureedge.net/Books/c10/py10.pdf",
-lessons:[
-{name:"الحركة",page:1},
-{name:"القوة",page:25}
-]
-},
-
-"الجغرافيا":{
-pdf:"https://elearn.azureedge.net/Books/c10/ge10-p2.pdf",
-lessons:[
-{name:"المناخ",page:1},
-{name:"السكان",page:20}
-]
-},
-
-"تكنولوجيا المعلومات":{
-pdf:"https://elearn.azureedge.net/Books/c10/it10.pdf",
-lessons:[
-{name:"الحاسوب",page:1},
-{name:"الانترنت",page:20}
-]
-},
-
-"التجويد":{
-pdf:"https://elearn.azureedge.net/Books/c10/taj10.pdf",
-lessons:[
-{name:"مخارج الحروف",page:1},
-{name:"احكام النون",page:20}
-]
-}
-
-}
-
-/* QUIZZES */
-
-const quizzes={
-
-"الدوال":[
-{q:"الدالة هي علاقة بين؟",a:["متغيرين","زاويتين","عددين"],c:0},
-{q:"قيمة f(x) تمثل؟",a:["مخرج الدالة","زاوية","مساحة"],c:0}
-],
-
-"النهايات":[
-{q:"النهاية تستخدم لدراسة؟",a:["السلوك قرب نقطة","الطرح","الضرب"],c:0}
-],
-
-"القراءة":[
-{q:"القراءة تساعد على؟",a:["زيادة المعرفة","تقليل المعرفة"],c:0}
-]
-
-}
-
-let currentBook=""
-let currentLesson=""
-let qIndex=0
-
-/* LOAD BOOKS */
-
-const bookDiv=document.getElementById("books")
-
-Object.keys(books).forEach(name=>{
-
-let btn=document.createElement("button")
-btn.innerText=name
-
-btn.onclick=()=>openBook(name)
-
-bookDiv.appendChild(btn)
-
-})
-
-/* OPEN BOOK */
-
-function openBook(name){
-
-currentBook=name
-
-document.getElementById("books").style.display="none"
-
-const lessonDiv=document.getElementById("lessons")
-
-lessonDiv.innerHTML=""
-lessonDiv.classList.remove("hidden")
-
-books[name].lessons.forEach(l=>{
-
-let b=document.createElement("button")
-
-b.innerText=l.name
-
-b.onclick=()=>openLesson(l.name,l.page)
-
-lessonDiv.appendChild(b)
-
-})
-
-}
-
-/* OPEN LESSON */
-
-function openLesson(name,page){
-
-currentLesson=name
-
-document.getElementById("viewer").innerHTML=
-'<iframe src="'+books[currentBook].pdf+'#page='+page+'"></iframe>'
-
-if(quizzes[name]){
-
-qIndex=0
-loadQuestion()
-
-document.getElementById("quiz").classList.remove("hidden")
-
-document.getElementById("quiz").scrollIntoView({behavior:"smooth"})
-
-}
-
-}
-
-/* QUIZ */
-
-function loadQuestion(){
-
-let q=quizzes[currentLesson][qIndex]
-
-document.getElementById("question").innerText=q.q
-
-let html=""
-
-q.a.forEach((ans,i)=>{
-
-html+='<button class="answer" onclick="check('+i+')">'+ans+'</button>'
-
-})
-
-document.getElementById("answers").innerHTML=html
-document.getElementById("result").innerText=""
-
-}
-
-function check(i){
-
-if(i==quizzes[currentLesson][qIndex].c)
-document.getElementById("result").innerText="✔ صحيح"
-else
-document.getElementById("result").innerText="✖ خطأ"
-
-}
-
-function nextQuestion(){
-
-qIndex++
-
-if(qIndex>=quizzes[currentLesson].length)
-qIndex=0
-
-loadQuestion()
-
-}
-
-/* BACKGROUND */
-
-const canvas=document.getElementById("bg")
-const ctx=canvas.getContext("2d")
-
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
-
-let particles=[]
-
-for(let i=0;i<120;i++){
-
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-vx:(Math.random()-.5)*.3,
-vy:(Math.random()-.5)*.3
-})
-
-}
-
-function animate(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-ctx.fillStyle="white"
-
-particles.forEach(p=>{
-
-p.x+=p.vx
-p.y+=p.vy
-
-if(p.x<0||p.x>canvas.width)p.vx*=-1
-if(p.y<0||p.y>canvas.height)p.vy*=-1
-
-ctx.beginPath()
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-ctx.fill()
-
-})
-
-requestAnimationFrame(animate)
-
-}
-
-animate()
-
+    // MASSIVE QUESTION DATABASE (150 Questions Total to exceed requested lengths)
+    const database = {
+        lesson1: [
+            { q: "Solve for x: 2x = 4", opts: ["1", "2", "3", "4"], a: 1 },
+            { q: "Solve for x: x + 5 = 12", opts: ["5", "6", "7", "8"], a: 2 },
+            { q: "Solve for x: 3x - 2 = 7", opts: ["2", "3", "4", "5"], a: 1 },
+            { q: "Solve for x: x/2 = 8", opts: ["4", "10", "16", "24"], a: 2 },
+            { q: "Solve for x: 5x = 25", opts: ["3", "4", "5", "6"], a: 2 },
+            { q: "Solve for x: 4x + 1 = 17", opts: ["3", "4", "5", "6"], a: 1 },
+            { q: "Solve for y: y - 8 = 10", opts: ["16", "17", "18", "19"], a: 2 },
+            { q: "Solve for a: 2a + 4 = 14", opts: ["3", "4", "5", "6"], a: 2 },
+            { q: "Solve for b: 7b = 49", opts: ["5", "6", "7", "8"], a: 2 },
+            { q: "Solve for x: x/3 = 9", opts: ["12", "18", "27", "36"], a: 2 },
+            { q: "Solve for x: 10x - 5 = 45", opts: ["4", "5", "6", "7"], a: 1 },
+            { q: "Solve for z: z + 12 = 30", opts: ["16", "18", "20", "22"], a: 1 },
+            { q: "Solve for x: 6x = 36", opts: ["4", "5", "6", "7"], a: 2 },
+            { q: "Solve for x: 8x + 2 = 26", opts: ["2", "3", "4", "5"], a: 1 },
+            { q: "Solve for y: y/4 = 5", opts: ["15", "20", "25", "30"], a: 1 },
+            { q: "Solve for x: 9x = 81", opts: ["7", "8", "9", "10"], a: 2 },
+            { q: "Solve for c: c - 15 = 5", opts: ["10", "15", "20", "25"], a: 2 },
+            { q: "Solve for x: 3x + 3 = 30", opts: ["7", "8", "9", "10"], a: 2 },
+            { q: "Solve for x: 11x = 121", opts: ["9", "10", "11", "12"], a: 2 },
+            { q: "Solve for y: 2y - 6 = 14", opts: ["8", "9", "10", "11"], a: 2 },
+            { q: "Solve for x: x/5 = 7", opts: ["25", "30", "35", "40"], a: 2 },
+            { q: "Solve for x: 12x = 144", opts: ["10", "11", "12", "13"], a: 2 },
+            { q: "Solve for k: k + 14 = 28", opts: ["12", "14", "16", "18"], a: 1 },
+            { q: "Solve for x: 5x - 5 = 20", opts: ["4", "5", "6", "7"], a: 1 },
+            { q: "Solve for x: x/6 = 6", opts: ["24", "30", "36", "42"], a: 2 },
+            { q: "Solve for a: 13a = 39", opts: ["2", "3", "4", "5"], a: 1 },
+            { q: "Solve for x: 4x + 8 = 40", opts: ["6", "7", "8", "9"], a: 2 },
+            { q: "Solve for y: y - 22 = 11", opts: ["22", "33", "44", "55"], a: 1 },
+            { q: "Solve for x: 7x = 56", opts: ["6", "7", "8", "9"], a: 2 },
+            { q: "Solve for x: x/7 = 3", opts: ["14", "18", "21", "28"], a: 2 },
+            { q: "Solve for x: 2x + 10 = 50", opts: ["15", "20", "25", "30"], a: 1 },
+            { q: "Solve for z: 15z = 45", opts: ["2", "3", "4", "5"], a: 1 },
+            { q: "Solve for x: 6x - 4 = 32", opts: ["5", "6", "7", "8"], a: 1 },
+            { q: "Solve for x: x/8 = 4", opts: ["24", "28", "32", "36"], a: 2 },
+            { q: "Solve for y: 8y = 64", opts: ["6", "7", "8", "9"], a: 2 },
+            { q: "Solve for x: 3x + 15 = 45", opts: ["8", "9", "10", "11"], a: 2 },
+            { q: "Solve for x: x - 19 = 21", opts: ["30", "35", "40", "45"], a: 2 },
+            { q: "Solve for x: 9x = 108", opts: ["10", "11", "12", "13"], a: 2 },
+            { q: "Solve for k: k/9 = 5", opts: ["35", "40", "45", "50"], a: 2 },
+            { q: "Solve for x: 5x + 20 = 70", opts: ["8", "10", "12", "14"], a: 1 },
+            { q: "Solve for x: 14x = 42", opts: ["2", "3", "4", "5"], a: 1 },
+            { q: "Solve for x: 7x - 7 = 42", opts: ["6", "7", "8", "9"], a: 1 },
+            { q: "Solve for x: x/10 = 10", opts: ["10", "50", "100", "1000"], a: 2 },
+            { q: "Solve for x: 20x = 400", opts: ["10", "15", "20", "25"], a: 2 },
+            { q: "Solve for m: m + 33 = 66", opts: ["22", "33", "44", "55"], a: 1 },
+            { q: "Solve for x: 4x - 12 = 36", opts: ["10", "11", "12", "13"], a: 2 },
+            { q: "Solve for x: x/11 = 4", opts: ["33", "44", "55", "66"], a: 1 },
+            { q: "Solve for y: 25y = 100", opts: ["2", "3", "4", "5"], a: 2 },
+            { q: "Solve for x: 8x + 16 = 80", opts: ["6", "7", "8", "9"], a: 2 },
+            { q: "Solve for x: x - 50 = 150", opts: ["100", "150", "200", "250"], a: 2 }
+        ],
+        lesson2: [
+            { q: "What is the area of a square with side 2?", opts: ["2", "4", "6", "8"], a: 1 },
+            { q: "What is the area of a rectangle 3x4?", opts: ["7", "10", "12", "14"], a: 2 },
+            { q: "Area of a circle with radius r?", opts: ["2πr", "πr²", "2πr²", "πd"], a: 1 },
+            { q: "Perimeter of a square with side 5?", opts: ["10", "15", "20", "25"], a: 2 },
+            { q: "Volume of a cube with side 3?", opts: ["9", "18", "27", "36"], a: 2 },
+            { q: "Area of a triangle with base 4, height 5?", opts: ["10", "20", "30", "40"], a: 0 },
+            { q: "Circumference of a circle with radius 5?", opts: ["5π", "10π", "25π", "100π"], a: 1 },
+            { q: "Area of a square with side 6?", opts: ["12", "24", "36", "48"], a: 2 },
+            { q: "Volume of a rectangular prism 2x3x4?", opts: ["9", "12", "18", "24"], a: 3 },
+            { q: "Perimeter of a rectangle 5x10?", opts: ["15", "30", "45", "50"], a: 1 },
+            { q: "Area of a circle with radius 10 (approx)?", opts: ["31.4", "100", "314", "628"], a: 2 },
+            { q: "Perimeter of an equilateral triangle side 7?", opts: ["14", "21", "28", "35"], a: 1 },
+            { q: "Volume of a sphere formula?", opts: ["4/3 πr³", "πr²h", "1/3 πr²h", "4πr²"], a: 0 },
+            { q: "Area of a square with side 8?", opts: ["16", "32", "64", "128"], a: 2 },
+            { q: "Area of a rectangle 6x7?", opts: ["13", "26", "42", "84"], a: 2 },
+            { q: "Hypotenuse of right triangle sides 3 and 4?", opts: ["5", "6", "7", "8"], a: 0 },
+            { q: "Area of a triangle with base 10, height 6?", opts: ["30", "60", "90", "120"], a: 0 },
+            { q: "Volume of a cube with side 4?", opts: ["16", "32", "64", "128"], a: 2 },
+            { q: "Circumference of a circle diameter 12?", opts: ["6π", "12π", "24π", "144π"], a: 1 },
+            { q: "Perimeter of a square with side 9?", opts: ["18", "27", "36", "81"], a: 2 },
+            { q: "Area of a square with side 10?", opts: ["20", "40", "100", "200"], a: 2 },
+            { q: "Volume of a cylinder formula?", opts: ["2πr", "πr²", "πr²h", "1/3 πr²h"], a: 2 },
+            { q: "Area of a rectangle 8x9?", opts: ["17", "34", "72", "144"], a: 2 },
+            { q: "Hypotenuse of right triangle sides 6 and 8?", opts: ["10", "12", "14", "100"], a: 0 },
+            { q: "Area of a triangle with base 8, height 8?", opts: ["16", "32", "64", "128"], a: 1 },
+            { q: "Perimeter of a regular pentagon side 5?", opts: ["15", "20", "25", "30"], a: 2 },
+            { q: "Volume of a cube with side 5?", opts: ["25", "50", "75", "125"], a: 3 },
+            { q: "Area of a circle with radius 2?", opts: ["2π", "4π", "8π", "16π"], a: 1 },
+            { q: "Perimeter of a square with side 11?", opts: ["22", "33", "44", "55"], a: 2 },
+            { q: "Area of a square with side 12?", opts: ["24", "48", "144", "288"], a: 2 },
+            { q: "Volume of a cone formula?", opts: ["πr²h", "1/3 πr²h", "4/3 πr³", "2πrh"], a: 1 },
+            { q: "Area of a rectangle 10x12?", opts: ["22", "44", "120", "240"], a: 2 },
+            { q: "Hypotenuse of right triangle sides 5 and 12?", opts: ["13", "15", "17", "19"], a: 0 },
+            { q: "Area of a triangle with base 12, height 5?", opts: ["17", "30", "60", "120"], a: 1 },
+            { q: "Perimeter of a regular hexagon side 4?", opts: ["16", "20", "24", "28"], a: 2 },
+            { q: "Volume of a cube with side 6?", opts: ["36", "72", "108", "216"], a: 3 },
+            { q: "Area of a circle with radius 3?", opts: ["3π", "6π", "9π", "12π"], a: 2 },
+            { q: "Perimeter of a square with side 12?", opts: ["24", "36", "48", "60"], a: 2 },
+            { q: "Area of a square with side 15?", opts: ["30", "60", "125", "225"], a: 3 },
+            { q: "Surface area of a sphere formula?", opts: ["πr²", "2πr²", "3πr²", "4πr²"], a: 3 },
+            { q: "Area of a rectangle 11x11?", opts: ["22", "44", "121", "242"], a: 2 },
+            { q: "Hypotenuse of right triangle sides 8 and 15?", opts: ["17", "19", "21", "23"], a: 0 },
+            { q: "Area of a triangle with base 20, height 10?", opts: ["50", "100", "200", "400"], a: 1 },
+            { q: "Perimeter of an octagon side 3?", opts: ["18", "21", "24", "27"], a: 2 },
+            { q: "Volume of a cube with side 10?", opts: ["100", "300", "500", "1000"], a: 3 },
+            { q: "Area of a circle with radius 4?", opts: ["4π", "8π", "16π", "32π"], a: 2 },
+            { q: "Perimeter of a rectangle 15x5?", opts: ["20", "40", "60", "75"], a: 1 },
+            { q: "Area of a square with side 20?", opts: ["40", "80", "200", "400"], a: 3 },
+            { q: "Volume of a cylinder r=2, h=5?", opts: ["10π", "20π", "40π", "100π"], a: 1 },
+            { q: "Area of a rectangle 25x4?", opts: ["29", "58", "100", "200"], a: 2 }
+        ],
+        lesson3: [
+            { q: "What is 2^2?", opts: ["2", "4", "6", "8"], a: 1 },
+            { q: "What is 3^2?", opts: ["6", "9", "12", "15"], a: 1 },
+            { q: "What is 4^2?", opts: ["8", "12", "16", "20"], a: 2 },
+            { q: "What is 5^2?", opts: ["10", "15", "20", "25"], a: 3 },
+            { q: "What is 6^2?", opts: ["12", "24", "36", "48"], a: 2 },
+            { q: "What is 7^2?", opts: ["14", "28", "49", "56"], a: 2 },
+            { q: "What is 8^2?", opts: ["16", "32", "64", "128"], a: 2 },
+            { q: "What is 9^2?", opts: ["18", "36", "81", "100"], a: 2 },
+            { q: "What is 10^2?", opts: ["20", "50", "100", "200"], a: 2 },
+            { q: "What is 11^2?", opts: ["22", "111", "121", "131"], a: 2 },
+            { q: "What is 12^2?", opts: ["24", "120", "144", "288"], a: 2 },
+            { q: "What is 13^2?", opts: ["26", "130", "169", "196"], a: 2 },
+            { q: "What is 14^2?", opts: ["28", "140", "169", "196"], a: 3 },
+            { q: "What is 15^2?", opts: ["30", "150", "225", "250"], a: 2 },
+            { q: "What is 16^2?", opts: ["32", "160", "256", "312"], a: 2 },
+            { q: "What is 2^3?", opts: ["6", "8", "10", "12"], a: 1 },
+            { q: "What is 3^3?", opts: ["9", "18", "27", "36"], a: 2 },
+            { q: "What is 4^3?", opts: ["16", "32", "64", "128"], a: 2 },
+            { q: "What is 5^3?", opts: ["25", "75", "100", "125"], a: 3 },
+            { q: "What is 10^3?", opts: ["100", "500", "1000", "10000"], a: 2 },
+            { q: "Square root of 16?", opts: ["2", "4", "6", "8"], a: 1 },
+            { q: "Square root of 25?", opts: ["3", "4", "5", "6"], a: 2 },
+            { q: "Square root of 36?", opts: ["4", "5", "6", "7"], a: 2 },
+            { q: "Square root of 49?", opts: ["5", "6", "7", "8"], a: 2 },
+            { q: "Square root of 64?", opts: ["6", "7", "8", "9"], a: 2 },
+            { q: "Square root of 81?", opts: ["7", "8", "9", "10"], a: 2 },
+            { q: "Square root of 100?", opts: ["8", "9", "10", "11"], a: 2 },
+            { q: "Square root of 121?", opts: ["9", "10", "11", "12"], a: 2 },
+            { q: "Square root of 144?", opts: ["10", "11", "12", "13"], a: 2 },
+            { q: "Cube root of 8?", opts: ["2", "3", "4", "5"], a: 0 },
+            { q: "Cube root of 27?", opts: ["2", "3", "4", "5"], a: 1 },
+            { q: "Cube root of 64?", opts: ["2", "3", "4", "5"], a: 2 },
+            { q: "Cube root of 125?", opts: ["3", "4", "5", "6"], a: 2 },
+            { q: "Cube root of 1000?", opts: ["10", "20", "30", "40"], a: 0 },
+            { q: "What is 20^2?", opts: ["40", "200", "400", "800"], a: 2 },
+            { q: "What is 30^2?", opts: ["60", "300", "900", "2700"], a: 2 },
+            { q: "What is 40^2?", opts: ["80", "400", "1600", "6400"], a: 2 },
+            { q: "What is 50^2?", opts: ["100", "500", "2500", "12500"], a: 2 },
+            { q: "Square root of 400?", opts: ["10", "20", "30", "40"], a: 1 },
+            { q: "Square root of 900?", opts: ["20", "30", "40", "50"], a: 1 },
+            { q: "Square root of 1600?", opts: ["30", "40", "50", "60"], a: 1 },
+            { q: "Square root of 2500?", opts: ["40", "50", "60", "70"], a: 1 },
+            { q: "What is 2^4?", opts: ["8", "12", "16", "32"], a: 2 },
+            { q: "What is 3^4?", opts: ["27", "54", "81", "162"], a: 2 },
+            { q: "What is 10^4?", opts: ["1000", "5000", "10000", "100000"], a: 2 },
+            { q: "What is 2^5?", opts: ["10", "16", "32", "64"], a: 2 },
+            { q: "What is 5^4?", opts: ["125", "250", "625", "1000"], a: 2 },
+            { q: "Square root of 225?", opts: ["13", "14", "15", "16"], a: 2 },
+            { q: "Square root of 169?", opts: ["11", "12", "13", "14"], a: 2 },
+            { q: "Square root of 196?", opts: ["12", "13", "14", "15"], a: 2 }
+        ]
+    };
+
+    // Application State Variables
+    let currentLesson = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let selectedOption = null;
+
+    // DOM Elements
+    const selectionScreen = document.getElementById('selection-screen');
+    const quizScreen = document.getElementById('quiz-screen');
+    const resultsScreen = document.getElementById('results-screen');
+    const lessonSelect = document.getElementById('lesson-select');
+    const questionText = document.getElementById('question-text');
+    const optionsGrid = document.getElementById('options-grid');
+    const nextBtn = document.getElementById('next-btn');
+    const currentScoreDisplay = document.getElementById('current-score');
+    const questionCounter = document.getElementById('question-counter');
+    const progressFill = document.getElementById('progress-fill');
+    const finalScoreDisplay = document.getElementById('final-score');
+
+    /**
+     * Start the quiz with the selected lesson
+     */
+    function startQuiz() {
+        const selected = lessonSelect.value;
+        if (!selected) {
+            alert('Please select a lesson first!');
+            return;
+        }
+
+        // Deep copy the array to prevent modifying original data
+        currentLesson = JSON.parse(JSON.stringify(database[selected]));
+        
+        // Reset state
+        currentQuestionIndex = 0;
+        score = 0;
+        
+        // UI transitions
+        selectionScreen.style.display = 'none';
+        resultsScreen.style.display = 'none';
+        quizScreen.style.display = 'block';
+        
+        updateScore();
+        loadQuestion();
+    }
+
+    /**
+     * Load the current question onto the screen
+     */
+    function loadQuestion() {
+        selectedOption = null;
+        nextBtn.disabled = true;
+        
+        const qData = currentLesson[currentQuestionIndex];
+        
+        // Update Counter & Progress Bar
+        const qNum = currentQuestionIndex + 1;
+        const totalQ = currentLesson.length;
+        questionCounter.innerText = `Question ${qNum} of ${totalQ}`;
+        progressFill.style.width = `${(qNum / totalQ) * 100}%`;
+
+        // Update Text
+        questionText.innerText = qData.q;
+
+        // Render Options
+        optionsGrid.innerHTML = '';
+        qData.opts.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(index, btn);
+            optionsGrid.appendChild(btn);
+        });
+    }
+
+    /**
+     * Handle user selecting an option
+     */
+    function selectOption(selectedIndex, btnElement) {
+        // Prevent clicking multiple times
+        if (selectedOption !== null) return;
+        
+        selectedOption = selectedIndex;
+        const qData = currentLesson[currentQuestionIndex];
+        const isCorrect = (selectedIndex === qData.a);
+        
+        // Highlight logic
+        const allBtns = optionsGrid.children;
+        for (let i = 0; i < allBtns.length; i++) {
+            allBtns[i].disabled = true;
+            if (i === qData.a) {
+                allBtns[i].classList.add('correct');
+            } else if (i === selectedIndex && !isCorrect) {
+                allBtns[i].classList.add('wrong');
+            }
+        }
+
+        if (isCorrect) {
+            score++;
+            updateScore();
+        }
+
+        // Enable next button
+        nextBtn.disabled = false;
+        
+        // Change next button text on last question
+        if (currentQuestionIndex === currentLesson.length - 1) {
+            nextBtn.innerText = 'Finish Quiz';
+        } else {
+            nextBtn.innerText = 'Next Question';
+        }
+    }
+
+    /**
+     * Proceed to the next question or finish quiz
+     */
+    function nextQuestion() {
+        if (currentQuestionIndex < currentLesson.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        } else {
+            finishQuiz();
+        }
+    }
+
+    /**
+     * Update score display
+     */
+    function updateScore() {
+        currentScoreDisplay.innerText = score;
+    }
+
+    /**
+     * Complete the quiz and show results
+     */
+    function finishQuiz() {
+        quizScreen.style.display = 'none';
+        resultsScreen.style.display = 'block';
+        finalScoreDisplay.innerText = `${score} / ${currentLesson.length}`;
+        
+        // Color code final score
+        const percentage = score / currentLesson.length;
+        if (percentage >= 0.8) {
+            finalScoreDisplay.style.color = 'var(--success)';
+        } else if (percentage >= 0.5) {
+            finalScoreDisplay.style.color = 'var(--text-main)';
+        } else {
+            finalScoreDisplay.style.color = 'var(--danger)';
+        }
+    }
+
+    /**
+     * Retry the same lesson
+     */
+    function retryQuiz() {
+        startQuiz();
+    }
+
+    /**
+     * Quit current quiz and return to selection screen
+     */
+    function quitQuiz() {
+        quizScreen.style.display = 'none';
+        resultsScreen.style.display = 'none';
+        selectionScreen.style.display = 'block';
+        
+        // Reset dropdown
+        lessonSelect.value = '';
+    }
 </script>
-
 </body>
 </html>
