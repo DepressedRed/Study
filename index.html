@@ -2,99 +2,61 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>بوابة الصف العاشر</title>
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-
-*{
-box-sizing:border-box;
-}
-
 body{
-font-family:'Cairo',sans-serif;
-margin:0;
+font-family:Arial;
 background:#020617;
 color:white;
 text-align:center;
-overflow-x:hidden;
-}
-
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
+margin:0;
 }
 
 header{
-font-size:30px;
-padding:25px;
-background:rgba(2,6,23,.8);
-backdrop-filter:blur(12px);
-border-bottom:1px solid rgba(255,255,255,.1);
-}
-
-.container{
-padding:30px;
+font-size:28px;
+padding:20px;
+background:#0f172a;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-gap:20px;
+grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+gap:15px;
+padding:20px;
 max-width:900px;
 margin:auto;
 }
 
 button{
-padding:15px;
+padding:14px;
 border:none;
-border-radius:14px;
-cursor:pointer;
-font-size:16px;
-background:linear-gradient(135deg,#2563eb,#06b6d4);
+border-radius:10px;
+background:#2563eb;
 color:white;
-transition:.25s;
-box-shadow:0 0 10px rgba(59,130,246,.5);
+font-size:15px;
+cursor:pointer;
 }
 
 button:hover{
-transform:translateY(-4px) scale(1.05);
-box-shadow:0 0 20px rgba(56,189,248,.9);
-}
-
-.card{
-background:rgba(15,23,42,.8);
-border-radius:14px;
-padding:18px;
-transition:.3s;
-border:1px solid rgba(255,255,255,.05);
-}
-
-.card:hover{
-transform:scale(1.05);
-box-shadow:0 0 25px rgba(56,189,248,.5);
+background:#1d4ed8;
 }
 
 iframe{
 width:95%;
-height:720px;
+height:700px;
 border:none;
-border-radius:12px;
-margin-top:25px;
-box-shadow:0 0 35px rgba(14,165,233,.5);
+margin-top:20px;
 }
 
 .quiz{
-background:rgba(15,23,42,.85);
-padding:25px;
-border-radius:14px;
+background:#0f172a;
+padding:20px;
+border-radius:10px;
 max-width:600px;
-margin:auto;
-margin-top:20px;
+margin:20px auto;
 }
 
 .answer{
@@ -108,17 +70,12 @@ display:none;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
-
-<header>
-بوابة التعلم للصف العاشر
-</header>
-
-<div class="container">
+<header>بوابة التعلم</header>
 
 <h2>اختر الكتاب</h2>
 
@@ -127,34 +84,23 @@ display:none;
 <button onclick="openBook('ma','الرياضيات')">الرياضيات</button>
 <button onclick="openBook('ara','اللغة العربية')">العربية</button>
 <button onclick="openBook('en','الانجليزية')">الانجليزية</button>
-<button onclick="openBook('re','التربية الدينية')">الدين</button>
 <button onclick="openBook('sc','العلوم')">العلوم</button>
-<button onclick="openBook('chm','الكيمياء')">الكيمياء</button>
-<button onclick="openBook('py','الفيزياء')">الفيزياء</button>
-<button onclick="openBook('ge','الجغرافيا')">الجغرافيا</button>
-<button onclick="openBook('it','تكنولوجيا المعلومات')">IT</button>
-<button onclick="openBook('taj','التجويد')">التجويد</button>
 
 </div>
 
-<div id="bookPage" class="hidden">
+<div id="lessonArea" class="hidden">
 
 <h2 id="bookTitle"></h2>
 
-<p>اختر الدرس</p>
-
 <div id="lessons" class="grid"></div>
 
-<br>
-
-<button onclick="startQuiz()">اختبار</button>
 <button onclick="goHome()">رجوع</button>
+
+</div>
 
 <div id="viewer"></div>
 
-<div id="quizArea" class="hidden">
-
-<div class="quiz">
+<div id="quizArea" class="quiz hidden">
 
 <h3 id="question"></h3>
 
@@ -166,98 +112,114 @@ display:none;
 
 </div>
 
-</div>
-
-</div>
-
-</div>
-
 <script>
 
 const pdfs={
 ma:"https://elearn.azureedge.net/Books/c10/ma10-p2.pdf",
 ara:"https://elearn.azureedge.net/Books/c10/ara10-p2.pdf",
 en:"https://elearn.azureedge.net/Books/c10/en10-p2.pdf",
-re:"https://elearn.azureedge.net/Books/c10/re10-p2.pdf",
-sc:"https://elearn.azureedge.net/Books/c10/sc10.pdf",
-chm:"https://elearn.azureedge.net/Books/c10/chm10.pdf",
-py:"https://elearn.azureedge.net/Books/c10/py10.pdf",
-ge:"https://elearn.azureedge.net/Books/c10/ge10-p2.pdf",
-it:"https://elearn.azureedge.net/Books/c10/it10.pdf",
-taj:"https://elearn.azureedge.net/Books/c10/taj10.pdf"
+sc:"https://elearn.azureedge.net/Books/c10/sc10.pdf"
+}
+
+/* LESSON TITLES */
+
+const lessons={
+
+ma:[
+{name:"الدوال",page:1},
+{name:"النهايات",page:20},
+{name:"الاشتقاق",page:40}
+],
+
+ara:[
+{name:"القراءة",page:1},
+{name:"النحو",page:15},
+{name:"البلاغة",page:30}
+],
+
+en:[
+{name:"Unit 1",page:1},
+{name:"Unit 2",page:20}
+],
+
+sc:[
+{name:"الطاقة",page:1},
+{name:"القوة",page:25}
+]
+
+}
+
+/* QUIZZES */
+
+const quizzes={
+
+"الدوال":[
+{q:"ما هي الدالة؟",a:["علاقة بين متغيرين","عدد فقط","زاوية"],c:0}
+],
+
+"النهايات":[
+{q:"النهاية تستخدم لدراسة؟",a:["السلوك قرب نقطة","الجمع","الطرح"],c:0}
+]
+
 }
 
 let currentBook=""
+let currentLesson=""
+let qIndex=0
 
 function openBook(code,name){
 
 currentBook=code
 
 document.getElementById("books").style.display="none"
-document.getElementById("bookPage").classList.remove("hidden")
+document.getElementById("lessonArea").classList.remove("hidden")
 
 document.getElementById("bookTitle").innerText=name
 
-let lessons=""
+let html=""
 
-for(let i=1;i<=15;i++){
+lessons[code].forEach(l=>{
 
-let page=(i-1)*10+1
-
-lessons+=`
-<div class="card">
-<button onclick="openLesson(${page})">
-الدرس ${i}
+html+=`
+<button onclick="openLesson('${l.name}',${l.page})">
+${l.name}
 </button>
-</div>
 `
 
+})
+
+document.getElementById("lessons").innerHTML=html
+
 }
 
-document.getElementById("lessons").innerHTML=lessons
+function openLesson(name,page){
 
-}
-
-function openLesson(page){
-
-document.getElementById("quizArea").classList.add("hidden")
+currentLesson=name
 
 document.getElementById("viewer").innerHTML=
 '<iframe src="'+pdfs[currentBook]+'#page='+page+'"></iframe>'
 
-}
-
-function goHome(){
-
-document.getElementById("books").style.display="grid"
-document.getElementById("bookPage").classList.add("hidden")
-document.getElementById("viewer").innerHTML=""
+showQuiz()
 
 }
 
-const questions=[
+function showQuiz(){
 
-{q:"كم يساوي 2 + 2 ؟",a:["3","4","5"],c:1},
-
-{q:"جا 90° يساوي؟",a:["0","1","2"],c:1},
-
-{q:"عاصمة فرنسا؟",a:["باريس","لندن","مدريد"],c:0}
-
-]
-
-let qi=0
-
-function startQuiz(){
+if(!quizzes[currentLesson]) return
 
 document.getElementById("quizArea").classList.remove("hidden")
 
+qIndex=0
+
 loadQuestion()
+
+document.getElementById("quizArea").scrollIntoView({behavior:"smooth"})
 
 }
 
 function loadQuestion(){
 
-let q=questions[qi]
+let q=quizzes[currentLesson][qIndex]
 
 document.getElementById("question").innerText=q.q
 
@@ -277,7 +239,7 @@ document.getElementById("result").innerText=""
 
 function check(i){
 
-if(i==questions[qi].c)
+if(i==quizzes[currentLesson][qIndex].c)
 document.getElementById("result").innerText="✔ صحيح"
 else
 document.getElementById("result").innerText="✖ خطأ"
@@ -286,59 +248,23 @@ document.getElementById("result").innerText="✖ خطأ"
 
 function nextQuestion(){
 
-qi++
+qIndex++
 
-if(qi>=questions.length) qi=0
+if(qIndex>=quizzes[currentLesson].length)
+qIndex=0
 
 loadQuestion()
 
 }
 
-const canvas=document.getElementById("bg")
-const ctx=canvas.getContext("2d")
+function goHome(){
 
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
-
-let particles=[]
-
-for(let i=0;i<120;i++){
-
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-vx:(Math.random()-.5)*.3,
-vy:(Math.random()-.5)*.3
-})
+document.getElementById("books").style.display="grid"
+document.getElementById("lessonArea").classList.add("hidden")
+document.getElementById("viewer").innerHTML=""
+document.getElementById("quizArea").classList.add("hidden")
 
 }
-
-function animate(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-ctx.fillStyle="white"
-
-particles.forEach(p=>{
-
-p.x+=p.vx
-p.y+=p.vy
-
-if(p.x<0||p.x>canvas.width)p.vx*=-1
-if(p.y<0||p.y>canvas.height)p.vy*=-1
-
-ctx.beginPath()
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-ctx.fill()
-
-})
-
-requestAnimationFrame(animate)
-
-}
-
-animate()
 
 </script>
 
