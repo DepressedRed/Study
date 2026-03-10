@@ -1,595 +1,1012 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math 10 - Part 2 Study Tool</title>
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --border: #e2e8f0;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .lesson-selector {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        select {
-            width: 100%;
-            max-width: 400px;
-            padding: 0.75rem;
-            font-size: 1.1rem;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            margin: 1rem 0;
-            cursor: pointer;
-            outline: none;
-        }
-
-        select:focus {
-            border-color: var(--primary);
-        }
-
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            font-weight: 600;
-        }
-
-        button:hover {
-            background-color: var(--primary-hover);
-        }
-
-        button:disabled {
-            background-color: var(--text-muted);
-            cursor: not-allowed;
-        }
-
-        .quiz-container {
-            display: none;
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: var(--border);
-            border-radius: 4px;
-            margin-bottom: 2rem;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--primary);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .question-text {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            font-weight: 500;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .option-btn {
-            background: var(--bg);
-            border: 2px solid var(--border);
-            color: var(--text-main);
-            text-align: left;
-            padding: 1rem 1.5rem;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-
-        .option-btn:hover:not(:disabled) {
-            border-color: var(--primary);
-            background: #eff6ff;
-        }
-
-        .option-btn.correct {
-            background: #dcfce7;
-            border-color: var(--success);
-            color: #166534;
-        }
-
-        .option-btn.wrong {
-            background: #fee2e2;
-            border-color: var(--danger);
-            color: #991b1b;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .score-display {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .results-container {
-            display: none;
-            text-align: center;
-            background: var(--card-bg);
-            padding: 3rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .results-container h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .final-score {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 2rem;
-            color: var(--text-main);
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رياضيات الصف العاشر - موقع الدراسة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0f1e;--card:#111827;--card2:#1a2236;--accent:#f59e0b;--blue:#3b82f6;--green:#10b981;--red:#ef4444;--purple:#8b5cf6;--text:#e2e8f0;--muted:#6b7280;--border:#1f2d45}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;direction:rtl}
+.screen{display:none}.screen.active{display:block}
+#landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 30% 40%,rgba(59,130,246,.12) 0%,transparent 60%),radial-gradient(ellipse at 70% 70%,rgba(139,92,246,.1) 0%,transparent 60%),var(--bg);position:relative;overflow:hidden}
+#landing::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:50px 50px;pointer-events:none}
+.land-badge{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:#f59e0b;padding:8px 28px;border-radius:100px;font-size:.9rem;font-weight:700;margin-bottom:32px}
+.land-title{font-family:'Cairo',sans-serif;font-size:clamp(2rem,5vw,3.8rem);font-weight:900;text-align:center;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,#93c5fd 50%,#c4b5fd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2}
+.land-sub{color:var(--muted);font-size:1.05rem;text-align:center;margin-bottom:50px;max-width:500px;line-height:1.7}
+.units-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;max-width:980px;width:100%;margin-bottom:40px}
+.unit-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.unit-card::before{content:'';position:absolute;top:0;right:0;width:100%;height:3px;background:var(--uc,#3b82f6);border-radius:16px 16px 0 0}
+.unit-card:hover{transform:translateY(-5px);border-color:var(--uc,#3b82f6);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.unit-icon{font-size:2.2rem;margin-bottom:14px;display:block}
+.unit-num{font-size:.75rem;font-weight:700;color:var(--uc,#3b82f6);margin-bottom:6px;letter-spacing:.06em}
+.unit-name{font-family:'Cairo',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:8px;color:#fff}
+.unit-desc{font-size:.83rem;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.unit-tags{display:flex;flex-wrap:wrap;gap:5px}
+.utag{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:3px 9px;font-size:.73rem;color:var(--muted)}
+.stats-bar{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.stat-item{text-align:center}
+.stat-num{font-family:'Cairo',sans-serif;font-size:2rem;font-weight:900;color:var(--accent);display:block}
+.stat-label{font-size:.78rem;color:var(--muted)}
+#unitPage{min-height:100vh}
+.unit-header{background:linear-gradient(135deg,var(--card2),var(--card));border-bottom:1px solid var(--border);padding:28px 36px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.back-btn{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--text);padding:10px 18px;border-radius:10px;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.9rem;transition:all .2s;display:flex;align-items:center;gap:6px}
+.back-btn:hover{background:rgba(255,255,255,.12)}
+.uhdr-info{flex:1}
+.uhdr-title{font-family:'Cairo',sans-serif;font-size:1.7rem;font-weight:900;color:#fff}
+.uhdr-sub{color:var(--muted);font-size:.88rem;margin-top:4px}
+.lessons-container{padding:36px;max-width:960px;margin:0 auto}
+.ls-title{font-family:'Cairo',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:22px;color:#fff}
+.lesson-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 26px;margin-bottom:12px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:18px}
+.lesson-card:hover{border-color:var(--blue);background:var(--card2);transform:translateX(-4px)}
+.lc-num{width:42px;height:42px;border-radius:10px;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--blue);font-size:1rem;flex-shrink:0}
+.lc-info{flex:1}
+.lc-title{font-size:1.02rem;font-weight:600;color:#fff;margin-bottom:3px}
+.lc-meta{font-size:.79rem;color:var(--muted)}
+.lc-arrow{color:var(--muted);font-size:1.1rem}
+#lessonPage{min-height:100vh}
+.navbar{position:sticky;top:0;z-index:100;background:rgba(10,15,30,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:13px 36px;display:flex;align-items:center;gap:14px}
+.nav-logo{font-family:'Cairo',sans-serif;font-weight:900;font-size:1.05rem;color:#fff;flex:1}
+.nav-logo span{color:var(--accent)}
+.lesson-header{background:var(--card);border-bottom:1px solid var(--border);padding:22px 36px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.lhdr-title{font-family:'Cairo',sans-serif;font-size:1.35rem;font-weight:800;color:#fff;flex:1}
+.score-display{display:flex;gap:12px;align-items:center}
+.score-badge{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--green);padding:5px 14px;border-radius:8px;font-size:.83rem;font-weight:700}
+.wrong-badge{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red);padding:5px 14px;border-radius:8px;font-size:.83rem;font-weight:700}
+.progress-wrap{max-width:880px;margin:22px auto 0;padding:0 36px}
+.progress-info{display:flex;justify-content:space-between;margin-bottom:7px;font-size:.83rem;color:var(--muted)}
+.progress-bar{height:5px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:100px;transition:width .5s ease}
+.question-area{max-width:880px;margin:28px auto;padding:0 36px}
+.question-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:18px;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.q-number{font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:12px}
+.q-type-badge{display:inline-block;font-size:.73rem;padding:3px 11px;border-radius:5px;margin-bottom:14px;font-weight:600}
+.type-mcq{background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.2)}
+.type-tf{background:rgba(16,185,129,.12);color:#6ee7b7;border:1px solid rgba(16,185,129,.2)}
+.type-fill{background:rgba(139,92,246,.12);color:#c4b5fd;border:1px solid rgba(139,92,246,.2)}
+.q-text{font-size:1.15rem;font-weight:500;line-height:1.7;color:#fff;margin-bottom:24px}
+.options{display:flex;flex-direction:column;gap:10px}
+.option{background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.08);border-radius:11px;padding:14px 18px;cursor:pointer;transition:all .2s;font-size:.97rem;color:var(--text);text-align:right;display:flex;align-items:center;gap:11px}
+.option:hover:not(.disabled){background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.3)}
+.option.selected{border-color:var(--blue);background:rgba(59,130,246,.12)}
+.option.correct{border-color:var(--green)!important;background:rgba(16,185,129,.12)!important}
+.option.wrong{border-color:var(--red)!important;background:rgba(239,68,68,.1)!important}
+.option.disabled{cursor:default}
+.opt-letter{width:30px;height:30px;border-radius:7px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0;color:var(--muted)}
+.option.correct .opt-letter{background:var(--green);color:#fff}
+.option.wrong .opt-letter{background:var(--red);color:#fff}
+.fill-input{width:100%;background:rgba(255,255,255,.05);border:2px solid var(--border);border-radius:11px;padding:14px 18px;color:#fff;font-family:'Tajawal',sans-serif;font-size:1rem;outline:none;transition:border-color .2s;direction:rtl}
+.fill-input:focus{border-color:var(--blue)}
+.fill-input.correct{border-color:var(--green);background:rgba(16,185,129,.08)}
+.fill-input.wrong{border-color:var(--red);background:rgba(239,68,68,.06)}
+.tf-buttons{display:flex;gap:12px}
+.tf-btn{flex:1;padding:14px;border-radius:11px;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer;font-family:'Tajawal',sans-serif;font-size:1rem;font-weight:600;color:var(--text);transition:all .2s}
+.tf-btn:hover:not(.disabled){background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.3)}
+.tf-btn.selected{border-color:var(--blue);background:rgba(59,130,246,.12)}
+.tf-btn.correct{border-color:var(--green)!important;background:rgba(16,185,129,.12)!important;color:var(--green)}
+.tf-btn.wrong{border-color:var(--red)!important;background:rgba(239,68,68,.1)!important;color:var(--red)}
+.feedback-box{margin-top:14px;padding:13px 17px;border-radius:9px;font-size:.93rem;line-height:1.6;display:none}
+.feedback-box.show{display:block;animation:fadeIn .25s ease}
+.feedback-box.correct{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#6ee7b7}
+.feedback-box.wrong{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#fca5a5}
+.action-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;justify-content:flex-end}
+.btn-check{background:linear-gradient(135deg,var(--blue),#6366f1);color:#fff;border:none;padding:13px 30px;border-radius:11px;font-family:'Tajawal',sans-serif;font-size:.97rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(59,130,246,.3)}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(59,130,246,.4)}
+.btn-next{background:var(--card2);color:var(--text);border:1px solid var(--border);padding:13px 30px;border-radius:11px;font-family:'Tajawal',sans-serif;font-size:.97rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-next:hover{background:rgba(255,255,255,.08)}
+.btn-hint{background:rgba(245,158,11,.1);color:var(--accent);border:1px solid rgba(245,158,11,.25);padding:13px 22px;border-radius:11px;font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-hint:hover{background:rgba(245,158,11,.18)}
+#resultsPage{min-height:100vh}
+.results-screen{max-width:680px;margin:50px auto;padding:0 36px;text-align:center}
+.results-icon{font-size:4.5rem;margin-bottom:18px}
+.results-title{font-family:'Cairo',sans-serif;font-size:1.9rem;font-weight:900;color:#fff;margin-bottom:10px}
+.results-sub{color:var(--muted);font-size:.98rem;margin-bottom:36px;line-height:1.6}
+.score-circle{width:150px;height:150px;border-radius:50%;border:4px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 36px;background:var(--card);box-shadow:0 0 50px rgba(59,130,246,.2)}
+.score-pct{font-family:'Cairo',sans-serif;font-size:2.6rem;font-weight:900;color:var(--accent)}
+.score-lbl{color:var(--muted);font-size:.78rem}
+.results-stats{display:flex;gap:14px;justify-content:center;margin-bottom:32px;flex-wrap:wrap}
+.res-stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:110px}
+.res-stat-num{font-family:'Cairo',sans-serif;font-size:1.7rem;font-weight:900;display:block}
+.res-stat-lbl{font-size:.78rem;color:var(--muted);margin-top:3px}
+.results-actions{display:flex;gap:11px;justify-content:center;flex-wrap:wrap}
+.btn-restart{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;border:none;padding:13px 30px;border-radius:11px;font-family:'Tajawal',sans-serif;font-size:.97rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-restart:hover{transform:translateY(-2px)}
+.btn-menu2{background:var(--card);color:var(--text);border:1px solid var(--border);padding:13px 28px;border-radius:11px;font-family:'Tajawal',sans-serif;font-size:.97rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-menu2:hover{background:rgba(255,255,255,.08)}
+.summary-wrap{max-width:880px;margin:0 auto 50px;padding:0 36px}
+.sum-title{font-family:'Cairo',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:14px}
+.rev-item{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:14px 18px;margin-bottom:9px;display:flex;align-items:flex-start;gap:12px}
+.rev-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.rev-q{font-size:.88rem;color:var(--text);line-height:1.5;margin-bottom:3px}
+.rev-a{font-size:.8rem;color:var(--muted)}
+.rev-a.c{color:var(--green)}.rev-a.w{color:var(--red)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+@media(max-width:600px){.lesson-header,.unit-header,.navbar{padding:14px 18px}.question-area,.lessons-container,.progress-wrap,.summary-wrap,.results-screen{padding:0 16px}.q-text{font-size:1rem}.units-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Math Study Tool</h1>
-        <p>Select a lesson below to begin your 50-question quiz.</p>
-    </header>
+<!-- ========== LANDING ========== -->
 
-    <div id="selection-screen" class="lesson-selector">
-        <h2>Choose a Lesson</h2>
-        <select id="lesson-select">
-            <option value="" disabled selected>Select a lesson...</option>
-            <option value="lesson1">Lesson 1: Algebra & Equations (50 Qs)</option>
-            <option value="lesson2">Lesson 2: Geometry & Areas (50 Qs)</option>
-            <option value="lesson3">Lesson 3: Number Theory & Arithmetic (50 Qs)</option>
-        </select>
-        <br>
-        <button id="start-btn" onclick="startQuiz()">Start Studying</button>
+<div id="landing" class="screen active">
+  <div class="land-badge">📚 رياضيات الصف العاشر — الجزء الثاني</div>
+  <h1 class="land-title">موقع الدراسة التفاعلي</h1>
+  <p class="land-sub">اختر وحدة دراسية وابدأ الاختبار التفاعلي. أكثر من 300 سؤال بأشكال متنوعة.</p>
+  <div class="units-grid">
+    <div class="unit-card" style="--uc:#3b82f6" onclick="openUnit(0)">
+      <span class="unit-icon">📐</span>
+      <div class="unit-num">الوحدة الرابعة</div>
+      <div class="unit-name">الاقترانات المثلثية</div>
+      <div class="unit-desc">الزوايا الموجهة، القياس الستيني والدائري، الاقترانات المثلثية، التمثيل البياني، المتطابقات والمعادلات.</div>
+      <div class="unit-tags">
+        <span class="utag">الوضع القياسي</span><span class="utag">قياس الزوايا</span><span class="utag">الاقترانات</span><span class="utag">المتطابقات</span>
+      </div>
     </div>
-
-    <div id="quiz-screen" class="quiz-container">
-        <div class="progress-bar">
-            <div id="progress-fill" class="progress-fill"></div>
-        </div>
-        
-        <div class="question-header">
-            <span id="question-counter">Question 1 of 50</span>
-            <span class="score-display">Score: <span id="current-score">0</span></span>
-        </div>
-
-        <div id="question-text" class="question-text">
-            Loading question...
-        </div>
-
-        <div id="options-grid" class="options-grid">
-            </div>
-
-        <div class="controls">
-            <button id="quit-btn" onclick="quitQuiz()" style="background: var(--text-muted)">Quit</button>
-            <button id="next-btn" onclick="nextQuestion()" disabled>Next Question</button>
-        </div>
+    <div class="unit-card" style="--uc:#10b981" onclick="openUnit(1)">
+      <span class="unit-icon">📏</span>
+      <div class="unit-num">الوحدة الخامسة</div>
+      <div class="unit-name">الهندسة</div>
+      <div class="unit-desc">الإنشاءات الهندسية، المثلث، المضلعات المنتظمة، تكافؤ الأشكال الهندسية.</div>
+      <div class="unit-tags">
+        <span class="utag">إنشاءات هندسية</span><span class="utag">المثلث</span><span class="utag">مضلعات</span><span class="utag">تكافؤ</span>
+      </div>
     </div>
-
-    <div id="results-screen" class="results-container">
-        <h2>Quiz Complete!</h2>
-        <p>Your final score is</p>
-        <div id="final-score" class="final-score">0 / 50</div>
-        <div class="nav-buttons">
-            <button onclick="retryQuiz()">Retry Lesson</button>
-            <button onclick="quitQuiz()" style="background: var(--text-muted)">Choose Another Lesson</button>
-        </div>
+    <div class="unit-card" style="--uc:#f59e0b" onclick="openUnit(2)">
+      <span class="unit-icon">💰</span>
+      <div class="unit-num">الوحدة السادسة</div>
+      <div class="unit-name">الرياضيات المالية</div>
+      <div class="unit-desc">الأسهم والقيمة السوقية والاسمية، السندات والكوبون والفوائد، أنواع التأمين والأقساط.</div>
+      <div class="unit-tags">
+        <span class="utag">الأسهم</span><span class="utag">السندات</span><span class="utag">التأمين</span>
+      </div>
     </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><span class="stat-num">3</span><span class="stat-label">وحدات دراسية</span></div>
+    <div class="stat-item"><span class="stat-num">10</span><span class="stat-label">دروس</span></div>
+    <div class="stat-item"><span class="stat-num">+600</span><span class="stat-label">سؤال تفاعلي</span></div>
+  </div>
+</div>
+
+<!-- ========== UNIT PAGE ========== -->
+
+<div id="unitPage" class="screen">
+  <div class="unit-header">
+    <button class="back-btn" onclick="showLanding()">&#8592; الرئيسية</button>
+    <div class="uhdr-info">
+      <div class="uhdr-title" id="uTitle"></div>
+      <div class="uhdr-sub" id="uSub">اختر درساً للبدء</div>
+    </div>
+  </div>
+  <div class="lessons-container">
+    <div class="ls-title">📖 دروس الوحدة</div>
+    <div id="lessonsList"></div>
+  </div>
+</div>
+
+<!-- ========== LESSON PAGE ========== -->
+
+<div id="lessonPage" class="screen">
+  <div class="navbar">
+    <div class="nav-logo">رياضيات <span>عاشر</span></div>
+    <button class="back-btn" onclick="showUnit()" style="margin:0">&#8592; الوحدة</button>
+  </div>
+  <div class="lesson-header">
+    <div class="lhdr-title" id="lTitle"></div>
+    <div class="score-display">
+      <div class="score-badge" id="sBadge">✓ 0</div>
+      <div class="wrong-badge" id="wBadge">✗ 0</div>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-info"><span id="qCtr">السؤال 1</span><span id="qPct">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="pFill" style="width:0%"></div></div>
+  </div>
+  <div class="question-area" id="qArea"></div>
+</div>
+
+<!-- ========== RESULTS PAGE ========== -->
+
+<div id="resultsPage" class="screen">
+  <div class="navbar">
+    <div class="nav-logo">رياضيات <span>عاشر</span></div>
+    <button class="back-btn" onclick="showLanding()" style="margin:0">&#8592; الرئيسية</button>
+  </div>
+  <div class="results-screen">
+    <div class="results-icon" id="rIcon">🏆</div>
+    <div class="results-title" id="rTitle">أحسنت!</div>
+    <div class="results-sub" id="rSub">لقد أتممت الاختبار</div>
+    <div class="score-circle">
+      <div class="score-pct" id="rPct">0%</div>
+      <div class="score-lbl">نتيجتك</div>
+    </div>
+    <div class="results-stats">
+      <div class="res-stat"><span class="res-stat-num" style="color:var(--green)" id="rC">0</span><div class="res-stat-lbl">صحيحة</div></div>
+      <div class="res-stat"><span class="res-stat-num" style="color:var(--red)" id="rW">0</span><div class="res-stat-lbl">خاطئة</div></div>
+      <div class="res-stat"><span class="res-stat-num" style="color:var(--blue)" id="rT">0</span><div class="res-stat-lbl">المجموع</div></div>
+    </div>
+    <div class="results-actions">
+      <button class="btn-restart" onclick="restartLesson()">🔁 أعد الاختبار</button>
+      <button class="btn-menu2" onclick="showUnit()">📚 دروس أخرى</button>
+      <button class="btn-menu2" onclick="showLanding()">🏠 الرئيسية</button>
+    </div>
+  </div>
+  <div class="summary-wrap" id="revArea"></div>
 </div>
 
 <script>
-    // MASSIVE QUESTION DATABASE (150 Questions Total to exceed requested lengths)
-    const database = {
-        lesson1: [
-            { q: "Solve for x: 2x = 4", opts: ["1", "2", "3", "4"], a: 1 },
-            { q: "Solve for x: x + 5 = 12", opts: ["5", "6", "7", "8"], a: 2 },
-            { q: "Solve for x: 3x - 2 = 7", opts: ["2", "3", "4", "5"], a: 1 },
-            { q: "Solve for x: x/2 = 8", opts: ["4", "10", "16", "24"], a: 2 },
-            { q: "Solve for x: 5x = 25", opts: ["3", "4", "5", "6"], a: 2 },
-            { q: "Solve for x: 4x + 1 = 17", opts: ["3", "4", "5", "6"], a: 1 },
-            { q: "Solve for y: y - 8 = 10", opts: ["16", "17", "18", "19"], a: 2 },
-            { q: "Solve for a: 2a + 4 = 14", opts: ["3", "4", "5", "6"], a: 2 },
-            { q: "Solve for b: 7b = 49", opts: ["5", "6", "7", "8"], a: 2 },
-            { q: "Solve for x: x/3 = 9", opts: ["12", "18", "27", "36"], a: 2 },
-            { q: "Solve for x: 10x - 5 = 45", opts: ["4", "5", "6", "7"], a: 1 },
-            { q: "Solve for z: z + 12 = 30", opts: ["16", "18", "20", "22"], a: 1 },
-            { q: "Solve for x: 6x = 36", opts: ["4", "5", "6", "7"], a: 2 },
-            { q: "Solve for x: 8x + 2 = 26", opts: ["2", "3", "4", "5"], a: 1 },
-            { q: "Solve for y: y/4 = 5", opts: ["15", "20", "25", "30"], a: 1 },
-            { q: "Solve for x: 9x = 81", opts: ["7", "8", "9", "10"], a: 2 },
-            { q: "Solve for c: c - 15 = 5", opts: ["10", "15", "20", "25"], a: 2 },
-            { q: "Solve for x: 3x + 3 = 30", opts: ["7", "8", "9", "10"], a: 2 },
-            { q: "Solve for x: 11x = 121", opts: ["9", "10", "11", "12"], a: 2 },
-            { q: "Solve for y: 2y - 6 = 14", opts: ["8", "9", "10", "11"], a: 2 },
-            { q: "Solve for x: x/5 = 7", opts: ["25", "30", "35", "40"], a: 2 },
-            { q: "Solve for x: 12x = 144", opts: ["10", "11", "12", "13"], a: 2 },
-            { q: "Solve for k: k + 14 = 28", opts: ["12", "14", "16", "18"], a: 1 },
-            { q: "Solve for x: 5x - 5 = 20", opts: ["4", "5", "6", "7"], a: 1 },
-            { q: "Solve for x: x/6 = 6", opts: ["24", "30", "36", "42"], a: 2 },
-            { q: "Solve for a: 13a = 39", opts: ["2", "3", "4", "5"], a: 1 },
-            { q: "Solve for x: 4x + 8 = 40", opts: ["6", "7", "8", "9"], a: 2 },
-            { q: "Solve for y: y - 22 = 11", opts: ["22", "33", "44", "55"], a: 1 },
-            { q: "Solve for x: 7x = 56", opts: ["6", "7", "8", "9"], a: 2 },
-            { q: "Solve for x: x/7 = 3", opts: ["14", "18", "21", "28"], a: 2 },
-            { q: "Solve for x: 2x + 10 = 50", opts: ["15", "20", "25", "30"], a: 1 },
-            { q: "Solve for z: 15z = 45", opts: ["2", "3", "4", "5"], a: 1 },
-            { q: "Solve for x: 6x - 4 = 32", opts: ["5", "6", "7", "8"], a: 1 },
-            { q: "Solve for x: x/8 = 4", opts: ["24", "28", "32", "36"], a: 2 },
-            { q: "Solve for y: 8y = 64", opts: ["6", "7", "8", "9"], a: 2 },
-            { q: "Solve for x: 3x + 15 = 45", opts: ["8", "9", "10", "11"], a: 2 },
-            { q: "Solve for x: x - 19 = 21", opts: ["30", "35", "40", "45"], a: 2 },
-            { q: "Solve for x: 9x = 108", opts: ["10", "11", "12", "13"], a: 2 },
-            { q: "Solve for k: k/9 = 5", opts: ["35", "40", "45", "50"], a: 2 },
-            { q: "Solve for x: 5x + 20 = 70", opts: ["8", "10", "12", "14"], a: 1 },
-            { q: "Solve for x: 14x = 42", opts: ["2", "3", "4", "5"], a: 1 },
-            { q: "Solve for x: 7x - 7 = 42", opts: ["6", "7", "8", "9"], a: 1 },
-            { q: "Solve for x: x/10 = 10", opts: ["10", "50", "100", "1000"], a: 2 },
-            { q: "Solve for x: 20x = 400", opts: ["10", "15", "20", "25"], a: 2 },
-            { q: "Solve for m: m + 33 = 66", opts: ["22", "33", "44", "55"], a: 1 },
-            { q: "Solve for x: 4x - 12 = 36", opts: ["10", "11", "12", "13"], a: 2 },
-            { q: "Solve for x: x/11 = 4", opts: ["33", "44", "55", "66"], a: 1 },
-            { q: "Solve for y: 25y = 100", opts: ["2", "3", "4", "5"], a: 2 },
-            { q: "Solve for x: 8x + 16 = 80", opts: ["6", "7", "8", "9"], a: 2 },
-            { q: "Solve for x: x - 50 = 150", opts: ["100", "150", "200", "250"], a: 2 }
-        ],
-        lesson2: [
-            { q: "What is the area of a square with side 2?", opts: ["2", "4", "6", "8"], a: 1 },
-            { q: "What is the area of a rectangle 3x4?", opts: ["7", "10", "12", "14"], a: 2 },
-            { q: "Area of a circle with radius r?", opts: ["2πr", "πr²", "2πr²", "πd"], a: 1 },
-            { q: "Perimeter of a square with side 5?", opts: ["10", "15", "20", "25"], a: 2 },
-            { q: "Volume of a cube with side 3?", opts: ["9", "18", "27", "36"], a: 2 },
-            { q: "Area of a triangle with base 4, height 5?", opts: ["10", "20", "30", "40"], a: 0 },
-            { q: "Circumference of a circle with radius 5?", opts: ["5π", "10π", "25π", "100π"], a: 1 },
-            { q: "Area of a square with side 6?", opts: ["12", "24", "36", "48"], a: 2 },
-            { q: "Volume of a rectangular prism 2x3x4?", opts: ["9", "12", "18", "24"], a: 3 },
-            { q: "Perimeter of a rectangle 5x10?", opts: ["15", "30", "45", "50"], a: 1 },
-            { q: "Area of a circle with radius 10 (approx)?", opts: ["31.4", "100", "314", "628"], a: 2 },
-            { q: "Perimeter of an equilateral triangle side 7?", opts: ["14", "21", "28", "35"], a: 1 },
-            { q: "Volume of a sphere formula?", opts: ["4/3 πr³", "πr²h", "1/3 πr²h", "4πr²"], a: 0 },
-            { q: "Area of a square with side 8?", opts: ["16", "32", "64", "128"], a: 2 },
-            { q: "Area of a rectangle 6x7?", opts: ["13", "26", "42", "84"], a: 2 },
-            { q: "Hypotenuse of right triangle sides 3 and 4?", opts: ["5", "6", "7", "8"], a: 0 },
-            { q: "Area of a triangle with base 10, height 6?", opts: ["30", "60", "90", "120"], a: 0 },
-            { q: "Volume of a cube with side 4?", opts: ["16", "32", "64", "128"], a: 2 },
-            { q: "Circumference of a circle diameter 12?", opts: ["6π", "12π", "24π", "144π"], a: 1 },
-            { q: "Perimeter of a square with side 9?", opts: ["18", "27", "36", "81"], a: 2 },
-            { q: "Area of a square with side 10?", opts: ["20", "40", "100", "200"], a: 2 },
-            { q: "Volume of a cylinder formula?", opts: ["2πr", "πr²", "πr²h", "1/3 πr²h"], a: 2 },
-            { q: "Area of a rectangle 8x9?", opts: ["17", "34", "72", "144"], a: 2 },
-            { q: "Hypotenuse of right triangle sides 6 and 8?", opts: ["10", "12", "14", "100"], a: 0 },
-            { q: "Area of a triangle with base 8, height 8?", opts: ["16", "32", "64", "128"], a: 1 },
-            { q: "Perimeter of a regular pentagon side 5?", opts: ["15", "20", "25", "30"], a: 2 },
-            { q: "Volume of a cube with side 5?", opts: ["25", "50", "75", "125"], a: 3 },
-            { q: "Area of a circle with radius 2?", opts: ["2π", "4π", "8π", "16π"], a: 1 },
-            { q: "Perimeter of a square with side 11?", opts: ["22", "33", "44", "55"], a: 2 },
-            { q: "Area of a square with side 12?", opts: ["24", "48", "144", "288"], a: 2 },
-            { q: "Volume of a cone formula?", opts: ["πr²h", "1/3 πr²h", "4/3 πr³", "2πrh"], a: 1 },
-            { q: "Area of a rectangle 10x12?", opts: ["22", "44", "120", "240"], a: 2 },
-            { q: "Hypotenuse of right triangle sides 5 and 12?", opts: ["13", "15", "17", "19"], a: 0 },
-            { q: "Area of a triangle with base 12, height 5?", opts: ["17", "30", "60", "120"], a: 1 },
-            { q: "Perimeter of a regular hexagon side 4?", opts: ["16", "20", "24", "28"], a: 2 },
-            { q: "Volume of a cube with side 6?", opts: ["36", "72", "108", "216"], a: 3 },
-            { q: "Area of a circle with radius 3?", opts: ["3π", "6π", "9π", "12π"], a: 2 },
-            { q: "Perimeter of a square with side 12?", opts: ["24", "36", "48", "60"], a: 2 },
-            { q: "Area of a square with side 15?", opts: ["30", "60", "125", "225"], a: 3 },
-            { q: "Surface area of a sphere formula?", opts: ["πr²", "2πr²", "3πr²", "4πr²"], a: 3 },
-            { q: "Area of a rectangle 11x11?", opts: ["22", "44", "121", "242"], a: 2 },
-            { q: "Hypotenuse of right triangle sides 8 and 15?", opts: ["17", "19", "21", "23"], a: 0 },
-            { q: "Area of a triangle with base 20, height 10?", opts: ["50", "100", "200", "400"], a: 1 },
-            { q: "Perimeter of an octagon side 3?", opts: ["18", "21", "24", "27"], a: 2 },
-            { q: "Volume of a cube with side 10?", opts: ["100", "300", "500", "1000"], a: 3 },
-            { q: "Area of a circle with radius 4?", opts: ["4π", "8π", "16π", "32π"], a: 2 },
-            { q: "Perimeter of a rectangle 15x5?", opts: ["20", "40", "60", "75"], a: 1 },
-            { q: "Area of a square with side 20?", opts: ["40", "80", "200", "400"], a: 3 },
-            { q: "Volume of a cylinder r=2, h=5?", opts: ["10π", "20π", "40π", "100π"], a: 1 },
-            { q: "Area of a rectangle 25x4?", opts: ["29", "58", "100", "200"], a: 2 }
-        ],
-        lesson3: [
-            { q: "What is 2^2?", opts: ["2", "4", "6", "8"], a: 1 },
-            { q: "What is 3^2?", opts: ["6", "9", "12", "15"], a: 1 },
-            { q: "What is 4^2?", opts: ["8", "12", "16", "20"], a: 2 },
-            { q: "What is 5^2?", opts: ["10", "15", "20", "25"], a: 3 },
-            { q: "What is 6^2?", opts: ["12", "24", "36", "48"], a: 2 },
-            { q: "What is 7^2?", opts: ["14", "28", "49", "56"], a: 2 },
-            { q: "What is 8^2?", opts: ["16", "32", "64", "128"], a: 2 },
-            { q: "What is 9^2?", opts: ["18", "36", "81", "100"], a: 2 },
-            { q: "What is 10^2?", opts: ["20", "50", "100", "200"], a: 2 },
-            { q: "What is 11^2?", opts: ["22", "111", "121", "131"], a: 2 },
-            { q: "What is 12^2?", opts: ["24", "120", "144", "288"], a: 2 },
-            { q: "What is 13^2?", opts: ["26", "130", "169", "196"], a: 2 },
-            { q: "What is 14^2?", opts: ["28", "140", "169", "196"], a: 3 },
-            { q: "What is 15^2?", opts: ["30", "150", "225", "250"], a: 2 },
-            { q: "What is 16^2?", opts: ["32", "160", "256", "312"], a: 2 },
-            { q: "What is 2^3?", opts: ["6", "8", "10", "12"], a: 1 },
-            { q: "What is 3^3?", opts: ["9", "18", "27", "36"], a: 2 },
-            { q: "What is 4^3?", opts: ["16", "32", "64", "128"], a: 2 },
-            { q: "What is 5^3?", opts: ["25", "75", "100", "125"], a: 3 },
-            { q: "What is 10^3?", opts: ["100", "500", "1000", "10000"], a: 2 },
-            { q: "Square root of 16?", opts: ["2", "4", "6", "8"], a: 1 },
-            { q: "Square root of 25?", opts: ["3", "4", "5", "6"], a: 2 },
-            { q: "Square root of 36?", opts: ["4", "5", "6", "7"], a: 2 },
-            { q: "Square root of 49?", opts: ["5", "6", "7", "8"], a: 2 },
-            { q: "Square root of 64?", opts: ["6", "7", "8", "9"], a: 2 },
-            { q: "Square root of 81?", opts: ["7", "8", "9", "10"], a: 2 },
-            { q: "Square root of 100?", opts: ["8", "9", "10", "11"], a: 2 },
-            { q: "Square root of 121?", opts: ["9", "10", "11", "12"], a: 2 },
-            { q: "Square root of 144?", opts: ["10", "11", "12", "13"], a: 2 },
-            { q: "Cube root of 8?", opts: ["2", "3", "4", "5"], a: 0 },
-            { q: "Cube root of 27?", opts: ["2", "3", "4", "5"], a: 1 },
-            { q: "Cube root of 64?", opts: ["2", "3", "4", "5"], a: 2 },
-            { q: "Cube root of 125?", opts: ["3", "4", "5", "6"], a: 2 },
-            { q: "Cube root of 1000?", opts: ["10", "20", "30", "40"], a: 0 },
-            { q: "What is 20^2?", opts: ["40", "200", "400", "800"], a: 2 },
-            { q: "What is 30^2?", opts: ["60", "300", "900", "2700"], a: 2 },
-            { q: "What is 40^2?", opts: ["80", "400", "1600", "6400"], a: 2 },
-            { q: "What is 50^2?", opts: ["100", "500", "2500", "12500"], a: 2 },
-            { q: "Square root of 400?", opts: ["10", "20", "30", "40"], a: 1 },
-            { q: "Square root of 900?", opts: ["20", "30", "40", "50"], a: 1 },
-            { q: "Square root of 1600?", opts: ["30", "40", "50", "60"], a: 1 },
-            { q: "Square root of 2500?", opts: ["40", "50", "60", "70"], a: 1 },
-            { q: "What is 2^4?", opts: ["8", "12", "16", "32"], a: 2 },
-            { q: "What is 3^4?", opts: ["27", "54", "81", "162"], a: 2 },
-            { q: "What is 10^4?", opts: ["1000", "5000", "10000", "100000"], a: 2 },
-            { q: "What is 2^5?", opts: ["10", "16", "32", "64"], a: 2 },
-            { q: "What is 5^4?", opts: ["125", "250", "625", "1000"], a: 2 },
-            { q: "Square root of 225?", opts: ["13", "14", "15", "16"], a: 2 },
-            { q: "Square root of 169?", opts: ["11", "12", "13", "14"], a: 2 },
-            { q: "Square root of 196?", opts: ["12", "13", "14", "15"], a: 2 }
-        ]
-    };
+// =====================================================================
+// DATA
+// =====================================================================
+var DATA = [
+  { name:'الاقترانات المثلثية', num:'الوحدة الرابعة', lessons:[
+    { title:'الزاوية في الوضع القياسي', num:'الدرس الأول', qs:[
+      {t:'m',q:'الزاوية الموجهة تكون موجبة إذا كان اتجاه الدوران:',o:['مع عقارب الساعة','عكس عقارب الساعة','للأعلى','للأسفل'],a:1,e:'الزاوية الموجهة موجبة عند الدوران عكس عقارب الساعة.'},
+      {t:'m',q:'الزاوية الموجهة تكون سالبة إذا كان اتجاه الدوران:',o:['عكس عقارب الساعة','مع عقارب الساعة','للأعلى','عشوائياً'],a:1,e:'الزاوية الموجهة سالبة عند الدوران مع عقارب الساعة.'},
+      {t:'m',q:'الزاوية في الوضع القياسي: رأسها في نقطة الأصل وضلع ابتدائها على:',o:['المحور الصادي الموجب','المحور السيني الموجب','نقطة (1,1)','المحور السيني السالب'],a:1,e:'ضلع الابتداء على محور السينات الموجب.'},
+      {t:'m',q:'محورا الإحداثيات يقسمان المستوى إلى كم ربع؟',o:['2','3','4','6'],a:2,e:'يُقسّم المستوى إلى 4 أرباع.'},
+      {t:'m',q:'الزاوية 120° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:1,e:'120° بين 90° و180° أي الربع الثاني.'},
+      {t:'m',q:'الزاوية 225° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:2,e:'225° بين 180° و270° أي الربع الثالث.'},
+      {t:'m',q:'الزاوية -300° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:0,e:'-300°+360°=60° وهي في الربع الأول.'},
+      {t:'m',q:'الزاوية 320° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:3,e:'320° بين 270° و360° أي الربع الرابع.'},
+      {t:'m',q:'الزاوية الربعية ينطبق ضلع انتهائها على:',o:['داخل ربع','أحد المحورين','نقطة الأصل','الربع الثاني فقط'],a:1,e:'الزاوية الربعية ضلع انتهائها على أحد المحورين.'},
+      {t:'m',q:'أي من هذه الزوايا ربعية؟',o:['45°','90°','135°','160°'],a:1,e:'90° ربعية لأن ضلع انتهائها على محور الصادات الموجب.'},
+      {t:'f',q:'الزاوية -60° تقع في الربع ____.',a:'الرابع',e:'-60°+360°=300° وهي في الربع الرابع.'},
+      {t:'f',q:'الزاوية 570° (بعد طرح دورة كاملة) تقع في الربع ____.',a:'الثالث',e:'570°-360°=210° في الربع الثالث.'},
+      {t:'b',q:'الزاوية 180° زاوية ربعية.',a:true,e:'نعم، ضلع انتهائها على محور السينات السالب.'},
+      {t:'b',q:'يمكن أن تكون الزاوية الموجهة قيمتها أكبر من 360°.',a:true,e:'نعم، يمكن أن تكون أكبر من 360° وتدور أكثر من دورة.'},
+      {t:'m',q:'الزاوية 90° ضلع انتهائها ينطبق على:',o:['محور السينات الموجب','محور الصادات الموجب','محور السينات السالب','محور الصادات السالب'],a:1,e:'90° ضلع انتهائها على محور الصادات الموجب.'},
+      {t:'m',q:'الزاوية 270° ضلع انتهائها ينطبق على:',o:['محور الصادات الموجب','محور السينات السالب','محور الصادات السالب','محور السينات الموجب'],a:2,e:'270° ضلع انتهائها على محور الصادات السالب.'},
+      {t:'m',q:'الزاوية 400° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:0,e:'400°-360°=40° في الربع الأول.'},
+      {t:'m',q:'اتجاه الدوران الموجب هو:',o:['مع عقارب الساعة','عكس عقارب الساعة','للأعلى','للأسفل'],a:1,e:'الدوران الموجب عكس عقارب الساعة.'},
+      {t:'f',q:'ضلع ابتداء الزاوية في الوضع القياسي على المحور ____ الموجب.',a:'السيني',e:'على محور السينات الموجب.'},
+      {t:'b',q:'الزاوية 360° وزاوية 0° لهما نفس ضلع الانتهاء.',a:true,e:'نعم، كلتاهما تنتهي عند محور السينات الموجب.'},
+      {t:'m',q:'الزاوية 750° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:0,e:'750°-2×360°=30° في الربع الأول.'},
+      {t:'m',q:'الزاوية -200° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:1,e:'-200°+360°=160° في الربع الثاني.'},
+      {t:'m',q:'الزاوية 720° تكافئ الزاوية:',o:['0°','90°','180°','360°'],a:0,e:'720°=2×360° تكافئ 0°.'},
+      {t:'f',q:'الزاوية -45° تقع في الربع ____.',a:'الرابع',e:'-45°+360°=315° في الربع الرابع.'},
+      {t:'b',q:'الزاوية -45° وزاوية 315° لهما نفس ضلع الانتهاء.',a:true,e:'نعم، -45°+360°=315°.'},
+      {t:'m',q:'إذا كانت 180° < θ < 270°، ضلع انتهاء θ في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:2,e:'الربع الثالث يمتد من 180° إلى 270°.'},
+      {t:'m',q:'الزاوية -90° ضلع انتهائها على:',o:['محور الصادات الموجب','محور السينات السالب','محور الصادات السالب','محور السينات الموجب'],a:2,e:'-90° ضلع انتهائها على محور الصادات السالب.'},
+      {t:'f',q:'رأس الزاوية في الوضع القياسي عند النقطة (____,____).',a:'0,0',e:'رأسها عند نقطة الأصل (0,0).'},
+      {t:'m',q:'الزاوية 150° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:1,e:'150° بين 90° و180° في الربع الثاني.'},
+      {t:'b',q:'الزاوية التي قياسها صفر ربعية.',a:true,e:'نعم، ضلع انتهائها ينطبق على محور السينات الموجب.'},
+      {t:'m',q:'الزاوية 1000° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:3,e:'1000°-2×360°=280° في الربع الرابع.'},
+      {t:'m',q:'الزاوية -150° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:2,e:'-150°+360°=210° في الربع الثالث.'},
+      {t:'f',q:'إذا كانت 270° < θ < 360°، فإن θ في الربع ____.',a:'الرابع',e:'الربع الرابع بين 270° و360°.'},
+      {t:'m',q:'زاوية الارتفاع وزاوية الانخفاض:',o:['متساويتان في القياس','مختلفتان دائماً','إحداهما ضعف الأخرى','مجموعهما 90°'],a:0,e:'زاوية الارتفاع تساوي زاوية الانخفاض.'},
+      {t:'m',q:'رأس الزاوية الموجهة يقع عند:',o:['(1,0)','(0,1)','(0,0)','أي نقطة'],a:2,e:'رأس الزاوية دائماً عند نقطة الأصل في الوضع القياسي.'},
+      {t:'b',q:'الزاوية التي قياسها -270° تكافئ الزاوية 90°.',a:true,e:'نعم، -270°+360°=90°.'},
+      {t:'f',q:'الزاوية -330° تقع في الربع ____.',a:'الأول',e:'-330°+360°=30° في الربع الأول.'},
+      {t:'m',q:'في الربع الثالث إشارة كل من x وy:',o:['x موجب y موجب','x سالب y موجب','x سالب y سالب','x موجب y سالب'],a:2,e:'في الربع الثالث كلاهما سالبان.'},
+      {t:'m',q:'في الربع الرابع:',o:['x موجب y موجب','x سالب y موجب','x سالب y سالب','x موجب y سالب'],a:3,e:'في الربع الرابع x موجب وy سالب.'},
+      {t:'f',q:'عدد الأرباع في المستوى الديكارتي = ____.',a:'4',e:'يوجد 4 أرباع.'},
+      {t:'m',q:'الزاوية -270° ضلع انتهائها ينطبق على:',o:['محور السينات الموجب','محور الصادات الموجب','محور السينات السالب','محور الصادات السالب'],a:1,e:'-270°+360°=90° على محور الصادات الموجب.'},
+      {t:'b',q:'الزاوية 180° ضلع انتهائها على محور السينات.',a:true,e:'نعم، على محور السينات السالب.'},
+      {t:'m',q:'الزاوية التي قياسها 260° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:2,e:'260° بين 180° و270° أي الربع الثالث.'},
+      {t:'m',q:'أي هذه الزوايا في الربع الثاني؟',o:['30°','100°','250°','320°'],a:1,e:'100° بين 90° و180° في الربع الثاني.'},
+      {t:'f',q:'الزاوية 390° تكافئ الزاوية ____.',a:'30°',e:'390°-360°=30°.'},
+      {t:'b',q:'الزاوية الربعية يمكن أن يكون قياسها 270°.',a:true,e:'نعم، 270° ربعية.'},
+      {t:'m',q:'ضلع ابتداء وضلع انتهاء الزاوية الموجهة:',o:['ضلع واحد فقط','ضلعان مختلفان','ضلع واحد ونقطة','نقطتان'],a:1,e:'الزاوية الموجهة لها ضلع ابتداء وضلع انتهاء.'},
+      {t:'f',q:'اتجاه الدوران السالب للزوايا هو ____ عقارب الساعة.',a:'مع',e:'الدوران السالب مع عقارب الساعة.'},
+      {t:'m',q:'إذا كانت 0° < θ < 90° فإن ضلع انتهائها في الربع:',o:['الثاني','الثالث','الأول','الرابع'],a:2,e:'الأول.'},
+      {t:'m',q:'الزاوية 500° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:1,e:'500°-360°=140° في الربع الثاني.'},
+      {t:'f',q:'الزاوية 300° تقع في الربع ____.',a:'الرابع',e:'300° بين 270° و360°.'},
+      {t:'b',q:'يمكن أن تكون قيمة الزاوية الموجهة أصغر من -360°.',a:true,e:'نعم، يمكن أن تدور أكثر من دورة عكسية.'},
+      {t:'m',q:'كم دورة كاملة تعادل الزاوية 540°؟',o:['1','1.5','2','3'],a:1,e:'540°÷360°=1.5 دورة.'},
+      {t:'m',q:'الزاوية -45° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:3,e:'-45°+360°=315° في الربع الرابع.'},
+      {t:'m',q:'الزاوية 135° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:1,e:'135° بين 90° و180°.'},
+      {t:'f',q:'الزاوية 250° تقع في الربع ____.',a:'الثالث',e:'250° بين 180° و270°.'},
+      {t:'b',q:'الزاوية 45° في الوضع القياسي ربعية.',a:false,e:'خطأ، ضلع انتهائها داخل الربع الأول وليس على المحور.'},
+      {t:'m',q:'قطر الدائرة = نصف القطر × :',o:['π','2','3','4'],a:1,e:'القطر = 2 × نصف القطر.'},
+      {t:'f',q:'الزاوية -130° تقع في الربع ____.',a:'الثالث',e:'-130°+360°=230° في الربع الثالث.'},
+      {t:'m',q:'الزاوية 390° تكافئ:',o:['30°','60°','90°','120°'],a:0,e:'390°-360°=30°.'},
+      {t:'m',q:'في الوضع القياسي رأس الزاوية في:',o:['الربع الأول','الربع الثاني','نقطة الأصل','أي نقطة'],a:2,e:'رأسها في نقطة الأصل (0,0).'},
+      {t:'b',q:'الزاوية 90° < θ < 180° ضلع انتهائها في الربع الثاني.',a:true,e:'نعم.'},
+      {t:'f',q:'الزاوية التي قياسها -360° تكافئ الزاوية ____.',a:'0°',e:'-360°+360°=0°.'},
+      {t:'m',q:'الزاوية -250° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:1,e:'-250°+360°=110° في الربع الثاني.'},
+      {t:'b',q:'كل زاوية ربعية ضلع انتهائها على محور إحداثيات.',a:true,e:'نعم، هذا تعريف الزاوية الربعية.'},
+      {t:'m',q:'الزاوية 450° تقع ضلع انتهائها في الربع/على المحور:',o:['الأول','محور الصادات الموجب','الثاني','الرابع'],a:1,e:'450°-360°=90° على محور الصادات الموجب.'},
+      {t:'f',q:'الربع الذي يحتوي الزاوية -40° هو الربع ____.',a:'الرابع',e:'-40°+360°=320° في الربع الرابع.'},
+      {t:'m',q:'أي زاوية مما يلي في الربع الرابع؟',o:['30°','120°','240°','300°'],a:3,e:'300° بين 270° و360°.'},
+      {t:'b',q:'الأرباع ترتب في المستوى الديكارتي عكس عقارب الساعة.',a:true,e:'نعم.'},
+      {t:'m',q:'الزاوية -180° ضلع انتهائها ينطبق على:',o:['محور الصادات الموجب','محور السينات السالب','محور الصادات السالب','محور السينات الموجب'],a:1,e:'-180°+360°=180° على محور السينات السالب.'},
+      {t:'f',q:'الزاوية 210° تقع في الربع ____.',a:'الثالث',e:'210° بين 180° و270°.'},
+      {t:'m',q:'الزاوية التي قياسها 250° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:2,e:'250° في الربع الثالث.'},
+      {t:'b',q:'يمكن أن تكون الزاوية في الوضع القياسي سالبة.',a:true,e:'نعم.'},
+      {t:'f',q:'الزاوية -270° تكافئ الزاوية ____.',a:'90°',e:'-270°+360°=90°.'},
+      {t:'m',q:'أي الزوايا التالية تقع في الربع الثالث؟',o:['50°','100°','240°','310°'],a:2,e:'240° بين 180° و270°.'},
+      {t:'m',q:'الزاوية 0° ضلع انتهائها على:',o:['محور السينات الموجب','محور الصادات الموجب','محور السينات السالب','نقطة الأصل'],a:0,e:'ضلع انتهاء 0° على محور السينات الموجب.'},
+      {t:'f',q:'الزاوية 330° تقع في الربع ____.',a:'الرابع',e:'330° بين 270° و360°.'},
+      {t:'m',q:'الزاوية التي قياسها -120° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:2,e:'-120°+360°=240° في الربع الثالث.'},
+      {t:'b',q:'الزاوية 270° زاوية ربعية.',a:true,e:'نعم.'},
+      {t:'m',q:'الزاوية 175° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:1,e:'175° بين 90° و180°.'},
+      {t:'f',q:'الزاوية 315° تقع في الربع ____.',a:'الرابع',e:'315° بين 270° و360°.'},
+      {t:'m',q:'في الربع الأول إشارة كل من x وy:',o:['x موجب y موجب','x سالب y موجب','x سالب y سالب','x موجب y سالب'],a:0,e:'في الربع الأول كلاهما موجبان.'},
+      {t:'b',q:'الزاوية 90° وزاوية 450° لهما نفس ضلع الانتهاء.',a:true,e:'نعم، 450°-360°=90°.'},
+      {t:'f',q:'الزاوية التي قياسها -90° ضلع انتهائها على المحور ____ ____.',a:'الصادات السالب',e:'على محور الصادات السالب.'},
+      {t:'m',q:'كم ربع يوجد في المستوى الديكارتي؟',o:['2','3','4','8'],a:2,e:'4 أرباع.'},
+      {t:'m',q:'الزاوية 289° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:3,e:'289° بين 270° و360°.'},
+      {t:'f',q:'الزاوية 415° تكافئ الزاوية ____.',a:'55°',e:'415°-360°=55°.'},
+      {t:'b',q:'كل نقطة على العمود الناصف تبعد بالتساوي عن طرفي القطعة.',a:true,e:'نعم، هذه خاصية العمود الناصف.'},
+      {t:'m',q:'الزاوية -30° تقع في الربع:',o:['الأول','الثاني','الثالث','الرابع'],a:3,e:'-30°+360°=330° في الربع الرابع.'},
+      {t:'f',q:'الزاوية -90° تكافئ الزاوية ____.',a:'270°',e:'-90°+360°=270°.'},
+      {t:'m',q:'الزاوية الموجهة: ضلع الابتداء هو:',o:['الضلع المتحرك','الضلع الثابت','ضلع الرأس','ضلع النهاية'],a:1,e:'ضلع الابتداء هو الضلع الثابت في الوضع القياسي.'},
+      {t:'b',q:'الزاوية التي ضلع انتهائها يقع داخل ربع (لا على محور) تسمى زاوية ربعية.',a:false,e:'خطأ، الربعية تلك التي ضلع انتهائها على المحور.'},
+      {t:'m',q:'الزاوية 3600° تكافئ الزاوية:',o:['0°','90°','180°','360°'],a:0,e:'3600°=10×360° تكافئ 0°.'},
+      {t:'f',q:'الزاوية 480° تكافئ الزاوية ____.',a:'120°',e:'480°-360°=120°.'},
+      {t:'m',q:'أي من التالي تعريف الزاوية الموجهة؟',o:['زاوية لها اتجاه دوران محدد','زاوية قياسها 180°','زاوية في دائرة','زاوية بين خطين متوازيين'],a:0,e:'الزاوية الموجهة تتحدد باتجاه دوران ضلع الابتداء نحو ضلع الانتهاء.'},
+      {t:'f',q:'الربع الذي تقع فيه الزاوية 195° هو الربع ____.',a:'الثالث',e:'195° بين 180° و270°.'}
+    ]},
+    { title:'قياس الزوايا (الستيني والدائري)', num:'الدرس الثاني', qs:[
+      {t:'m',q:'π راديان يساوي:',o:['90°','180°','270°','360°'],a:1,e:'π راديان = 180°.'},
+      {t:'m',q:'2π راديان يساوي:',o:['90°','180°','360°','540°'],a:2,e:'2π راديان = 360°.'},
+      {t:'m',q:'90° بالقياس الدائري يساوي:',o:['π/6','π/4','π/3','π/2'],a:3,e:'90°×π/180=π/2 راديان.'},
+      {t:'m',q:'60° بالقياس الدائري يساوي:',o:['π/6','π/4','π/3','π/2'],a:2,e:'60°=π/3 راديان.'},
+      {t:'m',q:'45° بالقياس الدائري يساوي:',o:['π/6','π/4','π/3','π/2'],a:1,e:'45°=π/4 راديان.'},
+      {t:'m',q:'30° بالقياس الدائري يساوي:',o:['π/6','π/4','π/3','π/2'],a:0,e:'30°=π/6 راديان.'},
+      {t:'m',q:'π/2 راديان يساوي بالدرجات:',o:['45°','60°','90°','180°'],a:2,e:'π/2×180/π=90°.'},
+      {t:'m',q:'π/6 راديان يساوي بالدرجات:',o:['15°','30°','45°','60°'],a:1,e:'π/6×180/π=30°.'},
+      {t:'m',q:'3π/2 راديان يساوي بالدرجات:',o:['180°','270°','360°','450°'],a:1,e:'3π/2×180/π=270°.'},
+      {t:'m',q:'2π/3 راديان يساوي بالدرجات:',o:['60°','90°','120°','150°'],a:2,e:'2π/3×180/π=120°.'},
+      {t:'f',q:'240° بالقياس الدائري = ____ راديان.',a:'4π/3',e:'240°×π/180=4π/3.'},
+      {t:'f',q:'π/4 راديان = ____ درجة.',a:'45',e:'π/4×180/π=45°.'},
+      {t:'f',q:'270° بالقياس الدائري = ____ راديان.',a:'3π/2',e:'270°=3π/2 راديان.'},
+      {t:'b',q:'π/3 راديان = 60°.',a:true,e:'نعم، π/3×180/π=60°.'},
+      {t:'b',q:'الزاوية 360° = π راديان.',a:false,e:'خطأ، 360°=2π راديان.'},
+      {t:'m',q:'لتحويل الدرجات إلى راديان نضرب في:',o:['180/π','π/180','π×180','1/π'],a:1,e:'الدرجات × π/180 = الراديان.'},
+      {t:'m',q:'لتحويل الراديان إلى درجات نضرب في:',o:['π/180','180/π','π×180','1/π'],a:1,e:'الراديان × 180/π = الدرجات.'},
+      {t:'m',q:'135° بالراديان يساوي:',o:['π/4','π/3','3π/4','2π/3'],a:2,e:'135°=3π/4 راديان.'},
+      {t:'m',q:'3π/4 راديان يساوي بالدرجات:',o:['120°','130°','135°','140°'],a:2,e:'3π/4×180/π=135°.'},
+      {t:'f',q:'330° بالراديان = ____ راديان.',a:'11π/6',e:'330°=11π/6 راديان.'},
+      {t:'f',q:'5π/4 راديان = ____ درجة.',a:'225',e:'5π/4×180/π=225°.'},
+      {t:'m',q:'-90° بالراديان يساوي:',o:['-π/4','-π/2','-π','-3π/2'],a:1,e:'-90°=-π/2 راديان.'},
+      {t:'m',q:'7π/6 راديان يساوي بالدرجات:',o:['180°','200°','210°','220°'],a:2,e:'7π/6×180/π=210°.'},
+      {t:'b',q:'30° = π/6 راديان.',a:true,e:'نعم.'},
+      {t:'b',q:'محيط دائرة الوحدة = 2π.',a:true,e:'نعم، المحيط=2π×1=2π.'},
+      {t:'m',q:'الزاوية النصف قطرية: الزاوية المركزية التي تقابلها قوس طوله يساوي:',o:['نصف محيط الدائرة','نصف القطر','ضعف نصف القطر','المحيط كاملاً'],a:1,e:'تقابلها قوس طوله = نصف القطر.'},
+      {t:'m',q:'دائرة الوحدة نصف قطرها:',o:['0','0.5','1','2'],a:2,e:'نصف قطر دائرة الوحدة = 1.'},
+      {t:'m',q:'معادلة دائرة الوحدة:',o:['x²+y²=2','x²+y²=1','x+y=1','x²-y²=1'],a:1,e:'x²+y²=1.'},
+      {t:'f',q:'150° بالراديان = ____ راديان.',a:'5π/6',e:'150°=5π/6 راديان.'},
+      {t:'f',q:'π/12 راديان = ____ درجة.',a:'15',e:'π/12×180/π=15°.'},
+      {t:'m',q:'1 راديان تقريباً يساوي:',o:['45°','57.3°','90°','180°'],a:1,e:'1 راديان ≈ 57.3°.'},
+      {t:'m',q:'الدرجة الواحدة = كم دقيقة؟',o:['30','60','90','100'],a:1,e:'1° = 60\'.'},
+      {t:'m',q:'الدقيقة الواحدة = كم ثانية؟',o:['30','60','90','100'],a:1,e:"1' = 60''."},
+      {t:'m',q:'5π/6 راديان يساوي بالدرجات:',o:['120°','135°','150°','165°'],a:2,e:'5π/6×180/π=150°.'},
+      {t:'f',q:'الدورة الكاملة 360° = ____ راديان.',a:'2π',e:'360°=2π راديان.'},
+      {t:'m',q:'7π/4 راديان يساوي بالدرجات:',o:['270°','300°','315°','330°'],a:2,e:'7π/4×180/π=315°.'},
+      {t:'f',q:'الزاوية 210° بالراديان = ____ راديان.',a:'7π/6',e:'210°=7π/6.'},
+      {t:'b',q:'الراديان وحدة قياس دولية معترف بها.',a:true,e:'نعم.'},
+      {t:'m',q:'4π/3 راديان يساوي بالدرجات:',o:['210°','220°','230°','240°'],a:3,e:'4π/3×180/π=240°.'},
+      {t:'m',q:'11π/6 راديان يساوي بالدرجات:',o:['300°','315°','330°','345°'],a:2,e:'11π/6×180/π=330°.'},
+      {t:'f',q:'225° بالراديان = ____ راديان.',a:'5π/4',e:'225°=5π/4.'},
+      {t:'m',q:'السرعة الزاوية = السرعة الخطية ÷ :',o:['الزمن','نصف القطر','المساحة','التسارع'],a:1,e:'ω=v/r.'},
+      {t:'m',q:'الزاويتان المتكافئتان لهما:',o:['نفس ضلع الابتداء فقط','نفس ضلع الانتهاء','نفس الرأس فقط','جميع ما سبق'],a:3,e:'الزاويتان المتكافئتان لهما نفس ضلع الابتداء ونفس ضلع الانتهاء ونفس الرأس.'},
+      {t:'f',q:'زاوية مكافئة سالبة لـ 120° هي ____.',a:'-240°',e:'120°-360°=-240°.'},
+      {t:'b',q:'الزاوية 50° وزاوية 410° متكافئتان.',a:true,e:'نعم، 410°-360°=50°.'},
+      {t:'f',q:'ثلاث زوايا مكافئة لـ 60°: ____ و ____ و ____.',a:'420° و780° و-300°',e:'60°+360°=420°، 60°+720°=780°، 60°-360°=-300°.'},
+      {t:'m',q:'-3π/4 راديان يساوي بالدرجات:',o:['-90°','-120°','-135°','-150°'],a:2,e:'-3π/4×180/π=-135°.'},
+      {t:'f',q:'زاوية موجبة مكافئة لـ -100° هي ____.',a:'260°',e:'-100°+360°=260°.'},
+      {t:'b',q:'الزاوية 7π/4 وزاوية -π/4 متكافئتان.',a:true,e:'7π/4-2π=-π/4.'},
+      {t:'m',q:'π/9 راديان يساوي بالدرجات:',o:['15°','20°','25°','30°'],a:1,e:'π/9×180/π=20°.'},
+      {t:'f',q:'420° بالراديان = ____ راديان.',a:'7π/3',e:'420°=7π/3.'},
+      {t:'m',q:'في مسار دائري نصف قطره 2م وسرعة خطية 6م/ث، السرعة الزاوية:',o:['2 راد/ث','3 راد/ث','4 راد/ث','6 راد/ث'],a:1,e:'ω=6/2=3 راد/ث.'},
+      {t:'f',q:'الزاوية 2π/3 راديان = ____°.',a:'120',e:'2π/3×180/π=120°.'},
+      {t:'b',q:'2π/3 راديان يساوي 60°.',a:false,e:'خطأ، 2π/3=120°.'},
+      {t:'f',q:'الزاوية 3π راديان = ____°.',a:'540',e:'3π×180/π=540°.'},
+      {t:'m',q:'الزاوية 15π/6 راديان تساوي:',o:['390°','420°','450°','480°'],a:2,e:'15π/6=5π/2، 5π/2×180/π=450°.'},
+      {t:'b',q:'الزاوية -π/4 راديان = -45°.',a:true,e:'نعم.'},
+      {t:'f',q:'نصف قطر دائرة الوحدة = ____.',a:'1',e:'نصف القطر = 1.'},
+      {t:'m',q:'π/3 راديان يكافئه:',o:['π/3+2π','π/3+π','π/3+π/2','π/3-π'],a:0,e:'π/3+2π هو الزاوية المكافئة.'},
+      {t:'f',q:'الزاوية 11π/12 راديان = ____°.',a:'165',e:'11π/12×180/π=165°.'},
+      {t:'m',q:'عدد الراديانات في الدورة الكاملة:',o:['π','1.5π','2π','3π'],a:2,e:'الدورة الكاملة = 2π.'},
+      {t:'m',q:'-135° بالراديان يساوي:',o:['-3π/4','-π/4','-π/3','-2π/3'],a:0,e:'-135°=-3π/4 راديان.'},
+      {t:'f',q:'الزاوية التي تكافئ π/4 في الدورة الثانية = ____.',a:'9π/4',e:'π/4+2π=9π/4.'},
+      {t:'m',q:'315° بالراديان:',o:['5π/4','7π/4','3π/2','11π/6'],a:1,e:'315°=7π/4.'},
+      {t:'b',q:'القياس الدائري للزاوية عدد حقيقي بلا وحدة.',a:true,e:'نعم، هو نسبة طول القوس إلى نصف القطر.'},
+      {t:'m',q:'32.6° بالقياس الستيني يساوي:',o:["32° 24'","32° 36'","32° 30'","32° 6'"],a:1,e:"0.6×60=36' إذن 32.6°=32° 36'."},
+      {t:'f',q:'π/2 راديان = ____°.',a:'90',e:'π/2×180/π=90°.'},
+      {t:'m',q:'القياس الستيني يقيس الزوايا بـ:',o:['الراديان','الدرجات والدقائق والثواني','المتر','النسب'],a:1,e:'القياس الستيني بالدرجات والدقائق والثواني.'},
+      {t:'m',q:'إذا كانت السرعة الخطية 30 كم/ساعة ونصف القطر 0.005كم، السرعة الزاوية:',o:['1000','5000','6000','100'],a:2,e:'ω=30/0.005=6000 راديان/ساعة.'},
+      {t:'f',q:'25° 30\' بالأعشار = ____°.',a:'25.5',e:"30'=0.5° إذن 25.5°."},
+      {t:'b',q:'الراديان وحدة SI لقياس الزوايا.',a:true,e:'نعم.'},
+      {t:'m',q:'سند يعطي 9% كوبون وقيمته الاسمية 1000 دينار، الكوبون السنوي:',o:['9','90','900','9000'],a:1,e:'9%×1000=90 ديناراً.'},
+      {t:'f',q:'الزاوية -π/2 راديان = ____°.',a:'-90',e:'-π/2×180/π=-90°.'},
+      {t:'m',q:'2π/5 راديان يساوي بالدرجات:',o:['60°','72°','80°','90°'],a:1,e:'2π/5×180/π=72°.'},
+      {t:'m',q:'5π/3 راديان يساوي بالدرجات:',o:['270°','285°','300°','315°'],a:2,e:'5π/3×180/π=300°.'},
+      {t:'f',q:'300° بالراديان = ____ راديان.',a:'5π/3',e:'300°=5π/3 راديان.'},
+      {t:'b',q:'45° = π/4 راديان.',a:true,e:'نعم.'},
+      {t:'m',q:'π/18 راديان يساوي بالدرجات:',o:['5°','10°','15°','20°'],a:1,e:'π/18×180/π=10°.'},
+      {t:'f',q:'الزاوية 420° تكافئ الزاوية ____.',a:'60°',e:'420°-360°=60°.'},
+      {t:'m',q:'الزاوية -11π/6 يساوي بالدرجات:',o:['-270°','-300°','-330°','-315°'],a:2,e:'-11π/6×180/π=-330°.'},
+      {t:'f',q:'15π/6 راديان = ____ درجة.',a:'450',e:'15π/6=5π/2، 5π/2×180/π=450°.'},
+      {t:'b',q:'60° = π/3 راديان.',a:true,e:'نعم.'},
+      {t:'m',q:'الزاويتان θ و θ+360n° (n عدد صحيح) هما:',o:['متساويتان','متكافئتان','متضايفتان','متتامتان'],a:1,e:'متكافئتان.'},
+      {t:'f',q:'الزاوية -360° تكافئ ____.',a:'0°',e:'-360°+360°=0°.'},
+      {t:'m',q:'7π/3 راديان يساوي بالدرجات:',o:['360°','400°','420°','450°'],a:2,e:'7π/3×180/π=420°.'},
+      {t:'b',q:'الزاويتان θ و θ+2π متكافئتان.',a:true,e:'نعم.'}
+    ]},
+    { title:'الاقترانات المثلثية', num:'الدرس الثالث', qs:[
+      {t:'m',q:'جا θ في دائرة الوحدة يساوي:',o:['x','y','x/y','y/x'],a:1,e:'جا θ = y (الإحداثي الصادي).'},
+      {t:'m',q:'جتا θ في دائرة الوحدة يساوي:',o:['x','y','x/y','y/x'],a:0,e:'جتا θ = x (الإحداثي السيني).'},
+      {t:'m',q:'ظا θ يساوي:',o:['x/y','y/x','xy','1/x'],a:1,e:'ظا θ = y/x = جا θ / جتا θ.'},
+      {t:'m',q:'جا 0° يساوي:',o:['0','1','-1','غير معرف'],a:0,e:'جا 0° = 0.'},
+      {t:'m',q:'جتا 0° يساوي:',o:['0','1','-1','غير معرف'],a:1,e:'جتا 0° = 1.'},
+      {t:'m',q:'جا 90° يساوي:',o:['0','1','-1','غير معرف'],a:1,e:'جا 90° = 1.'},
+      {t:'m',q:'جتا 90° يساوي:',o:['0','1','-1','غير معرف'],a:0,e:'جتا 90° = 0.'},
+      {t:'m',q:'جا 180° يساوي:',o:['0','1','-1','غير معرف'],a:0,e:'جا 180° = 0.'},
+      {t:'m',q:'جتا 180° يساوي:',o:['0','1','-1','غير معرف'],a:2,e:'جتا 180° = -1.'},
+      {t:'m',q:'جا 270° يساوي:',o:['0','1','-1','غير معرف'],a:2,e:'جا 270° = -1.'},
+      {t:'f',q:'جا 30° = ____.',a:'1/2',e:'جا 30° = 1/2.'},
+      {t:'f',q:'جتا 60° = ____.',a:'1/2',e:'جتا 60° = 1/2.'},
+      {t:'f',q:'جا 45° = ____.',a:'√2/2',e:'جا 45° = √2/2.'},
+      {t:'f',q:'ظا 45° = ____.',a:'1',e:'ظا 45° = 1.'},
+      {t:'f',q:'ظا 30° = ____.',a:'√3/3',e:'ظا 30° = 1/√3 = √3/3.'},
+      {t:'f',q:'جتا 30° = ____.',a:'√3/2',e:'جتا 30° = √3/2.'},
+      {t:'f',q:'جا 60° = ____.',a:'√3/2',e:'جا 60° = √3/2.'},
+      {t:'f',q:'ظا 60° = ____.',a:'√3',e:'ظا 60° = √3.'},
+      {t:'m',q:'مدى جا θ هو:',o:['[0,1]','[-1,1]','[0,∞)','(-∞,∞)'],a:1,e:'مدى جا θ هو [-1,1].'},
+      {t:'b',q:'جا²θ + جتا²θ = 1 لأي زاوية θ.',a:true,e:'نعم، المتطابقة الفيثاغورسية الأساسية.'},
+      {t:'m',q:'في الربع الأول جا θ تكون:',o:['موجبة','سالبة','صفر','غير معرف'],a:0,e:'في الربع الأول جا θ موجبة.'},
+      {t:'m',q:'في الربع الثاني جتا θ تكون:',o:['موجبة','سالبة','صفر','غير معرف'],a:1,e:'في الربع الثاني جتا θ سالبة.'},
+      {t:'m',q:'في الربع الثالث جا θ تكون:',o:['موجبة','سالبة','صفر','غير معرف'],a:1,e:'في الربع الثالث جا θ سالبة.'},
+      {t:'m',q:'في الربع الرابع جتا θ تكون:',o:['موجبة','سالبة','صفر','غير معرف'],a:0,e:'في الربع الرابع جتا θ موجبة.'},
+      {t:'m',q:'إذا كانت النقطة (√3/2, 1/2) على دائرة الوحدة، فجا θ = :',o:['√3/2','1/2','2','√3'],a:1,e:'جا θ = y = 1/2.'},
+      {t:'b',q:'جا(-θ) = -جا θ.',a:true,e:'جا θ دالة فردية.'},
+      {t:'b',q:'جتا(-θ) = جتا θ.',a:true,e:'جتا θ دالة زوجية.'},
+      {t:'f',q:'جتا 0° + جا 90° = ____.',a:'2',e:'1 + 1 = 2.'},
+      {t:'m',q:'إذا كانت النقطة (-3,4) على ضلع انتهاء θ، فجا θ = :',o:['3/5','-3/5','4/5','-4/5'],a:2,e:'ر=√(9+16)=5، جا θ=4/5.'},
+      {t:'m',q:'إذا كانت النقطة (3,-4) على ضلع انتهاء θ، فجتا θ = :',o:['3/5','-3/5','4/5','-4/5'],a:0,e:'ر=5، جتا θ=3/5.'},
+      {t:'f',q:'جا 135° = ____.',a:'√2/2',e:'جا 135°=جا(180°-45°)=جا 45°=√2/2.'},
+      {t:'f',q:'جتا 135° = ____.',a:'-√2/2',e:'جتا 135°=-جتا 45°=-√2/2.'},
+      {t:'m',q:'جا 330° = :',o:['1/2','-1/2','√3/2','-√3/2'],a:1,e:'جا 330°=-جا 30°=-1/2.'},
+      {t:'m',q:'جتا 330° = :',o:['1/2','-1/2','√3/2','-√3/2'],a:2,e:'جتا 330°=جتا 30°=√3/2.'},
+      {t:'f',q:'جا 210° = ____.',a:'-1/2',e:'210° ربع ثالث، جا 210°=-1/2.'},
+      {t:'f',q:'جتا 240° = ____.',a:'-1/2',e:'جتا 240°=-جتا 60°=-1/2.'},
+      {t:'m',q:'جا 120° = :',o:['1/2','√3/2','-1/2','-√3/2'],a:1,e:'جا 120°=جا 60°=√3/2.'},
+      {t:'m',q:'جتا 120° = :',o:['1/2','-1/2','√3/2','-√3/2'],a:1,e:'جتا 120°=-1/2.'},
+      {t:'f',q:'جا 300° = ____.',a:'-√3/2',e:'جا 300°=-جا 60°=-√3/2.'},
+      {t:'f',q:'جتا 300° = ____.',a:'1/2',e:'جتا 300°=جتا 60°=1/2.'},
+      {t:'m',q:'في أي ربع جا θ موجبة وجتا θ سالبة؟',o:['الأول','الثاني','الثالث','الرابع'],a:1,e:'الربع الثاني.'},
+      {t:'m',q:'في أي ربع جا θ سالبة وجتا θ موجبة؟',o:['الأول','الثاني','الثالث','الرابع'],a:3,e:'الربع الرابع.'},
+      {t:'m',q:'في أي ربع كلتا جا θ وجتا θ سالبتان؟',o:['الأول','الثاني','الثالث','الرابع'],a:2,e:'الربع الثالث.'},
+      {t:'m',q:'جا² 30° + جتا² 30° = :',o:['0','1','2','0.5'],a:1,e:'(1/2)²+(√3/2)²=1/4+3/4=1.'},
+      {t:'m',q:'أكبر قيمة لجا θ هي:',o:['0','1','2','∞'],a:1,e:'أكبر قيمة هي 1.'},
+      {t:'m',q:'أصغر قيمة لجتا θ هي:',o:['-2','-1','0','1'],a:1,e:'أصغر قيمة هي -1.'},
+      {t:'m',q:'جا(180°-θ) = :',o:['جا θ','-جا θ','جتا θ','-جتا θ'],a:0,e:'جا(180°-θ)=جا θ.'},
+      {t:'m',q:'جتا(180°-θ) = :',o:['جتا θ','-جتا θ','جا θ','-جا θ'],a:1,e:'جتا(180°-θ)=-جتا θ.'},
+      {t:'f',q:'جا 360° = ____.',a:'0',e:'جا 360°=0.'},
+      {t:'f',q:'جتا 360° = ____.',a:'1',e:'جتا 360°=1.'},
+      {t:'b',q:'جا 150° = جا 30°.',a:true,e:'جا(180°-30°)=جا 30°.'},
+      {t:'b',q:'جتا 150° = جتا 30°.',a:false,e:'خطأ، جتا 150°=-جتا 30°=-√3/2.'},
+      {t:'m',q:'ظا θ غير معرف عند θ = :',o:['0°','45°','90°','180°'],a:2,e:'ظا 90° غير معرف لأن جتا 90°=0.'},
+      {t:'f',q:'إحداثيات نقطة التقاطع مع دائرة الوحدة عند θ=0° هي (____).',a:'(1,0)',e:'(1,0).'},
+      {t:'f',q:'إحداثيات نقطة التقاطع مع دائرة الوحدة عند θ=90° هي (____).',a:'(0,1)',e:'(0,1).'},
+      {t:'m',q:'إذا كانت جا θ = 0.5 وθ في الربع الأول، فـ θ = :',o:['30°','45°','60°','90°'],a:0,e:'جا 30°=0.5.'},
+      {t:'b',q:'قيمة جا θ تتراوح دائماً بين -1 و1.',a:true,e:'نعم.'},
+      {t:'m',q:'قيمة 2جا30°×جتا30° = :',o:['√3/4','√3/2','1/2','1'],a:1,e:'2×(1/2)×(√3/2)=√3/2.'},
+      {t:'m',q:'إذا كانت النقطة (-√3/2,-1/2) على دائرة الوحدة فجتا θ = :',o:['√3/2','-√3/2','1/2','-1/2'],a:1,e:'جتا θ=x=-√3/2.'},
+      {t:'f',q:'جا(π/6) = ____.',a:'1/2',e:'π/6=30°، جا 30°=1/2.'},
+      {t:'f',q:'جتا(π/3) = ____.',a:'1/2',e:'π/3=60°، جتا 60°=1/2.'},
+      {t:'m',q:'قيمة جا²45°+جتا²45° = :',o:['0','1','√2','2'],a:1,e:'(√2/2)²+(√2/2)²=1/2+1/2=1.'},
+      {t:'m',q:'في الربع الأول كل الاقترانات المثلثية:',o:['سالبة','موجبة','صفر','غير معرفة'],a:1,e:'كلها موجبة في الربع الأول.'},
+      {t:'f',q:'جتا(π/4)+جا(π/4) = ____.',a:'√2',e:'√2/2+√2/2=√2.'},
+      {t:'m',q:'إذا كانت النقطة (س,ص) على دائرة نصف قطرها ر، فجا θ = :',o:['ص/ر','س/ر','ص/س','ر/ص'],a:0,e:'جا θ=ص/ر.'},
+      {t:'b',q:'جا θ دالة فردية وجتا θ دالة زوجية.',a:true,e:'نعم.'},
+      {t:'f',q:'إذا كانت النقطة (0,1) على دائرة الوحدة فجا θ = ____.',a:'1',e:'جا θ=y=1.'},
+      {t:'m',q:'إذا كانت جا θ = 3/5 في الربع الأول، فجتا θ = :',o:['4/5','3/4','5/4','1/5'],a:0,e:'جتا θ=√(1-9/25)=4/5.'},
+      {t:'m',q:'إذا كانت جتا θ = -4/5 في الربع الثاني، فجا θ = :',o:['3/5','-3/5','4/5','-4/5'],a:0,e:'جا θ=√(1-16/25)=3/5 (موجب في الربع الثاني).'},
+      {t:'m',q:'جا 360° + جتا 270° = :',o:['0','1','-1','2'],a:2,e:'0+(-1)=-1.'},
+      {t:'b',q:'ظا θ معرف لجميع قيم θ.',a:false,e:'خطأ، غير معرف عند 90°+180n°.'},
+      {t:'f',q:'إذا كانت جا θ=5/13 في الربع الأول، فظا θ = ____.',a:'5/12',e:'جتا θ=12/13، ظا θ=5/12.'},
+      {t:'m',q:'جتا 270° = :',o:['0','1','-1','غير معرف'],a:0,e:'جتا 270°=0.'},
+      {t:'m',q:'جا(π/2) = :',o:['0','1','-1','√2/2'],a:1,e:'جا(π/2)=جا 90°=1.'},
+      {t:'m',q:'جتا(π) = :',o:['0','1','-1','√2/2'],a:2,e:'جتا(π)=جتا 180°=-1.'},
+      {t:'b',q:'جا(θ+360°)=جا θ.',a:true,e:'الدالة الجيبية دورية بدورة 360°.'},
+      {t:'f',q:'جا 150° = ____.',a:'1/2',e:'جا 150°=جا 30°=1/2.'},
+      {t:'m',q:'إذا كانت جا θ=1/2 وθ في الربع الثاني، فجتا θ = :',o:['√3/2','-√3/2','1/2','-1/2'],a:1,e:'في الربع الثاني جتا θ سالبة، جتا θ=-√3/2.'},
+      {t:'f',q:'جتا 150° = ____.',a:'-√3/2',e:'جتا 150°=-جتا 30°=-√3/2.'},
+      {t:'m',q:'قيمة جا 90°+جتا 0°:',o:['0','1','2','غير معرف'],a:2,e:'1+1=2.'},
+      {t:'b',q:'مدى جتا θ هو [-1,1].',a:true,e:'نعم.'},
+      {t:'m',q:'جتا(π/6) = :',o:['1/2','√3/2','√2/2','1'],a:1,e:'جتا 30°=√3/2.'},
+      {t:'f',q:'جا 270° + جتا 180° = ____.',a:'-2',e:'-1+(-1)=-2.'},
+      {t:'m',q:'إذا كانت النقطة (0,-1) على دائرة الوحدة، ظا θ = :',o:['0','1','-1','غير معرف'],a:3,e:'ظا θ=y/x=-1/0 غير معرف.'}
+    ]},
+    { title:'المتطابقات والمعادلات المثلثية', num:'الدرس الخامس', qs:[
+      {t:'m',q:'المتطابقة المثلثية الأساسية:',o:['جا θ+جتا θ=1','جا²θ+جتا²θ=1','جا θ×جتا θ=1','جا θ-جتا θ=0'],a:1,e:'جا²θ+جتا²θ=1.'},
+      {t:'m',q:'1-جا²θ = :',o:['جا²θ','جتا²θ','ظا²θ','1'],a:1,e:'جتا²θ=1-جا²θ.'},
+      {t:'m',q:'ظا θ = :',o:['جا θ×جتا θ','جا θ/جتا θ','جتا θ/جا θ','1/جا θ'],a:1,e:'ظا θ=جا θ/جتا θ.'},
+      {t:'m',q:'جا(α+β) = :',o:['جا α+جا β','جا α جتا β+جتا α جا β','جا α جتا β-جتا α جا β','جتا α جتا β-جا α جا β'],a:1,e:'جا(α+β)=جا α جتا β+جتا α جا β.'},
+      {t:'m',q:'جتا(α+β) = :',o:['جتا α جتا β+جا α جا β','جتا α جتا β-جا α جا β','جا α جتا β+جتا α جا β','جا α جا β-جتا α جتا β'],a:1,e:'جتا(α+β)=جتا α جتا β-جا α جا β.'},
+      {t:'m',q:'جا 2θ = :',o:['2 جا θ','2 جا θ جتا θ','جا²θ-جتا²θ','2 جتا θ'],a:1,e:'جا 2θ=2جا θ جتا θ.'},
+      {t:'f',q:'جا(90°-θ) = ____.',a:'جتا θ',e:'جا(90°-θ)=جتا θ.'},
+      {t:'f',q:'جتا(90°-θ) = ____.',a:'جا θ',e:'جتا(90°-θ)=جا θ.'},
+      {t:'b',q:'جا(α-β)=جا α جتا β-جتا α جا β.',a:true,e:'نعم.'},
+      {t:'b',q:'جتا(α-β)=جتا α جتا β-جا α جا β.',a:false,e:'خطأ، جتا(α-β)=جتا α جتا β+جا α جا β.'},
+      {t:'m',q:'ما قيمة θ في [0°,360°] إذا كانت جا θ=0؟',o:['0° فقط','180° فقط','0° و180°','0° و180° و360°'],a:3,e:'جا θ=0 عند 0°,180°,360°.'},
+      {t:'m',q:'ما قيمة θ في [0°,360°] إذا كانت جا θ=1؟',o:['0°','90°','180°','270°'],a:1,e:'جا 90°=1.'},
+      {t:'m',q:'ما قيمة θ في [0°,360°] إذا كانت جتا θ=0؟',o:['0° و360°','90° و270°','180° و360°','0° و180°'],a:1,e:'جتا θ=0 عند 90° و270°.'},
+      {t:'f',q:'إذا كانت جا θ=√3/2، فـ θ في [0°,360°] = ____ أو ____.',a:'60° أو 120°',e:'في الربعين الأول والثاني.'},
+      {t:'f',q:'إذا كانت جتا θ=-1/2، فـ θ في [0°,360°] = ____ أو ____.',a:'120° أو 240°',e:'في الربعين الثاني والثالث.'},
+      {t:'m',q:'المعادلة جا θ=0.5 في [0°,360°] لها:',o:['حل واحد','حلان','ثلاثة','لا حل'],a:1,e:'30° و150°.'},
+      {t:'b',q:'المتطابقة جا²θ+جتا²θ=1 تصح لجميع قيم θ.',a:true,e:'نعم.'},
+      {t:'b',q:'المعادلة جا θ=2 لها حل.',a:false,e:'خطأ، مدى جا θ هو [-1,1].'},
+      {t:'m',q:'إذا كانت جا θ=3/5 في الربع الأول، فجتا θ = :',o:['4/5','3/4','5/4','1/5'],a:0,e:'جتا θ=4/5.'},
+      {t:'f',q:'قيمة 2جا45°×جتا45° = ____.',a:'1',e:'2×(√2/2)×(√2/2)=1=جا 90°.'},
+      {t:'m',q:'حلول 2جا θ-1=0 في [0°,360°]:',o:['30° فقط','30° و150°','60° و120°','150° فقط'],a:1,e:'جا θ=1/2 إذن 30° و150°.'},
+      {t:'m',q:'حلول جتا θ=-√3/2 في [0°,360°]:',o:['30° و150°','120° و240°','150° و210°','60° و300°'],a:2,e:'150° و210°.'},
+      {t:'f',q:'جا 2θ عند θ=30° = ____.',a:'√3/2',e:'جا 60°=√3/2.'},
+      {t:'m',q:'قيمة جتا²60°-جا²60° = :',o:['1/2','-1/2','√3/2','-√3/2'],a:1,e:'(1/2)²-(√3/2)²=1/4-3/4=-1/2.'},
+      {t:'b',q:'جا(θ+360°)=جا θ.',a:true,e:'نعم، دورة 360°.'},
+      {t:'b',q:'جتا(θ+180°)=جتا θ.',a:false,e:'خطأ، جتا(θ+180°)=-جتا θ.'},
+      {t:'f',q:'جا(π-θ) = ____.',a:'جا θ',e:'جا(π-θ)=جا θ.'},
+      {t:'m',q:'قيمة جتا60°-جا30° = :',o:['0','1','√3/2-1/2','1/2'],a:0,e:'1/2-1/2=0.'},
+      {t:'f',q:'جا θ/جتا θ = ____.',a:'ظا θ',e:'هذا تعريف ظا θ.'},
+      {t:'m',q:'إذا كانت جا θ=√2/2، فأحد حلول θ في [0°,360°]:',o:['30°','45°','60°','90°'],a:1,e:'جا 45°=√2/2.'},
+      {t:'f',q:'إذا كانت ظا θ=1، فـ θ في [0°,360°) = ____ أو ____.',a:'45° أو 225°',e:'ظا θ=1 عند 45° و225°.'},
+      {t:'m',q:'قيمة جا 90°+جتا 90° = :',o:['0','1','2','غير معرف'],a:1,e:'1+0=1.'},
+      {t:'m',q:'قيمة 2جا60°جتا60° = :',o:['√3/2','√3','1','1/2'],a:0,e:'2×(√3/2)×(1/2)=√3/2.'},
+      {t:'b',q:'جا(2θ)=2جا θ لجميع قيم θ.',a:false,e:'خطأ، جا(2θ)=2جا θ جتا θ.'},
+      {t:'m',q:'إذا كانت جتا θ=-4/5 في الربع الثالث، فجا θ = :',o:['3/5','-3/5','4/5','-4/5'],a:1,e:'في الربع الثالث جا θ سالبة: جا θ=-3/5.'},
+      {t:'f',q:'إذا كانت جا θ=-√3/2 وθ في الربع الثالث، فـ θ = ____.',a:'240°',e:'240° في الربع الثالث.'},
+      {t:'b',q:'المعادلة جتا θ=-2 لها حلول.',a:false,e:'خطأ، مدى جتا θ=[-1,1].'},
+      {t:'m',q:'جا(α+β)+جا(α-β) = :',o:['2جا α','2جا β','2جا α جتا β','2جتا α جتا β'],a:2,e:'2جا α جتا β.'},
+      {t:'m',q:'الحل العام لجتا θ=0:',o:['θ=n×90°','θ=n×180°','θ=90°+n×180°','θ=n×360°'],a:2,e:'جتا θ=0 عند θ=90°+n×180°.'},
+      {t:'f',q:'إذا كانت جا θ=a، فجا(π-θ) = ____.',a:'a',e:'جا(π-θ)=جا θ=a.'},
+      {t:'m',q:'قيمة جا15° باستخدام 15°=45°-30°:',o:['(√6-√2)/4','(√6+√2)/4','(√3-1)/4','(√3+1)/4'],a:0,e:'جا(45°-30°)=(√6-√2)/4.'},
+      {t:'m',q:'قيمة جا75° باستخدام 75°=45°+30°:',o:['(√6+√2)/4','(√6-√2)/4','(√3+1)/4','(√3-1)/4'],a:0,e:'جا(45°+30°)=(√6+√2)/4.'},
+      {t:'b',q:'جا²θ=( 1-جتا2θ)/2.',a:true,e:'من متطابقة الزاوية المضاعفة.'},
+      {t:'f',q:'قيمة جا²30°+جتا²60° = ____.',a:'1/2',e:'(1/2)²+(1/2)²=1/4+1/4=1/2.'},
+      {t:'m',q:'إذا كانت جا θ=1/2 في الربع الأول، فجا 2θ = :',o:['√3/4','√3/2','1/2','1'],a:1,e:'جتا θ=√3/2، جا2θ=2×(1/2)×(√3/2)=√3/2.'},
+      {t:'m',q:'جتا 2θ عند θ=30° = :',o:['1/2','√3/2','1/4','3/4'],a:0,e:'جتا 60°=1/2.'},
+      {t:'f',q:'الحل العام لجا θ=0 هو θ = ____.',a:'n×180° حيث n عدد صحيح',e:'عند 0°, 180°, 360°,...'},
+      {t:'m',q:'قيمة جا²45°-جتا²45° = :',o:['0','1','-1','√2'],a:0,e:'(√2/2)²-(√2/2)²=0.'},
+      {t:'b',q:'كل متطابقة تصح لجميع قيم المتغير في مجالها.',a:true,e:'نعم، هذا تعريف المتطابقة.'},
+      {t:'m',q:'قيمة جتا 75° باستخدام جتا(45°+30°):',o:['(√6+√2)/4','(√6-√2)/4','(√2-√6)/4','(1-√3)/4'],a:1,e:'جتا 75°=(√6-√2)/4.'},
+      {t:'f',q:'جا(α+β)+جا(α-β)=2جا α جتا β، إذن جا50°جتا10°+جا10°جتا50° = ____.',a:'جا60°=√3/2',e:'جا(50°+10°)=جا60°=√3/2.'}
+    ]}
+  ]},
+  { name:'الهندسة', num:'الوحدة الخامسة', lessons:[
+    { title:'الإنشاءات الهندسية', num:'الدرس الأول', qs:[
+      {t:'m',q:'أدوات الإنشاء الهندسي هي:',o:['المسطرة والمنقلة','البركار والمسطرة غير المدرجة','الآلة الحاسبة والمسطرة','القلم والمنقلة'],a:1,e:'البركار والمسطرة غير المدرجة.'},
+      {t:'m',q:'المستقيم العمودي الناصف يمر بـ:',o:['أي نقطة','منتصف القطعة ويعمد عليها','رأس القطعة','موازياً للقطعة'],a:1,e:'يمر بمنتصف القطعة ويعمد عليها.'},
+      {t:'m',q:'منصف الزاوية يقسمها إلى:',o:['قسمين متساويين','ثلاثة أقسام','ربعين','أي تقسيم'],a:0,e:'منصف الزاوية يقسمها إلى قسمين متساويين.'},
+      {t:'m',q:'مركز الدائرة المحاطة بالمثلث خارجاً (المحاطة الخارجية) هو تقاطع:',o:['منصفات الزوايا','الأعمدة الناصفة للأضلاع','الأوسطة','الارتفاعات'],a:1,e:'تقاطع الأعمدة الناصفة للأضلاع.'},
+      {t:'m',q:'مركز الدائرة المحاطة بالمثلث داخلاً هو تقاطع:',o:['الأعمدة الناصفة','منصفات الزوايا','الأوسطة','الارتفاعات'],a:1,e:'تقاطع منصفات الزوايا.'},
+      {t:'m',q:'الوسيط في المثلث يصل بين:',o:['رأسين','رأس ومنتصف الضلع المقابل','منتصفي ضلعين','رأس ومركز الدائرة'],a:1,e:'الوسيط يصل الرأس بمنتصف الضلع المقابل.'},
+      {t:'m',q:'نقطة تقاطع الأوسطة تقسم كل وسيط من الرأس بنسبة:',o:['1:1','1:2','2:1','1:3'],a:2,e:'تقسمه 2:1 من الرأس.'},
+      {t:'m',q:'الزاوية الداخلية للمثلث المتساوي الأضلاع = :',o:['45°','60°','90°','120°'],a:1,e:'(3-2)×180°/3=60°.'},
+      {t:'m',q:'مجموع زوايا أي مثلث = :',o:['90°','180°','270°','360°'],a:1,e:'180°.'},
+      {t:'m',q:'مجموع زوايا المضلع الرباعي = :',o:['180°','270°','360°','540°'],a:2,e:'360°.'},
+      {t:'m',q:'الزاوية الداخلية للمسدس المنتظم = :',o:['90°','108°','120°','135°'],a:2,e:'(6-2)×180°/6=120°.'},
+      {t:'m',q:'الزاوية الداخلية للمخمس المنتظم = :',o:['90°','100°','108°','120°'],a:2,e:'(5-2)×180°/5=108°.'},
+      {t:'m',q:'مجموع زوايا المثمن = :',o:['720°','900°','1080°','1440°'],a:2,e:'(8-2)×180°=1080°.'},
+      {t:'m',q:'الزاوية الداخلية للمثمن المنتظم = :',o:['120°','125°','135°','140°'],a:2,e:'(8-2)×180°/8=135°.'},
+      {t:'m',q:'مجموع زوايا المخمس = :',o:['360°','450°','540°','720°'],a:2,e:'(5-2)×180°=540°.'},
+      {t:'m',q:'ارتفاع المثلث المتساوي الأضلاع بضلع a = :',o:['a','a√3/2','a/2','a√2'],a:1,e:'الارتفاع = a√3/2.'},
+      {t:'b',q:'يمكن إنشاء زاوية 60° بالبركار والمسطرة.',a:true,e:'نعم.'},
+      {t:'b',q:'يمكن إنشاء زاوية 90° بتنصيف زاوية 180°.',a:true,e:'نعم، نصف 180°=90°.'},
+      {t:'b',q:'يمكن إنشاء زاوية 20° بالبركار والمسطرة وحدهما.',a:false,e:'خطأ، لا يمكن إنشاء 20° بالبركار والمسطرة.'},
+      {t:'b',q:'الإنشاء الهندسي يعتمد على التخمين.',a:false,e:'خطأ، يعتمد على البركار والمسطرة الدقيقة.'},
+      {t:'f',q:'المستقيم الذي يمر بمنتصف الضلع ويعمد عليه يسمى ____.',a:'العمود الناصف',e:'العمود الناصف.'},
+      {t:'f',q:'منصف زاوية المثلث يقسمها إلى زاويتين ____.',a:'متساويتين',e:'متساويتين.'},
+      {t:'f',q:'الزاوية 45° = نصف الزاوية ____.',a:'90°',e:'45°=90°/2.'},
+      {t:'f',q:'الزاوية 30° = نصف الزاوية ____.',a:'60°',e:'30°=60°/2.'},
+      {t:'m',q:'الزاوية الخارجية للمثلث تساوي:',o:['مجموع الزاويتين الداخليتين غير المجاورتين لها','الزاوية الداخلية المجاورة','180° زائد الزاوية','ضعف الزاوية الداخلية المقابلة'],a:0,e:'الزاوية الخارجية = مجموع الزاويتين الداخليتين غير المجاورتين.'},
+      {t:'m',q:'مثلث بأضلاع 3,4,5: الزاوية المقابلة للضلع 5:',o:['30°','45°','60°','90°'],a:3,e:'3²+4²=5² إذن زاوية قائمة.'},
+      {t:'b',q:'كل نقطة على العمود الناصف لقطعة تبعد بالتساوي عن طرفي القطعة.',a:true,e:'نعم.'},
+      {t:'b',q:'الأعمدة الناصفة لأضلاع المثلث تلتقي في نقطة واحدة.',a:true,e:'نعم.'},
+      {t:'f',q:'مجموع زوايا المسبع = ____ درجة.',a:'900',e:'(7-2)×180°=900°.'},
+      {t:'f',q:'الزاوية الداخلية للمربع = ____ درجة.',a:'90',e:'(4-2)×180°/4=90°.'},
+      {t:'m',q:'نقطة تقاطع ارتفاعات المثلث تسمى:',o:['الثقل','المركز الخارجي','المركز الداخلي','المتعامد'],a:3,e:'تسمى المتعامد (Orthocenter).'},
+      {t:'m',q:'الخط الواصل بين منتصفي ضلعين في مثلث:',o:['يساوي الضلع الثالث','يساوي نصف الضلع الثالث ويوازيه','يعمد على الضلع الثالث','يمر بمركز الثقل'],a:1,e:'قضية المنتصفات: يساوي نصف الضلع الثالث ويوازيه.'},
+      {t:'m',q:'لإنشاء مثلث متساوي الأضلاع بضلع 4سم نضع البركار بفتح:',o:['2سم','3سم','4سم','8سم'],a:2,e:'نضع فتح البركار = طول الضلع = 4سم.'},
+      {t:'b',q:'في المثلث القائم الوتر هو أطول ضلع.',a:true,e:'نعم.'},
+      {t:'b',q:'يمكن تشكيل مثلث بأضلاع 2،3،6.',a:false,e:'خطأ، 2+3=5<6 لا يتشكل مثلث.'},
+      {t:'f',q:'نقطة تقاطع منصفات الزوايا تسمى ____.',a:'المركز الداخلي',e:'المركز الداخلي.'},
+      {t:'f',q:'نقطة تقاطع الأوسطة تسمى ____.',a:'مركز الثقل',e:'مركز الثقل.'},
+      {t:'m',q:'الزاوية 30° تُنشأ بـ:',o:['تنصيف 45°','تنصيف 60°','رسمها مباشرة بالبركار','إنشاء مثلث قائم'],a:1,e:'30° = نصف 60°.'},
+      {t:'m',q:'المستطيل له كم زاوية قائمة؟',o:['1','2','3','4'],a:3,e:'4 زوايا قائمة.'},
+      {t:'f',q:'مجموع زوايا العشاري = ____ درجة.',a:'1440',e:'(10-2)×180°=1440°.'},
+      {t:'f',q:'الزاوية الخارجية للمثلث المتساوي الأضلاع = ____ درجة.',a:'120',e:'180°-60°=120°.'},
+      {t:'m',q:'أضلاع مثلث يمكن تشكيله:',o:['2,3,6','1,1,3','3,4,5','1,2,10'],a:2,e:'3+4>5, 3+5>4, 4+5>3 إذن يمكن تشكيله.'},
+      {t:'m',q:'الزاوية الداخلية للمثلث المتساوي الأضلاع = :',o:['45°','60°','90°','120°'],a:1,e:'60°.'},
+      {t:'b',q:'يمكن إنشاء مسدس منتظم بالبركار والمسطرة.',a:true,e:'نعم.'},
+      {t:'m',q:'محيط المستطيل = :',o:['طول × عرض','2(طول+عرض)','طول+عرض','طول²+عرض²'],a:1,e:'المحيط = 2(الطول+العرض).'},
+      {t:'m',q:'محيط المربع = :',o:['ضلع²','4×ضلع','2×ضلع','ضلع/4'],a:1,e:'المحيط = 4×الضلع.'},
+      {t:'f',q:'الزاوية 15° = نصف الزاوية ____.',a:'30°',e:'15°=30°/2.'},
+      {t:'m',q:'الارتفاع في المثلث هو:',o:['وسيط','عمود من الرأس على الضلع المقابل','منصف الزاوية','العمود الناصف للضلع'],a:1,e:'الارتفاع عمود من الرأس على الضلع المقابل.'},
+      {t:'m',q:'مجموع زوايا المضلع ذي 12 ضلعاً = :',o:['1440°','1620°','1800°','2160°'],a:2,e:'(12-2)×180°=1800°.'},
+      {t:'b',q:'المسطرة المستخدمة في الإنشاء غير مدرجة.',a:true,e:'نعم.'},
+      {t:'f',q:'الزاوية الداخلية للعشاري المنتظم = ____ درجة.',a:'144',e:'(10-2)×180°/10=144°.'},
+      {t:'m',q:'لتنصيف قطعة مستقيمة نستخدم:',o:['المسطرة فقط','البركار فقط','البركار والمسطرة','المنقلة'],a:2,e:'البركار والمسطرة.'},
+      {t:'b',q:'يمكن إنشاء زاوية 75° بالبركار والمسطرة.',a:true,e:'نعم، 75°=45°+30°.'},
+      {t:'m',q:'الزاوية الداخلية للمربع = :',o:['45°','60°','90°','120°'],a:2,e:'90°.'},
+      {t:'m',q:'مثلث بزاوية قائمة هو:',o:['متساوي الأضلاع','متساوي الساقين','قائم الزاوية','حاد الزوايا'],a:2,e:'يسمى مثلثاً قائم الزاوية.'},
+      {t:'f',q:'محيط دائرة الوحدة = ____.',a:'2π',e:'المحيط = 2π×1 = 2π.'},
+      {t:'m',q:'مثلث يمكن تشكيله إذا كان مجموع أي ضلعين:',o:['مساوياً للثالث','أصغر من الثالث','أكبر من الثالث','لا شرط'],a:2,e:'يجب أن يكون مجموع أي ضلعين أكبر من الثالث.'},
+      {t:'b',q:'ضلع 4 وضلع 5 يمكن أن يكونا ضلعَي مثلث مع ضلع 9.',a:false,e:'خطأ، 4+5=9 وليس أكبر من 9.'},
+      {t:'f',q:'ضلع المثلث القائم المقابل للزاوية القائمة يسمى ____.',a:'الوتر',e:'يسمى الوتر.'},
+      {t:'m',q:'خاصية الوتر في المثلث القائم: أ²+ب² = :',o:['جـ','جـ²','جـ/2','2جـ'],a:1,e:'أ²+ب²=جـ² (نظرية فيثاغورس).'},
+      {t:'b',q:'الأعمدة الناصفة لأضلاع المثلث تلتقي داخل المثلث دائماً.',a:false,e:'خطأ، في المثلث المنفرج قد تلتقي خارجه.'},
+      {t:'f',q:'مجموع زوايا المثلث = ____ درجة.',a:'180',e:'180°.'},
+      {t:'m',q:'مثلث قائم ساقاه 6 و8، وتره:',o:['10','14','48','√28'],a:0,e:'√(36+64)=√100=10.'},
+      {t:'b',q:'يمكن إنشاء زاوية 120° بالبركار والمسطرة.',a:true,e:'نعم، 120°=180°-60°.'},
+      {t:'m',q:'مساحة الدائرة = :',o:['2πr','πr²','πd','2πr²'],a:1,e:'مساحة الدائرة = πr².'},
+      {t:'f',q:'الزاوية الداخلية للمسدس المنتظم = ____ درجة.',a:'120',e:'(6-2)×180°/6=120°.'},
+      {t:'b',q:'كل مثلث متساوي الأضلاع هو متساوي الساقين.',a:true,e:'نعم، لأنه يمتلك ضلعين متساويين (بل ثلاثة).'},
+      {t:'m',q:'مجموع الزوايا الخارجية لأي مضلع محدب = :',o:['180°','270°','360°','540°'],a:2,e:'مجموع الزوايا الخارجية = 360°.'},
+      {t:'f',q:'عدد أضلاع المثمن = ____.',a:'8',e:'المثمن له 8 أضلاع.'}
+    ]},
+    { title:'تكافؤ الأشكال الهندسية', num:'الدرس الخامس', qs:[
+      {t:'m',q:'شكلان هندسيان متكافئان إذا كانا:',o:['متطابقين تماماً','متساويين في المساحة','متشابهين','متساويين في المحيط'],a:1,e:'التكافؤ = التساوي في المساحة.'},
+      {t:'m',q:'مساحة المثلث = :',o:['قاعدة×ارتفاع','(قاعدة×ارتفاع)/2','قاعدة+ارتفاع','قاعدة²'],a:1,e:'(القاعدة×الارتفاع)/2.'},
+      {t:'m',q:'مثلث قاعدته 6سم وارتفاعه 4سم، مساحته:',o:['24','12','10','8'],a:1,e:'(6×4)/2=12 سم².'},
+      {t:'m',q:'مساحة متوازي الأضلاع = :',o:['قاعدة×ارتفاع','(قاعدة×ارتفاع)/2','قاعدة²','قاعدة+ارتفاع'],a:0,e:'القاعدة×الارتفاع.'},
+      {t:'m',q:'مساحة شبه المنحرف = :',o:['(مجموع القاعدتين×الارتفاع)/2','قاعدة×ارتفاع','(قاعدة+ارتفاع)/2','قاعدة²×ارتفاع'],a:0,e:'(a+b)×h/2.'},
+      {t:'f',q:'مساحة شبه منحرف قاعدتاه 6 و10 وارتفاعه 4 = ____.',a:'32',e:'(6+10)×4/2=32 سم².'},
+      {t:'m',q:'مساحة المعين = :',o:['قاعدة×ارتفاع','(قطر1×قطر2)/2','قاعدة×قاعدة','ضلع²'],a:1,e:'(d1×d2)/2.'},
+      {t:'f',q:'معين قطراه 8 و6، مساحته = ____.',a:'24',e:'(8×6)/2=24 سم².'},
+      {t:'m',q:'مساحة المستطيل = :',o:['طول+عرض','طول×عرض','(طول+عرض)/2','(طول×عرض)/2'],a:1,e:'الطول×العرض.'},
+      {t:'f',q:'مساحة مربع ضلعه 7سم = ____.',a:'49',e:'7²=49 سم².'},
+      {t:'m',q:'مثلث ومتوازي أضلاع لهما نفس القاعدة والارتفاع:',o:['مساحتاهما متساويتان','مساحة المثلث ضعف متوازي الأضلاع','مساحة متوازي الأضلاع ضعف مساحة المثلث','لا علاقة'],a:2,e:'مساحة متوازي الأضلاع = ضعف مساحة المثلث.'},
+      {t:'b',q:'مثلثان على نفس القاعدة وبين نفس المتوازيين متكافئان.',a:true,e:'نعم، لهما نفس القاعدة والارتفاع.'},
+      {t:'b',q:'التكافؤ والتطابق مصطلحان بمعنى واحد.',a:false,e:'خطأ، التطابق أشمل.'},
+      {t:'f',q:'مساحة متوازي أضلاع قاعدته 10 وارتفاعه 7 = ____.',a:'70',e:'10×7=70 سم².'},
+      {t:'m',q:'مثلث مساحته 24سم² وقاعدته 8سم، ارتفاعه = :',o:['3','4','6','8'],a:2,e:'24=(8×h)/2 إذن h=6.'},
+      {t:'m',q:'مساحة الدائرة = :',o:['2πr','πr²','πd','2πr²'],a:1,e:'πr².'},
+      {t:'f',q:'دائرة نصف قطرها 5، مساحتها = ____.',a:'25π',e:'π×25=25π.'},
+      {t:'m',q:'إذا ضاعفنا ضلع مربع، تصبح مساحته:',o:['ضعف الأصلية','ثلاثة أضعاف','أربعة أضعاف','لا تتغير'],a:2,e:'(2s)²=4s².'},
+      {t:'f',q:'مستطيل مساحته 60 وطوله 12، عرضه = ____.',a:'5',e:'60/12=5 سم.'},
+      {t:'m',q:'مثلث قاعدته 10 ومساحته 35، ارتفاعه = :',o:['3','7','14','35'],a:1,e:'35=(10×h)/2 إذن h=7.'},
+      {t:'b',q:'كل شكلين متطابقين هما متكافئان.',a:true,e:'نعم.'},
+      {t:'b',q:'كل شكلين متكافئين هما متطابقان.',a:false,e:'خطأ، يمكن أن يكونا متكافئين بدون تطابق.'},
+      {t:'f',q:'مساحة مثلث قائم ساقاه 6 و8 = ____.',a:'24',e:'(6×8)/2=24 سم².'},
+      {t:'m',q:'قطر متوازي الأضلاع يقسمه إلى:',o:['أربعة أجزاء','مثلثين متطابقين','مثلثين متكافئين','مستطيلين'],a:2,e:'مثلثين متكافئين.'},
+      {t:'f',q:'شبه منحرف قاعدتاه 4 و8 وارتفاعه 5، مساحته = ____.',a:'30',e:'(4+8)×5/2=30 سم².'},
+      {t:'m',q:'الوسيط في المثلث يقسمه إلى مثلثين:',o:['متطابقين','متكافئين','متشابهين','غير مترابطين'],a:1,e:'متكافئين (نفس المساحة).'},
+      {t:'f',q:'مساحة معين قطراه 10 و8 = ____.',a:'40',e:'(10×8)/2=40 سم².'},
+      {t:'f',q:'متوازي أضلاع مساحته 56 وقاعدته 8، ارتفاعه = ____.',a:'7',e:'56/8=7.'},
+      {t:'m',q:'إذا كان طول مستطيل ضعف عرضه ومساحته 72، عرضه = :',o:['3','6','9','12'],a:1,e:'2w×w=72 إذن w=6.'},
+      {t:'m',q:'مساحة مثلث متساوي الأضلاع بضلع a = :',o:['a²','a√3/4','a²√3/4','a√3'],a:2,e:'المساحة=(√3/4)×a².'},
+      {t:'f',q:'مساحة مثلث متساوي الأضلاع بضلع 4 = ____.',a:'4√3',e:'(√3/4)×16=4√3 سم².'},
+      {t:'m',q:'ربط منتصفات أضلاع المثلث ينتج:',o:['مثلثاً أصغر','أربعة مثلثات متكافئة','ثلاثة مستطيلات','مربعاً'],a:1,e:'4 مثلثات متكافئة.'},
+      {t:'f',q:'مثلث مساحته 50 وارتفاعه 10، قاعدته = ____.',a:'10',e:'50=(b×10)/2 إذن b=10.'},
+      {t:'m',q:'مساحة مستطيل طوله 8 وعرضه 5 = :',o:['13','26','40','80'],a:2,e:'8×5=40 سم².'},
+      {t:'m',q:'متوازي أضلاع قاعدته 5 وارتفاعه 4، مساحته = :',o:['9','20','10','40'],a:1,e:'5×4=20 سم².'},
+      {t:'b',q:'قطر متوازي الأضلاع يقسمه إلى مثلثين متكافئين.',a:true,e:'نعم.'},
+      {t:'b',q:'كل مستطيلات متساوية المساحة متكافئة.',a:true,e:'نعم.'},
+      {t:'f',q:'شبه منحرف مساحته 40 وقاعدتاه 6 و10، ارتفاعه = ____.',a:'5',e:'40=(16/2)×h=8h إذن h=5.'},
+      {t:'m',q:'مثلث مساحته 35 وقاعدته 7، ارتفاعه = :',o:['5','10','70','17.5'],a:1,e:'35=(7×h)/2 إذن h=10.'},
+      {t:'f',q:'معين مساحته 72 وأحد قطريه 12، القطر الآخر = ____.',a:'12',e:'72=(12×d2)/2 إذن d2=12.'},
+      {t:'m',q:'مثلث ومستطيل لهما نفس المساحة، يُقال إنهما:',o:['متطابقان','متشابهان','متكافئان','متقابلان'],a:2,e:'متكافئان.'},
+      {t:'f',q:'دائرة قطرها 10، مساحتها = ____.',a:'25π',e:'نصف القطر=5، مساحة=25π.'},
+      {t:'m',q:'التحويلات التي تحفظ المساحة هي:',o:['الانعكاس والتمدد','الإزاحة والدوران والانعكاس','التمدد فقط','لا شيء'],a:1,e:'الإزاحة والدوران والانعكاس تحفظ المساحة.'},
+      {t:'f',q:'مستطيل طوله ضعف عرضه ومحيطه 36، عرضه = ____.',a:'6',e:'2(2w+w)=36 إذن 6w=36, w=6.'},
+      {t:'m',q:'قطعنا متوازي أضلاع بقطريه إلى 4 مثلثات، كل مثلث مساحته:',o:['ربع مساحة متوازي الأضلاع','نصفه','ثلثه','مساويه'],a:0,e:'كل مثلث يساوي ربع المساحة.'},
+      {t:'b',q:'وسيط المثلث يقسمه إلى مثلثين متساويي المساحة.',a:true,e:'نعم.'},
+      {t:'f',q:'متوازي أضلاع قاعدته 9 وضلعه 6 والزاوية 30°، مساحته = ____.',a:'27',e:'9×6×جا30°=54×0.5=27 سم².'},
+      {t:'m',q:'الشكل الذي مساحته = (d1×d2)/2 هو:',o:['المستطيل','المثلث','المعين','متوازي الأضلاع'],a:2,e:'المعين.'},
+      {t:'b',q:'المثلثات الأربعة الناتجة عن ربط منتصفات أضلاع مثلث متكافئة مع المثلث الأصلي.',a:false,e:'خطأ، كل مثلث صغير مساحته ربع مساحة الأصلي، لذا هي متكافئة مع بعضها لا مع الأصلي.'},
+      {t:'f',q:'مساحة مربع قطره 6 = ____.',a:'18',e:'الضلع=6/√2=3√2، المساحة=(3√2)²=18 سم².'},
+      {t:'m',q:'الشكلان المتطابقان هما دائماً:',o:['متكافئان','متشابهان فقط','بنفس المحيط فقط','لا علاقة'],a:0,e:'المتطابقان دائماً متكافئان لأن مساحتيهما متساويتان.'},
+      {t:'m',q:'مساحة مثلث ارتفاعه 12 ومساحته 60، قاعدته = :',o:['5','10','72','720'],a:1,e:'60=(b×12)/2 إذن b=10.'}
+    ]}
+  ]},
+  { name:'الرياضيات المالية', num:'الوحدة السادسة', lessons:[
+    { title:'الأسهم', num:'الدرس الأول', qs:[
+      {t:'m',q:'السهم هو:',o:['قرض تمنحه للشركة','حصة ملكية في رأس مال الشركة','عقد تأمين','سند دين'],a:1,e:'السهم حصة ملكية في الشركة.'},
+      {t:'m',q:'القيمة الاسمية للسهم هي:',o:['سعره في السوق','القيمة المدونة عند الإصدار','ربح السهم','قيمته عند البيع'],a:1,e:'القيمة الاسمية مدونة على السهم عند إصداره.'},
+      {t:'m',q:'سعر السهم في السوق يسمى:',o:['القيمة الاسمية','القيمة السوقية','القيمة الدفترية','القيمة الاستردادية'],a:1,e:'القيمة السوقية.'},
+      {t:'m',q:'إذا اشترى شخص 100 سهم بـ 5 دنانير/سهم، كلفته:',o:['100','500','105','5000'],a:1,e:'100×5=500 دينار.'},
+      {t:'m',q:'عائد السهم = :',o:['(ربح السهم/القيمة السوقية)×100%','القيمة السوقية×100%','(القيمة الاسمية/سعر الشراء)×100%','ربح السهم×عدد الأسهم'],a:0,e:'(ربح السهم/سعر الشراء)×100%.'},
+      {t:'m',q:'إذا كانت نسبة الأرباح 8% وقيمة السهم الاسمية 50 دينار، ربح السهم:',o:['8','4','400','0.8'],a:1,e:'8%×50=4 دنانير.'},
+      {t:'f',q:'اشترى مستثمر 200 سهم بـ 8 دنانير وباعها بـ 10، ربحه = ____ دينار.',a:'400',e:'(10-8)×200=400 دينار.'},
+      {t:'b',q:'حامل السهم يعتبر دائناً للشركة.',a:false,e:'خطأ، حامل السهم مالك (شريك) وليس دائناً.'},
+      {t:'b',q:'أرباح الأسهم مضمونة قانونياً.',a:false,e:'خطأ، تعتمد على أداء الشركة.'},
+      {t:'m',q:'رأس مال الشركة = :',o:['عدد الأسهم','القيمة الاسمية×عدد الأسهم','القيمة السوقية×عدد الأسهم','الأرباح الموزعة'],a:1,e:'القيمة الاسمية × عدد الأسهم.'},
+      {t:'f',q:'شركة رأس مالها 1,000,000 دينار وقيمة السهم الاسمية 10، عدد الأسهم = ____.',a:'100,000',e:'1,000,000/10=100,000 سهم.'},
+      {t:'m',q:'إذا كانت قيمة سهم 100 دينار وتوزيع الأرباح 10، العائد السنوي:',o:['10%','100%','1%','90%'],a:0,e:'(10/100)×100%=10%.'},
+      {t:'b',q:'الأسهم الممتازة لها أولوية في توزيع الأرباح.',a:true,e:'نعم.'},
+      {t:'m',q:'إذا ارتفع سعر السهم من 10 إلى 12 دينار، نسبة الزيادة:',o:['10%','12%','20%','2%'],a:2,e:'(12-10)/10×100%=20%.'},
+      {t:'f',q:'اشترى شخص سهماً بـ 15 ديناراً وقيمته الاسمية 10، دفع ____ دينار علاوة.',a:'5',e:'15-10=5 دنانير.'},
+      {t:'m',q:'إذا وزعت الشركة 1 دينار ربح واشترى المستثمر السهم بـ 20 ديناراً، العائد:',o:['5%','10%','20%','1%'],a:0,e:'(1/20)×100%=5%.'},
+      {t:'b',q:'قيمة السهم السوقية ثابتة.',a:false,e:'خطأ، تتغير يومياً في البورصة.'},
+      {t:'f',q:'شركة أصدرت 50,000 سهم بقيمة اسمية 2 دينار، رأس مالها = ____ دينار.',a:'100,000',e:'50,000×2=100,000.'},
+      {t:'m',q:'عائد سهم اشتري بـ 40 ديناراً ويوزع 3 دنانير ربح:',o:['3%','7.5%','40%','13%'],a:1,e:'(3/40)×100%=7.5%.'},
+      {t:'m',q:'الشركة المساهمة العامة:',o:['يملكها شخص واحد','يشترك فيها أفراد محدودون','تطرح أسهمها للاكتتاب العام','حكومية بالكامل'],a:2,e:'تطرح أسهمها للاكتتاب العام.'},
+      {t:'m',q:'الفرق بين سعر الشراء وسعر البيع للسهم يسمى:',o:['الكوبون','مكسب/خسارة رأسمالية','التوزيعات','القيمة الدفترية'],a:1,e:'المكسب أو الخسارة الرأسمالية.'},
+      {t:'f',q:'إذا وزعت شركة 5% أرباحاً وقيمة السهم الاسمية 10، ربح السهم = ____ دينار.',a:'0.5',e:'5%×10=0.5 دينار.'},
+      {t:'b',q:'حامل السهم مسؤول عن ديون الشركة بما يزيد على قيمة أسهمه.',a:false,e:'خطأ، مسؤوليته محدودة بقيمة أسهمه.'},
+      {t:'m',q:'إذا اشترى مستثمر 1000 سهم بـ 5 دنانير وارتفع السعر إلى 7، الربح:',o:['1000','2000','5000','7000'],a:1,e:'(7-5)×1000=2000 دينار.'},
+      {t:'f',q:'إذا خسر مستثمر 10% على 10,000 دينار، خسارته = ____ دينار.',a:'1000',e:'10%×10,000=1000 دينار.'},
+      {t:'m',q:'ربح الشركة 100,000 دينار وعدد الأسهم 50,000، ربح السهم:',o:['0.5','2','5','10'],a:1,e:'100,000/50,000=2 دينار.'},
+      {t:'m',q:'القيمة الدفترية للسهم = :',o:['القيمة السوقية','حقوق المساهمين/عدد الأسهم','القيمة الاسمية','الأرباح/عدد الأسهم'],a:1,e:'حقوق المساهمين/عدد الأسهم.'},
+      {t:'f',q:'مستثمر يمتلك 5% من شركة برأس مال 2,000,000، قيمة حصته = ____ دينار.',a:'100,000',e:'5%×2,000,000=100,000.'},
+      {t:'b',q:'توزيعات الأرباح تُخصم من أرباح الشركة وليس من رأس مالها.',a:true,e:'نعم.'},
+      {t:'m',q:'عدد الأسهم التي تعطيك 10% من حقوق التصويت في شركة ذات 1000 سهم:',o:['10','100','200','500'],a:1,e:'10%×1000=100 سهم.'},
+      {t:'f',q:'إذا كانت قيمة سهم السوقية 25 ديناراً وارتفعت 20%، تصبح = ____ ديناراً.',a:'30',e:'25×1.2=30 دينار.'},
+      {t:'m',q:'يقال إن السهم يتداول بعلاوة إذا كانت قيمته السوقية:',o:['أقل من الاسمية','مساوية للاسمية','أكبر من الاسمية','صفراً'],a:2,e:'التداول بعلاوة: السوقية > الاسمية.'},
+      {t:'m',q:'انخفاض سعر السهم يعني للمستثمر:',o:['ربح','خسارة رأسمالية','لا شيء','زيادة توزيعات'],a:1,e:'خسارة رأسمالية محتملة.'},
+      {t:'f',q:'مستثمر اشترى 200 سهم بـ 10 دنانير وكانت التوزيعات 8%، إجمالي التوزيعات = ____ دينار.',a:'160',e:'ربح السهم=0.8 دينار، 200×0.8=160 دينار.'},
+      {t:'m',q:'سهم قيمته الاسمية 5 يباع بـ 8 في السوق، العلاوة:',o:['3 دنانير','5 دنانير','8 دنانير','13 دنانير'],a:0,e:'8-5=3 دنانير.'},
+      {t:'f',q:'إذا انخفض سعر السهم من 20 إلى 16 ديناراً، نسبة الانخفاض = ____.',a:'20%',e:'(20-16)/20×100%=20%.'},
+      {t:'b',q:'ارتفاع أسعار الأسهم يفيد المستثمرين الذين يمتلكونها.',a:true,e:'نعم.'},
+      {t:'m',q:'الاكتتاب في أسهم شركة جديدة يعني:',o:['شراء من السوق','الاشتراك في إصدار أسهم جديدة','بيع الأسهم','الاقتراض من الشركة'],a:1,e:'الاشتراك في الإصدار الأولي.'},
+      {t:'b',q:'عدد الأسهم المصدرة يمكن أن يزيد بإصدار جديد.',a:true,e:'نعم.'},
+      {t:'m',q:'السوق الثانوية للأسهم هي سوق:',o:['إصدار جديد','تداول الأسهم المصدرة بين المستثمرين','إصدار سندات','إقراض الأموال'],a:1,e:'السوق الثانوية لتداول الأسهم المصدرة مسبقاً.'},
+      {t:'f',q:'نسبة الأرباح = (ربح السهم / ____ ) × 100%.',a:'القيمة الاسمية',e:'تُحسب على أساس القيمة الاسمية.'},
+      {t:'m',q:'السهم الممتاز يمتاز بـ:',o:['حق التصويت المطلق','أولوية في الأرباح والتصفية','ملكية أكبر','عائد مضمون'],a:1,e:'أولوية في الأرباح والتصفية.'},
+      {t:'b',q:'حامل السهم العادي يصوت في اجتماعات الشركة.',a:true,e:'نعم.'},
+      {t:'f',q:'شركة رأس مالها 500,000 دينار بقيمة اسمية 5 دنانير/سهم، عدد الأسهم = ____.',a:'100,000',e:'500,000/5=100,000.'},
+      {t:'m',q:'العائد الكلي للمستثمر في الأسهم = :',o:['التوزيعات فقط','المكسب الرأسمالي فقط','التوزيعات+المكسب الرأسمالي','لا شيء مضمون'],a:2,e:'العائد الكلي = توزيعات + مكاسب رأسمالية.'},
+      {t:'m',q:'قيمة سهم اسمية 10 دنانير يتداول بـ 7 دنانير، يقال إنه يتداول:',o:['بعلاوة','بالقيمة الاسمية','بخصم','بسعر استرداد'],a:2,e:'7<10 إذن يتداول بخصم.'},
+      {t:'f',q:'مستثمر اشترى سهماً بـ 12 وباعه بـ 15، ربحه من السهم = ____ دينار.',a:'3',e:'15-12=3 دنانير.'},
+      {t:'b',q:'الأسهم العادية لها أولوية في الأرباح قبل الممتازة.',a:false,e:'خطأ، الممتازة لها الأولوية.'},
+      {t:'m',q:'إذا كانت قيمة السهم الاسمية 10 والسوقية 15، الفرق:',o:['خسارة 5','ربح 5','لا فرق','يعتمد على الموقف'],a:1,e:'15-10=5 دنانير فرق موجب.'},
+      {t:'f',q:'إذا ربح مستثمر 15% على استثمار 20,000 دينار، ربحه = ____ دينار.',a:'3000',e:'15%×20,000=3000 دينار.'},
+      {t:'m',q:'الشركة تحقق 500,000 ربح ولديها 250,000 سهم، ربح السهم:',o:['0.5','2','5','10'],a:1,e:'500,000/250,000=2 دينار.'}
+    ]},
+    { title:'السندات والتأمين', num:'الدرس الثاني والثالث', qs:[
+      {t:'m',q:'السند هو:',o:['حصة ملكية','أداة دين تصدرها الشركات أو الحكومات','عقد تأمين','حساب مصرفي'],a:1,e:'السند أداة دين.'},
+      {t:'m',q:'الكوبون في السند هو:',o:['سعر السند','القيمة الاسمية','الفائدة الدورية','تاريخ الاستحقاق'],a:2,e:'الفائدة الدورية للسند.'},
+      {t:'m',q:'تاريخ الاستحقاق هو:',o:['تاريخ شراء السند','تاريخ دفع الفائدة','التاريخ الذي يُعاد فيه المبلغ الأصلي','تاريخ الإصدار'],a:2,e:'يوم سداد المبلغ الأصلي.'},
+      {t:'m',q:'حامل السند بالنسبة للشركة هو:',o:['مالك','دائن','مدير','مساهم'],a:1,e:'حامل السند دائن.'},
+      {t:'m',q:'سند بقيمة اسمية 1000 دينار وكوبون 8%، الفائدة السنوية:',o:['8','80','800','8000'],a:1,e:'8%×1000=80 ديناراً.'},
+      {t:'f',q:'سند بقيمة اسمية 500 وكوبون 10%، الفائدة السنوية = ____ دينار.',a:'50',e:'10%×500=50 دينار.'},
+      {t:'m',q:'الفائدة البسيطة = :',o:['P×r^t','P×r×t','P/(r×t)','P+r+t'],a:1,e:'الفائدة البسيطة = P×r×t.'},
+      {t:'m',q:'مبلغ 10,000 بفائدة 5% لـ 3 سنوات، إجمالي الفائدة:',o:['500','1500','15000','1000'],a:1,e:'10,000×5%×3=1500.'},
+      {t:'b',q:'حامل السند يحق له التصويت في اجتماعات الشركة.',a:false,e:'خطأ، حامل السند دائن لا حق له في التصويت.'},
+      {t:'b',q:'السند أكثر أماناً من السهم من حيث الدخل.',a:true,e:'نعم، فائدة السند ثابتة ومضمونة.'},
+      {t:'m',q:'إذا ارتفعت أسعار الفائدة السوقية، أسعار السندات القائمة:',o:['ترتفع','تنخفض','لا تتغير','تُلغى'],a:1,e:'علاقة عكسية: الفائدة ↑ والسندات ↓.'},
+      {t:'f',q:'سند استحقاقه 5 سنوات وكوبونه 60 دينار/سنة، إجمالي الفوائد = ____ دينار.',a:'300',e:'60×5=300 دينار.'},
+      {t:'m',q:'السند يتداول بخصم إذا كان سعره السوقي:',o:['أكبر من الاسمية','مساوياً للاسمية','أقل من الاسمية','صفراً'],a:2,e:'أقل من القيمة الاسمية.'},
+      {t:'m',q:'السند يتداول بعلاوة إذا كان سعره السوقي:',o:['أكبر من الاسمية','مساوياً للاسمية','أقل من الاسمية','صفراً'],a:0,e:'أكبر من القيمة الاسمية.'},
+      {t:'f',q:'سند اشتري بـ 800 دينار وكوبونه 60 سنوياً، العائد الجاري = ____.',a:'7.5%',e:'(60/800)×100%=7.5%.'},
+      {t:'m',q:'في حالة إفلاس الشركة يُسدد لحاملي السندات:',o:['بعد المساهمين','قبل المساهمين','بالتزامن مع المساهمين','لا شيء'],a:1,e:'حاملو السندات (الدائنون) لهم الأولوية.'},
+      {t:'m',q:'المبلغ المتراكم بالفائدة البسيطة = :',o:['P×r×t','P+P×r×t','P×(1+r)^t','P/(1+r×t)'],a:1,e:'المتراكم = P + P×r×t.'},
+      {t:'f',q:'مبلغ 5000 بفائدة 4% لسنة واحدة، الفائدة = ____ دينار.',a:'200',e:'5000×4%×1=200.'},
+      {t:'m',q:'قانون الفائدة المركبة للمبلغ المتراكم:',o:['A=P×r×t','A=P(1+r)^n','A=P+rn','A=P/r^n'],a:1,e:'A=P(1+r)^n.'},
+      {t:'f',q:'1000 دينار بفائدة مركبة 10% لسنتين، المتراكم = ____ دينار.',a:'1210',e:'1000×(1.1)²=1210.'},
+      {t:'b',q:'الفائدة المركبة تعطي عائداً أعلى من البسيطة على المدى الطويل.',a:true,e:'نعم.'},
+      {t:'b',q:'السندات الحكومية تعتبر من أأمن الاستثمارات.',a:true,e:'نعم.'},
+      {t:'f',q:'سند بكوبون 9% وقيمة اسمية 1000، الكوبون السنوي = ____ دينار.',a:'90',e:'9%×1000=90.'},
+      {t:'m',q:'التأمين هو عقد يدفع فيه المؤمَّن له أقساطاً مقابل:',o:['حصة في الشركة','تغطية مالية عند وقوع خسارة','قرض مصرفي','عائد ثابت'],a:1,e:'تغطية مالية عند وقوع الخسارة.'},
+      {t:'m',q:'القسط في التأمين هو:',o:['التعويض المدفوع عند الحادث','المبلغ الدوري الذي يدفعه المؤمَّن له','قيمة العقد الكلية','القيمة الاسمية'],a:1,e:'المبلغ الدوري.'},
+      {t:'m',q:'التعويض في التأمين هو:',o:['القسط المدفوع','المبلغ الذي تدفعه شركة التأمين عند الحادث','نوع من الربح','عمولة الوسيط'],a:1,e:'المبلغ الذي تدفعه شركة التأمين.'},
+      {t:'f',q:'قسط شهري 50 ديناراً، القسط السنوي = ____ ديناراً.',a:'600',e:'50×12=600.'},
+      {t:'m',q:'مبدأ التعويض في التأمين يعني:',o:['الربح من الحادث','إعادة المؤمَّن له لوضعه قبل الحادث','ضمان الأرباح','رد القسط'],a:1,e:'إعادة الوضع المادي لما قبل الحادث.'},
+      {t:'b',q:'التأمين يلغي المخاطر تماماً.',a:false,e:'خطأ، ينقل المخاطرة المالية إلى شركة التأمين.'},
+      {t:'b',q:'المؤمَّن له يحصل على ربح إذا لم يقع الحادث.',a:false,e:'خطأ، يفقد القسط دون تعويض.'},
+      {t:'m',q:'نسبة القسط إلى مبلغ التأمين تسمى:',o:['الكوبون','معدل القسط','معدل التعويض','معدل الخسارة'],a:1,e:'معدل القسط أو سعر التأمين.'},
+      {t:'f',q:'إذا كان مبلغ التأمين 50,000 دينار ومعدل القسط 2%، القسط السنوي = ____ دينار.',a:'1000',e:'2%×50,000=1000.'},
+      {t:'m',q:'التأمين الإلزامي في معظم الدول يشمل:',o:['التأمين على الحياة','التأمين على السيارات','التأمين على المنزل','التأمين الصحي'],a:1,e:'التأمين على السيارات إلزامي في معظم الدول.'},
+      {t:'b',q:'القسط الأعلى يعني عادةً تغطية أوسع أو مخاطر أعلى.',a:true,e:'نعم.'},
+      {t:'f',q:'منزل قيمته 80,000 دينار وقسط التأمين عليه 0.5%، القسط السنوي = ____ دينار.',a:'400',e:'0.5%×80,000=400.'},
+      {t:'m',q:'مبلغ التحمل في التأمين هو:',o:['القسط الإجمالي','الجزء الذي يتحمله المؤمَّن له من الخسارة','مبلغ التأمين كاملاً','الفائدة المضافة'],a:1,e:'الجزء الذي يتحمله المؤمَّن له قبل أن تدفع شركة التأمين.'},
+      {t:'f',q:'حادث خسارته 10,000 والتحمل 500، تعويض الشركة = ____ دينار.',a:'9500',e:'10,000-500=9500.'},
+      {t:'m',q:'مبدأ حسن النية في التأمين يعني:',o:['الثقة المطلقة','تبادل المعلومات الصحيحة الكاملة','القسط المنخفض','التعويض المسبق'],a:1,e:'إفصاح الطرفين عن المعلومات الصحيحة.'},
+      {t:'b',q:'شركات التأمين تستثمر الأقساط التي تجمعها.',a:true,e:'نعم.'},
+      {t:'f',q:'إذا كان قسط تأمين سيارة 800 دينار سنوياً، القسط الشهري = ____ دينار.',a:'66.67',e:'800/12≈66.67.'},
+      {t:'m',q:'مبدأ التعويض يمنع:',o:['الحصول على أي تعويض','الاستفادة من التأمين أكثر من قيمة الخسارة الفعلية','دفع الأقساط','أي مطالبة'],a:1,e:'يمنع الربح من التأمين.'},
+      {t:'f',q:'وثيقة تأمين تغطي 100,000 دينار بقسط 1.5%، القسط السنوي = ____ دينار.',a:'1500',e:'1.5%×100,000=1500.'},
+      {t:'m',q:'التأمين الصحي يغطي:',o:['أضرار السيارات','نفقات العلاج الطبي','الوفاة فقط','الممتلكات'],a:1,e:'نفقات العلاج الطبي.'},
+      {t:'b',q:'التأمين يمكن أن يكون وسيلة للادخار.',a:true,e:'نعم، بعض أنواعه تجمع التأمين والادخار.'},
+      {t:'f',q:'نسبة الخسارة = (التعويضات/الأقساط)×100%. إذا كانت التعويضات 40,000 والأقساط 80,000، النسبة = ____.',a:'50%',e:'(40,000/80,000)×100%=50%.'},
+      {t:'m',q:'مبلغ 8000 بفائدة مركبة 5% لسنة، المتراكم = :',o:['8040','8400','8500','8800'],a:1,e:'8000×1.05=8400.'},
+      {t:'f',q:'فائدة بسيطة على 15,000 بمعدل 6% لسنتين = ____ دينار.',a:'1800',e:'15,000×6%×2=1800.'},
+      {t:'m',q:'مبلغ 20,000 بفائدة 3% لـ 4 سنوات، المبلغ المتراكم (بسيطة) = :',o:['22,000','22,400','23,000','24,000'],a:1,e:'الفائدة=20,000×3%×4=2400، المجموع=22,400.'},
+      {t:'b',q:'السند أداة ملكية مثل السهم.',a:false,e:'خطأ، السند أداة دين والسهم أداة ملكية.'},
+      {t:'m',q:'إذا انخفضت أسعار الفائدة السوقية، أسعار السندات القائمة:',o:['تنخفض','ترتفع','لا تتغير','تُلغى'],a:1,e:'علاقة عكسية: الفائدة ↓ والسندات ↑.'},
+      {t:'f',q:'مبلغ 12,000 بفائدة بسيطة 5% لـ 3 سنوات، المتراكم = ____ دينار.',a:'13,800',e:'الفائدة=12,000×5%×3=1800، المتراكم=13,800.'},
+      {t:'m',q:'التأمين على الحياة الكامل يختلف عن المؤقت في أنه:',o:['أرخص','لمدة محددة','يغطي مدى الحياة وله قيمة استردادية','لا يغطي الوفاة'],a:2,e:'يغطي مدى الحياة وله قيمة استردادية.'},
+      {t:'m',q:'إعادة التأمين هي:',o:['تجديد عقد التأمين','قيام شركة التأمين بالتأمين على جزء من مخاطرها لدى شركة أخرى','نقل العميل لشركة أخرى','إلغاء التأمين'],a:1,e:'شركة التأمين تؤمن على جزء من مخاطرها.'},
+      {t:'f',q:'شخص دفع قسط 1200 دينار/سنة لـ 10 سنوات، إجمالي ما دفع = ____ دينار.',a:'12,000',e:'1200×10=12,000.'},
+      {t:'b',q:'يمكن للشخص التأمين بوثائق متعددة لنفس الخطر.',a:true,e:'نعم، لكن مجموع التعويضات لا يتجاوز الخسارة الفعلية.'},
+      {t:'f',q:'قسط تأمين صحي شهري 120 ديناراً، سنوياً = ____ ديناراً.',a:'1440',e:'120×12=1440.'},
+      {t:'b',q:'الخطر القابل للتأمين يجب أن يكون عشوائياً وقابلاً للقياس.',a:true,e:'نعم.'}
+    ]}
+  ]}
+];
 
-    // Application State Variables
-    let currentLesson = [];
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let selectedOption = null;
+// =====================================================================
+// STATE
+// =====================================================================
+var curUnit=-1, curLesson=-1, curQ=0, score=0, wrong=0;
+var answered=false, record=[];
 
-    // DOM Elements
-    const selectionScreen = document.getElementById('selection-screen');
-    const quizScreen = document.getElementById('quiz-screen');
-    const resultsScreen = document.getElementById('results-screen');
-    const lessonSelect = document.getElementById('lesson-select');
-    const questionText = document.getElementById('question-text');
-    const optionsGrid = document.getElementById('options-grid');
-    const nextBtn = document.getElementById('next-btn');
-    const currentScoreDisplay = document.getElementById('current-score');
-    const questionCounter = document.getElementById('question-counter');
-    const progressFill = document.getElementById('progress-fill');
-    const finalScoreDisplay = document.getElementById('final-score');
+// =====================================================================
+// NAVIGATION
+// =====================================================================
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function showLanding(){ showScreen('landing'); curUnit=-1; curLesson=-1; }
+function openUnit(i){
+  curUnit=i;
+  var u=DATA[i];
+  document.getElementById('uTitle').textContent=u.num+': '+u.name;
+  document.getElementById('uSub').textContent='اختر درساً للبدء';
+  var lst=document.getElementById('lessonsList');
+  lst.innerHTML='';
+  u.lessons.forEach(function(l,j){
+    lst.innerHTML+='<div class="lesson-card" onclick="openLesson('+j+')">'+
+      '<div class="lc-num">'+(j+1)+'</div>'+
+      '<div class="lc-info"><div class="lc-title">'+l.title+'</div>'+
+      '<div class="lc-meta">'+l.num+' • '+l.qs.length+' سؤال</div></div>'+
+      '<div class="lc-arrow">&#8592;</div></div>';
+  });
+  showScreen('unitPage');
+}
+function showUnit(){ openUnit(curUnit); }
+function openLesson(j){
+  curLesson=j; curQ=0; score=0; wrong=0; answered=false; record=[];
+  var l=DATA[curUnit].lessons[j];
+  document.getElementById('lTitle').textContent=l.title;
+  updateScoreDisplay();
+  renderQ();
+  showScreen('lessonPage');
+}
+function restartLesson(){ openLesson(curLesson); }
 
-    /**
-     * Start the quiz with the selected lesson
-     */
-    function startQuiz() {
-        const selected = lessonSelect.value;
-        if (!selected) {
-            alert('Please select a lesson first!');
-            return;
-        }
+// =====================================================================
+// QUESTION RENDERING
+// =====================================================================
+function updateScoreDisplay(){
+  document.getElementById('sBadge').textContent='✓ '+score;
+  document.getElementById('wBadge').textContent='✗ '+wrong;
+}
+function renderQ(){
+  var qs=DATA[curUnit].lessons[curLesson].qs;
+  var total=qs.length;
+  var pct=Math.round((curQ/total)*100);
+  document.getElementById('qCtr').textContent='السؤال '+(curQ+1)+' من '+total;
+  document.getElementById('qPct').textContent=pct+'%';
+  document.getElementById('pFill').style.width=pct+'%';
+  answered=false;
+  var q=qs[curQ];
+  var typeLbl={m:'اختيار متعدد',b:'صح أم خطأ',f:'أكمل الفراغ'};
+  var typeCls={m:'type-mcq',b:'type-tf',f:'type-fill'};
+  var html='<div class="question-box">'+
+    '<div class="q-number">السؤال '+(curQ+1)+'</div>'+
+    '<span class="q-type-badge '+typeCls[q.t]+'">'+typeLbl[q.t]+'</span>'+
+    '<div class="q-text">'+q.q+'</div>';
+  if(q.t==='m'){
+    html+='<div class="options">';
+    var ltrs=['أ','ب','ج','د'];
+    q.o.forEach(function(opt,i){
+      html+='<div class="option" id="opt'+i+'" onclick="selectMCQ('+i+')">'+
+        '<div class="opt-letter">'+ltrs[i]+'</div>'+opt+'</div>';
+    });
+    html+='</div>';
+  } else if(q.t==='b'){
+    html+='<div class="tf-buttons">'+
+      '<div class="tf-btn" id="tfT" onclick="selectTF(true)">✓ صح</div>'+
+      '<div class="tf-btn" id="tfF" onclick="selectTF(false)">✗ خطأ</div>'+
+      '</div>';
+  } else {
+    html+='<input class="fill-input" id="fillInp" type="text" placeholder="اكتب إجابتك هنا..." />';
+  }
+  html+='<div class="feedback-box" id="fbBox"></div>';
+  html+='<div class="action-btns">'+
+    '<button class="btn-hint" onclick="showHint()">💡 تلميح</button>'+
+    '<button class="btn-check" id="btnCheck" onclick="checkAnswer()">التحقق</button>'+
+    '<button class="btn-next" id="btnNext" style="display:none" onclick="nextQ()">التالي ←</button>'+
+    '</div></div>';
+  document.getElementById('qArea').innerHTML=html;
+}
 
-        // Deep copy the array to prevent modifying original data
-        currentLesson = JSON.parse(JSON.stringify(database[selected]));
-        
-        // Reset state
-        currentQuestionIndex = 0;
-        score = 0;
-        
-        // UI transitions
-        selectionScreen.style.display = 'none';
-        resultsScreen.style.display = 'none';
-        quizScreen.style.display = 'block';
-        
-        updateScore();
-        loadQuestion();
+var selMCQ=-1, selTF=null;
+
+function selectMCQ(i){
+  if(answered) return;
+  selMCQ=i;
+  document.querySelectorAll('.option').forEach(function(o){o.classList.remove('selected')});
+  document.getElementById('opt'+i).classList.add('selected');
+}
+function selectTF(v){
+  if(answered) return;
+  selTF=v;
+  document.getElementById('tfT').classList.remove('selected');
+  document.getElementById('tfF').classList.remove('selected');
+  document.getElementById(v?'tfT':'tfF').classList.add('selected');
+}
+function showHint(){
+  var q=DATA[curUnit].lessons[curLesson].qs[curQ];
+  var fb=document.getElementById('fbBox');
+  fb.className='feedback-box correct show';
+  fb.innerHTML='💡 <strong>تلميح:</strong> '+q.e;
+}
+function checkAnswer(){
+  if(answered) return;
+  var q=DATA[curUnit].lessons[curLesson].qs[curQ];
+  var correct=false, userAns='';
+  if(q.t==='m'){
+    if(selMCQ===-1){alert('الرجاء اختيار إجابة');return;}
+    correct=(selMCQ===q.a);
+    userAns=q.o[selMCQ];
+    document.querySelectorAll('.option').forEach(function(o){o.classList.add('disabled')});
+    document.getElementById('opt'+q.a).classList.add('correct');
+    if(!correct) document.getElementById('opt'+selMCQ).classList.add('wrong');
+    selMCQ=-1;
+  } else if(q.t==='b'){
+    if(selTF===null){alert('الرجاء اختيار صح أو خطأ');return;}
+    correct=(selTF===q.a);
+    userAns=selTF?'صح':'خطأ';
+    ['tfT','tfF'].forEach(function(id){document.getElementById(id).classList.add('disabled')});
+    document.getElementById(q.a?'tfT':'tfF').classList.add('correct');
+    if(!correct) document.getElementById(selTF?'tfT':'tfF').classList.add('wrong');
+    selTF=null;
+  } else {
+    var inp=document.getElementById('fillInp');
+    userAns=inp.value.trim();
+    if(!userAns){alert('الرجاء كتابة الإجابة');return;}
+    var norm=function(s){return s.replace(/\s/g,'').replace(/°/g,'').toLowerCase()};
+    correct=(norm(userAns)===norm(q.a));
+    inp.className='fill-input '+(correct?'correct':'wrong');
+    inp.disabled=true;
+    if(!correct){
+      var hint=document.createElement('div');
+      hint.style.cssText='margin-top:8px;font-size:.85rem;color:#6ee7b7';
+      hint.innerHTML='الإجابة الصحيحة: <strong>'+q.a+'</strong>';
+      inp.parentNode.insertBefore(hint,inp.nextSibling);
     }
+  }
+  if(correct) score++; else wrong++;
+  updateScoreDisplay();
+  record.push({q:q.q,ua:userAns,ca:q.t==='m'?q.o[q.a]:q.t==='b'?(q.a?'صح':'خطأ'):q.a,ok:correct,e:q.e});
+  var fb=document.getElementById('fbBox');
+  fb.className='feedback-box '+(correct?'correct':'wrong')+' show';
+  fb.innerHTML=correct?'✅ إجابة صحيحة! '+q.e:'❌ إجابة خاطئة. '+q.e;
+  answered=true;
+  document.getElementById('btnNext').style.display='inline-block';
+  document.getElementById('btnCheck').textContent=correct?'✓ صحيح!':'✗ خطأ';
+  document.getElementById('btnCheck').style.background=correct?'var(--green)':'var(--red)';
+  document.getElementById('btnCheck').style.boxShadow=correct?'0 4px 20px rgba(16,185,129,.4)':'0 4px 20px rgba(239,68,68,.3)';
+}
+function nextQ(){
+  var qs=DATA[curUnit].lessons[curLesson].qs;
+  curQ++;
+  if(curQ>=qs.length){ showResults(); return; }
+  renderQ();
+}
 
-    /**
-     * Load the current question onto the screen
-     */
-    function loadQuestion() {
-        selectedOption = null;
-        nextBtn.disabled = true;
-        
-        const qData = currentLesson[currentQuestionIndex];
-        
-        // Update Counter & Progress Bar
-        const qNum = currentQuestionIndex + 1;
-        const totalQ = currentLesson.length;
-        questionCounter.innerText = `Question ${qNum} of ${totalQ}`;
-        progressFill.style.width = `${(qNum / totalQ) * 100}%`;
-
-        // Update Text
-        questionText.innerText = qData.q;
-
-        // Render Options
-        optionsGrid.innerHTML = '';
-        qData.opts.forEach((opt, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.innerText = opt;
-            btn.onclick = () => selectOption(index, btn);
-            optionsGrid.appendChild(btn);
-        });
-    }
-
-    /**
-     * Handle user selecting an option
-     */
-    function selectOption(selectedIndex, btnElement) {
-        // Prevent clicking multiple times
-        if (selectedOption !== null) return;
-        
-        selectedOption = selectedIndex;
-        const qData = currentLesson[currentQuestionIndex];
-        const isCorrect = (selectedIndex === qData.a);
-        
-        // Highlight logic
-        const allBtns = optionsGrid.children;
-        for (let i = 0; i < allBtns.length; i++) {
-            allBtns[i].disabled = true;
-            if (i === qData.a) {
-                allBtns[i].classList.add('correct');
-            } else if (i === selectedIndex && !isCorrect) {
-                allBtns[i].classList.add('wrong');
-            }
-        }
-
-        if (isCorrect) {
-            score++;
-            updateScore();
-        }
-
-        // Enable next button
-        nextBtn.disabled = false;
-        
-        // Change next button text on last question
-        if (currentQuestionIndex === currentLesson.length - 1) {
-            nextBtn.innerText = 'Finish Quiz';
-        } else {
-            nextBtn.innerText = 'Next Question';
-        }
-    }
-
-    /**
-     * Proceed to the next question or finish quiz
-     */
-    function nextQuestion() {
-        if (currentQuestionIndex < currentLesson.length - 1) {
-            currentQuestionIndex++;
-            loadQuestion();
-        } else {
-            finishQuiz();
-        }
-    }
-
-    /**
-     * Update score display
-     */
-    function updateScore() {
-        currentScoreDisplay.innerText = score;
-    }
-
-    /**
-     * Complete the quiz and show results
-     */
-    function finishQuiz() {
-        quizScreen.style.display = 'none';
-        resultsScreen.style.display = 'block';
-        finalScoreDisplay.innerText = `${score} / ${currentLesson.length}`;
-        
-        // Color code final score
-        const percentage = score / currentLesson.length;
-        if (percentage >= 0.8) {
-            finalScoreDisplay.style.color = 'var(--success)';
-        } else if (percentage >= 0.5) {
-            finalScoreDisplay.style.color = 'var(--text-main)';
-        } else {
-            finalScoreDisplay.style.color = 'var(--danger)';
-        }
-    }
-
-    /**
-     * Retry the same lesson
-     */
-    function retryQuiz() {
-        startQuiz();
-    }
-
-    /**
-     * Quit current quiz and return to selection screen
-     */
-    function quitQuiz() {
-        quizScreen.style.display = 'none';
-        resultsScreen.style.display = 'none';
-        selectionScreen.style.display = 'block';
-        
-        // Reset dropdown
-        lessonSelect.value = '';
-    }
+// =====================================================================
+// RESULTS
+// =====================================================================
+function showResults(){
+  var total=DATA[curUnit].lessons[curLesson].qs.length;
+  var pct=Math.round((score/total)*100);
+  document.getElementById('rC').textContent=score;
+  document.getElementById('rW').textContent=wrong;
+  document.getElementById('rT').textContent=total;
+  document.getElementById('rPct').textContent=pct+'%';
+  var icon='🏆',title='ممتاز!',sub='أداء رائع، استمر!';
+  if(pct<50){icon='💪';title='حاول مجدداً';sub='مراجعة الدرس ستساعدك كثيراً.';}
+  else if(pct<75){icon='📚';title='جيد!';sub='تقدم جيد، يمكنك تحسين أدائك أكثر.';}
+  else if(pct<90){icon='⭐';title='جيد جداً!';sub='أداء ممتاز، أنت في الطريق الصحيح!';}
+  document.getElementById('rIcon').textContent=icon;
+  document.getElementById('rTitle').textContent=title;
+  document.getElementById('rSub').textContent=sub+' نتيجتك: '+score+'/'+total+' ('+pct+'%)';
+  var rev=document.getElementById('revArea');
+  rev.innerHTML='<div class="sum-title">📋 مراجعة الإجابات</div>';
+  record.forEach(function(r,i){
+    rev.innerHTML+='<div class="rev-item">'+
+      '<div class="rev-icon">'+(r.ok?'✅':'❌')+'</div>'+
+      '<div><div class="rev-q">'+(i+1)+'. '+r.q+'</div>'+
+      '<div class="rev-a '+(r.ok?'c':'w')+'">إجابتك: '+r.ua+'</div>'+
+      (r.ok?'':'<div class="rev-a c">الصحيحة: '+r.ca+'</div>')+
+      '<div class="rev-a">'+r.e+'</div></div></div>';
+  });
+  showScreen('resultsPage');
+}
 </script>
+
 </body>
 </html>
