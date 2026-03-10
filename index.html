@@ -1,104 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-
 <meta charset="UTF-8">
-<title>Grade 10 Learning Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بوابة الصف العاشر</title>
 
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+*{
+box-sizing:border-box;
+}
+
 body{
-font-family:Arial;
-background:#0f172a;
+font-family:'Cairo',sans-serif;
+margin:0;
+background:#020617;
 color:white;
 text-align:center;
-margin:0;
+overflow-x:hidden;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
 header{
-background:#1e293b;
-padding:20px;
-font-size:28px;
+font-size:30px;
+padding:25px;
+background:rgba(2,6,23,.8);
+backdrop-filter:blur(12px);
+border-bottom:1px solid rgba(255,255,255,.1);
 }
 
 .container{
 padding:30px;
 }
 
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:20px;
+max-width:900px;
+margin:auto;
+}
+
 button{
-padding:12px 20px;
-margin:8px;
-font-size:16px;
+padding:15px;
 border:none;
-border-radius:8px;
+border-radius:14px;
 cursor:pointer;
-background:#3b82f6;
+font-size:16px;
+background:linear-gradient(135deg,#2563eb,#06b6d4);
 color:white;
+transition:.25s;
+box-shadow:0 0 10px rgba(59,130,246,.5);
 }
 
 button:hover{
-background:#2563eb;
+transform:translateY(-4px) scale(1.05);
+box-shadow:0 0 20px rgba(56,189,248,.9);
+}
+
+.card{
+background:rgba(15,23,42,.8);
+border-radius:14px;
+padding:18px;
+transition:.3s;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.card:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px rgba(56,189,248,.5);
+}
+
+iframe{
+width:95%;
+height:720px;
+border:none;
+border-radius:12px;
+margin-top:25px;
+box-shadow:0 0 35px rgba(14,165,233,.5);
+}
+
+.quiz{
+background:rgba(15,23,42,.85);
+padding:25px;
+border-radius:14px;
+max-width:600px;
+margin:auto;
+margin-top:20px;
+}
+
+.answer{
+display:block;
+margin:10px auto;
+width:90%;
 }
 
 .hidden{
 display:none;
 }
 
-iframe{
-width:90%;
-height:700px;
-border:none;
-margin-top:20px;
-}
-
-.quiz{
-background:#1e293b;
-padding:20px;
-border-radius:10px;
-width:60%;
-margin:auto;
-}
-
-.answer{
-display:block;
-margin:8px;
-}
-
 </style>
-
 </head>
+
 <body>
 
-<header>Grade 10 Learning Portal</header>
+<canvas id="bg"></canvas>
+
+<header>
+بوابة التعلم للصف العاشر
+</header>
 
 <div class="container">
 
-<h2>Select a Book</h2>
+<h2>اختر الكتاب</h2>
 
-<div id="books">
+<div class="grid" id="books">
 
-<button onclick="openBook('ma')">Mathematics</button>
-<button onclick="openBook('ara')">Arabic</button>
-<button onclick="openBook('en')">English</button>
-<button onclick="openBook('re')">Religion</button>
-<button onclick="openBook('sc')">Science</button>
-<button onclick="openBook('chm')">Chemistry</button>
-<button onclick="openBook('py')">Physics</button>
-<button onclick="openBook('ge')">Geography</button>
-<button onclick="openBook('it')">IT</button>
-<button onclick="openBook('taj')">Tajweed</button>
+<button onclick="openBook('ma','الرياضيات')">الرياضيات</button>
+<button onclick="openBook('ara','اللغة العربية')">العربية</button>
+<button onclick="openBook('en','الانجليزية')">الانجليزية</button>
+<button onclick="openBook('re','التربية الدينية')">الدين</button>
+<button onclick="openBook('sc','العلوم')">العلوم</button>
+<button onclick="openBook('chm','الكيمياء')">الكيمياء</button>
+<button onclick="openBook('py','الفيزياء')">الفيزياء</button>
+<button onclick="openBook('ge','الجغرافيا')">الجغرافيا</button>
+<button onclick="openBook('it','تكنولوجيا المعلومات')">IT</button>
+<button onclick="openBook('taj','التجويد')">التجويد</button>
 
 </div>
 
-<div id="bookArea" class="hidden">
+<div id="bookPage" class="hidden">
 
 <h2 id="bookTitle"></h2>
 
-<button onclick="showPDF()">Open Full Book</button>
-<button onclick="showQuiz()">Take Quiz</button>
-<button onclick="goHome()">Back</button>
+<p>اختر الدرس</p>
 
-<div id="pdfArea"></div>
+<div id="lessons" class="grid"></div>
+
+<br>
+
+<button onclick="startQuiz()">اختبار</button>
+<button onclick="goHome()">رجوع</button>
+
+<div id="viewer"></div>
 
 <div id="quizArea" class="hidden">
 
@@ -110,7 +162,7 @@ margin:8px;
 
 <p id="result"></p>
 
-<button onclick="nextQuestion()">Next Question</button>
+<button onclick="nextQuestion()">السؤال التالي</button>
 
 </div>
 
@@ -121,8 +173,6 @@ margin:8px;
 </div>
 
 <script>
-
-let currentBook=""
 
 const pdfs={
 ma:"https://elearn.azureedge.net/Books/c10/ma10-p2.pdf",
@@ -137,69 +187,68 @@ it:"https://elearn.azureedge.net/Books/c10/it10.pdf",
 taj:"https://elearn.azureedge.net/Books/c10/taj10.pdf"
 }
 
-function openBook(book){
+let currentBook=""
 
-currentBook=book
+function openBook(code,name){
 
-document.getElementById("books").classList.add("hidden")
-document.getElementById("bookArea").classList.remove("hidden")
+currentBook=code
 
-document.getElementById("bookTitle").innerText=book.toUpperCase()+" Book"
+document.getElementById("books").style.display="none"
+document.getElementById("bookPage").classList.remove("hidden")
+
+document.getElementById("bookTitle").innerText=name
+
+let lessons=""
+
+for(let i=1;i<=15;i++){
+
+let page=(i-1)*10+1
+
+lessons+=`
+<div class="card">
+<button onclick="openLesson(${page})">
+الدرس ${i}
+</button>
+</div>
+`
+
+}
+
+document.getElementById("lessons").innerHTML=lessons
+
+}
+
+function openLesson(page){
+
+document.getElementById("quizArea").classList.add("hidden")
+
+document.getElementById("viewer").innerHTML=
+'<iframe src="'+pdfs[currentBook]+'#page='+page+'"></iframe>'
 
 }
 
 function goHome(){
 
-document.getElementById("books").classList.remove("hidden")
-document.getElementById("bookArea").classList.add("hidden")
-
-document.getElementById("pdfArea").innerHTML=""
-document.getElementById("quizArea").classList.add("hidden")
-
-}
-
-function showPDF(){
-
-document.getElementById("quizArea").classList.add("hidden")
-
-document.getElementById("pdfArea").innerHTML=
-`<iframe src="${pdfs[currentBook]}"></iframe>`
+document.getElementById("books").style.display="grid"
+document.getElementById("bookPage").classList.add("hidden")
+document.getElementById("viewer").innerHTML=""
 
 }
 
 const questions=[
 
-{
-q:"What is 2 + 2?",
-a:["3","4","5","6"],
-c:1
-},
+{q:"كم يساوي 2 + 2 ؟",a:["3","4","5"],c:1},
 
-{
-q:"What is sin(90°)?",
-a:["0","1","-1","2"],
-c:1
-},
+{q:"جا 90° يساوي؟",a:["0","1","2"],c:1},
 
-{
-q:"What is 10 × 5?",
-a:["20","40","50","60"],
-c:2
-},
-
-{
-q:"Capital of France?",
-a:["London","Berlin","Paris","Rome"],
-c:2
-}
+{q:"عاصمة فرنسا؟",a:["باريس","لندن","مدريد"],c:0}
 
 ]
 
-let qIndex=0
+let qi=0
 
-function showQuiz(){
+function startQuiz(){
 
-document.getElementById("pdfArea").innerHTML=""
 document.getElementById("quizArea").classList.remove("hidden")
 
 loadQuestion()
@@ -208,19 +257,19 @@ loadQuestion()
 
 function loadQuestion(){
 
-let q=questions[qIndex]
+let q=questions[qi]
 
 document.getElementById("question").innerText=q.q
 
-let answersHTML=""
+let html=""
 
 q.a.forEach((ans,i)=>{
 
-answersHTML+=`<button class="answer" onclick="check(${i})">${ans}</button>`
+html+='<button class="answer" onclick="check('+i+')">'+ans+'</button>'
 
 })
 
-document.getElementById("answers").innerHTML=answersHTML
+document.getElementById("answers").innerHTML=html
 
 document.getElementById("result").innerText=""
 
@@ -228,23 +277,68 @@ document.getElementById("result").innerText=""
 
 function check(i){
 
-if(i===questions[qIndex].c)
-document.getElementById("result").innerText="Correct!"
+if(i==questions[qi].c)
+document.getElementById("result").innerText="✔ صحيح"
 else
-document.getElementById("result").innerText="Wrong"
+document.getElementById("result").innerText="✖ خطأ"
 
 }
 
 function nextQuestion(){
 
-qIndex++
+qi++
 
-if(qIndex>=questions.length)
-qIndex=0
+if(qi>=questions.length) qi=0
 
 loadQuestion()
 
 }
+
+const canvas=document.getElementById("bg")
+const ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let particles=[]
+
+for(let i=0;i<120;i++){
+
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+vx:(Math.random()-.5)*.3,
+vy:(Math.random()-.5)*.3
+})
+
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="white"
+
+particles.forEach(p=>{
+
+p.x+=p.vx
+p.y+=p.vy
+
+if(p.x<0||p.x>canvas.width)p.vx*=-1
+if(p.y<0||p.y>canvas.height)p.vy*=-1
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+ctx.fill()
+
+})
+
+requestAnimationFrame(animate)
+
+}
+
+animate()
 
 </script>
 
