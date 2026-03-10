@@ -1,198 +1,252 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مذاكرتي: المنهاج الفلسطيني الشامل</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1d7a6e; --accent: #d35400; --bg: #fdfbf7;
-            --card: #ffffff; --text: #2c3e50;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
-        
-        header { background: var(--primary); color: white; padding: 50px 20px; text-align: center; border-bottom: 8px solid var(--accent); }
-        header h1 { font-family: 'Amiri', serif; font-size: 3.2rem; }
 
-        main { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .step-label { background: var(--accent); color: white; padding: 4px 12px; border-radius: 5px; font-size: 0.9rem; margin-left: 10px; }
-        h2 { font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--primary); margin-bottom: 25px; display: flex; align-items: center; }
+<meta charset="UTF-8">
+<title>Grade 10 Learning Portal</title>
 
-        /* Book Grid */
-        .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; margin-bottom: 50px; }
-        .book-card { background: var(--card); border: 2px solid #eee; border-radius: 20px; padding: 30px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .book-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .book-card.active { border-color: var(--primary); background: #f0faf9; border-width: 3px; }
-        .book-card .emoji { font-size: 4rem; display: block; margin-bottom: 15px; }
-        .book-card strong { font-size: 1.3rem; color: var(--primary); display: block; }
-        .pdf-link { font-size: 0.8rem; color: #95a5a6; text-decoration: none; margin-top: 10px; display: inline-block; }
+<style>
 
-        /* Lessons Section */
-        #lessonSection { display: none; background: white; padding: 40px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
-        .lesson-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 20px; }
-        .lesson-btn { background: #f9f9f9; border: 1px solid #ddd; padding: 20px; border-radius: 15px; cursor: pointer; text-align: right; transition: 0.2s; font-weight: 700; }
-        .lesson-btn:hover { background: #fff; border-color: var(--primary); transform: translateX(-5px); }
-        .lesson-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+margin:0;
+}
 
-        /* Quiz UI */
-        #quizSection { display: none; margin-top: 50px; }
-        .q-card { background: white; padding: 40px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #eee; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .q-text { font-size: 1.4rem; font-weight: 800; margin-bottom: 25px; color: #34495e; }
-        .opt { display: block; width: 100%; padding: 20px; margin: 12px 0; border: 2px solid #f0f0f0; border-radius: 12px; cursor: pointer; text-align: right; font-family: inherit; font-size: 1.1rem; transition: 0.2s; }
-        .opt:hover { border-color: var(--primary); background: #f0faf9; }
-        .opt.correct { background: #d4edda; border-color: #28a745; color: #155724; font-weight: bold; }
-        .opt.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; }
-        
-        .btn-start { background: var(--accent); color: white; border: none; padding: 20px; border-radius: 15px; width: 100%; font-size: 1.5rem; font-weight: 900; cursor: pointer; margin-top: 30px; }
-    </style>
+header{
+background:#1e293b;
+padding:20px;
+font-size:28px;
+}
+
+.container{
+padding:30px;
+}
+
+button{
+padding:12px 20px;
+margin:8px;
+font-size:16px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#3b82f6;
+color:white;
+}
+
+button:hover{
+background:#2563eb;
+}
+
+.hidden{
+display:none;
+}
+
+iframe{
+width:90%;
+height:700px;
+border:none;
+margin-top:20px;
+}
+
+.quiz{
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+width:60%;
+margin:auto;
+}
+
+.answer{
+display:block;
+margin:8px;
+}
+
+</style>
+
 </head>
 <body>
 
-<header>
-    <h1>📖 منصة مذاكرتي التعليمية</h1>
-    <p>دليلك الشامل للتفوق في امتحانات الصف العاشر</p>
-</header>
+<header>Grade 10 Learning Portal</header>
 
-<main>
-    <h2><span class="step-label">١</span> اختر الكتاب المدرسي</h2>
-    <div class="book-grid" id="bookGrid"></div>
+<div class="container">
 
-    <div id="lessonSection">
-        <h2><span class="step-label">٢</span> اختر الدرس المطلوب</h2>
-        <div class="lesson-grid" id="lessonGrid"></div>
-        <button class="btn-start" id="startBtn" disabled onclick="renderQuiz()">ابدأ مراجعة الدرس ✦</button>
-    </div>
+<h2>Select a Book</h2>
 
-    <div id="quizSection">
-        <div id="quizContent"></div>
-    </div>
-</main>
+<div id="books">
+
+<button onclick="openBook('ma')">Mathematics</button>
+<button onclick="openBook('ara')">Arabic</button>
+<button onclick="openBook('en')">English</button>
+<button onclick="openBook('re')">Religion</button>
+<button onclick="openBook('sc')">Science</button>
+<button onclick="openBook('chm')">Chemistry</button>
+<button onclick="openBook('py')">Physics</button>
+<button onclick="openBook('ge')">Geography</button>
+<button onclick="openBook('it')">IT</button>
+<button onclick="openBook('taj')">Tajweed</button>
+
+</div>
+
+<div id="bookArea" class="hidden">
+
+<h2 id="bookTitle"></h2>
+
+<button onclick="showPDF()">Open Full Book</button>
+<button onclick="showQuiz()">Take Quiz</button>
+<button onclick="goHome()">Back</button>
+
+<div id="pdfArea"></div>
+
+<div id="quizArea" class="hidden">
+
+<div class="quiz">
+
+<h3 id="question"></h3>
+
+<div id="answers"></div>
+
+<p id="result"></p>
+
+<button onclick="nextQuestion()">Next Question</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 <script>
-const DATA = {
-    "ma": {
-        name: "الرياضيات", emoji: "📐", url: "https://elearn.azureedge.net/Books/c10/ma10-p2.pdf",
-        lessons: {
-            "المتتاليات الحسابية": [
-                { q: "إذا كان الحد الأول 3 والأساس 2، ما هو الحد الخامس؟", options: ["9", "11", "13", "15"], correct: 1 },
-                { q: "قانون مجموع أول (ن) من الحدود في المتتالية الحسابية هو:", options: ["ج ن = ن/2 (أ + ل)", "ج ن = أ + ن د", "ج ن = ن (أ + د)"], correct: 0 },
-                { q: "تسمى المتتالية التي يكون الفرق بين أي حدين متتاليين فيها ثابتاً بـ:", options: ["هندسية", "حسابية", "لوغاريتمية"], correct: 1 }
-            ],
-            "المتتاليات الهندسية": [
-                { q: "الحد العام للمتتالية الهندسية هو:", options: ["ح ن = أ + (ن-1)د", "ح ن = أ × ر^(ن-1)", "ح ن = أ / ر"], correct: 1 }
-            ],
-            "الإحصاء والارتباط": [
-                { q: "ما نوع الارتباط إذا كانت قيمة ر = -0.9؟", options: ["طردي قوي", "عكسي قوي", "انعدام ارتباط"], correct: 1 }
-            ]
-        }
-    },
-    "py": {
-        name: "الفيزياء", emoji: "⚡", url: "https://elearn.azureedge.net/Books/c10/py10.pdf",
-        lessons: {
-            "الضوء والمرايا": [
-                { q: "تستخدم المرآة المحدبة في السيارات لأنها:", options: ["تكبر الصورة", "تعطي مجال رؤية واسع", "تجمع الأشعة"], correct: 1 },
-                { q: "بعد الجسم عن المرآة المستوية يساوي دائماً:", options: ["ضعف بعد الصورة", "بعد الصورة عنها", "نصف بعد الصورة"], correct: 1 }
-            ],
-            "الكهرباء المتحركة": [
-                { q: "الجهاز المستخدم لقياس التيار الكهربائي هو:", options: ["الفولتميتر", "الأميتر", "الأوميتر"], correct: 1 }
-            ]
-        }
-    },
-    "ara": {
-        name: "اللغة العربية", emoji: "📝", url: "https://elearn.azureedge.net/Books/c10/ara10-p2.pdf",
-        lessons: {
-            "النحو: معاني الحروف": [
-                { q: "تفيد 'إلى' في جملة 'ذهبت إلى المدرسة':", options: ["التبعيض", "انتهاء الغاية المكانية", "الظرفية"], correct: 1 }
-            ]
-        }
-    },
-    "sc": {
-        name: "العلوم الحياتية", emoji: "🔬", url: "https://elearn.azureedge.net/Books/c10/sc10.pdf",
-        lessons: {
-            "الوراثة": [
-                { q: "الصفة التي تظهر دائماً في الجيل الأول تسمى:", options: ["متنحية", "سائدة", "هجينة"], correct: 1 }
-            ]
-        }
-    },
-    "chm": { name: "الكيمياء", emoji: "⚗️", url: "https://elearn.azureedge.net/Books/c10/chm10.pdf", lessons: { "الروابط": [] } },
-    "it": { name: "التكنولوجيا", emoji: "💻", url: "https://elearn.azureedge.net/Books/c10/it10.pdf", lessons: { "الشبكات": [] } },
-    "ge": { name: "الجغرافيا", emoji: "🗺️", url: "https://elearn.azureedge.net/Books/c10/ge10-p2.pdf", lessons: { "المناخ": [] } },
-    "re": { name: "التربية الإسلامية", emoji: "🌙", url: "https://elearn.azureedge.net/Books/c10/re10-p2.pdf", lessons: { "العقيدة": [] } },
-    "en": { name: "اللغة الإنجليزية", emoji: "🔤", url: "https://elearn.azureedge.net/Books/c10/en10-p2.pdf", lessons: { "Grammar": [] } },
-    "taj": { name: "التلاوة والتجويد", emoji: "📿", url: "https://elearn.azureedge.net/Books/c10/taj10.pdf", lessons: { "الإدغام": [] } }
-};
 
-let currentBook = null;
-let currentLesson = null;
+let currentBook=""
 
-function init() {
-    const grid = document.getElementById('bookGrid');
-    for (let id in DATA) {
-        const b = DATA[id];
-        const div = document.createElement('div');
-        div.className = 'book-card';
-        div.innerHTML = `<span class="emoji">${b.emoji}</span><strong>${b.name}</strong><a href="${b.url}" class="pdf-link" target="_blank">رابط الكتاب PDF</a>`;
-        div.onclick = () => selectBook(id, div);
-        grid.appendChild(div);
-    }
+const pdfs={
+ma:"https://elearn.azureedge.net/Books/c10/ma10-p2.pdf",
+ara:"https://elearn.azureedge.net/Books/c10/ara10-p2.pdf",
+en:"https://elearn.azureedge.net/Books/c10/en10-p2.pdf",
+re:"https://elearn.azureedge.net/Books/c10/re10-p2.pdf",
+sc:"https://elearn.azureedge.net/Books/c10/sc10.pdf",
+chm:"https://elearn.azureedge.net/Books/c10/chm10.pdf",
+py:"https://elearn.azureedge.net/Books/c10/py10.pdf",
+ge:"https://elearn.azureedge.net/Books/c10/ge10-p2.pdf",
+it:"https://elearn.azureedge.net/Books/c10/it10.pdf",
+taj:"https://elearn.azureedge.net/Books/c10/taj10.pdf"
 }
 
-function selectBook(id, el) {
-    currentBook = id;
-    document.querySelectorAll('.book-card').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-    
-    const lessonGrid = document.getElementById('lessonGrid');
-    lessonGrid.innerHTML = '';
-    for (let lName in DATA[id].lessons) {
-        const b = document.createElement('div');
-        b.className = 'lesson-btn';
-        b.textContent = lName;
-        b.onclick = () => {
-            currentLesson = lName;
-            document.querySelectorAll('.lesson-btn').forEach(btn => btn.classList.remove('active'));
-            b.classList.add('active');
-            document.getElementById('startBtn').disabled = false;
-        };
-        lessonGrid.appendChild(b);
-    }
-    document.getElementById('lessonSection').style.display = 'block';
-    document.getElementById('quizSection').style.display = 'none';
+function openBook(book){
+
+currentBook=book
+
+document.getElementById("books").classList.add("hidden")
+document.getElementById("bookArea").classList.remove("hidden")
+
+document.getElementById("bookTitle").innerText=book.toUpperCase()+" Book"
+
 }
 
-function renderQuiz() {
-    const questions = DATA[currentBook].lessons[currentLesson];
-    const container = document.getElementById('quizContent');
-    container.innerHTML = '';
-    
-    questions.forEach((q, idx) => {
-        const card = document.createElement('div');
-        card.className = 'q-card';
-        card.innerHTML = `<div class="q-text">${idx+1}. ${q.q}</div>`;
-        q.options.forEach((opt, oIdx) => {
-            const btn = document.createElement('button');
-            btn.className = 'opt';
-            btn.textContent = opt;
-            btn.onclick = () => {
-                if (btn.parentElement.classList.contains('done')) return;
-                btn.parentElement.classList.add('done');
-                if (oIdx === q.correct) btn.classList.add('correct');
-                else {
-                    btn.classList.add('wrong');
-                    btn.parentElement.querySelectorAll('.opt')[q.correct].classList.add('correct');
-                }
-            };
-            card.appendChild(btn);
-        });
-        container.appendChild(card);
-    });
-    document.getElementById('quizSection').style.display = 'block';
-    window.scrollTo({ top: document.getElementById('quizSection').offsetTop, behavior: 'smooth' });
+function goHome(){
+
+document.getElementById("books").classList.remove("hidden")
+document.getElementById("bookArea").classList.add("hidden")
+
+document.getElementById("pdfArea").innerHTML=""
+document.getElementById("quizArea").classList.add("hidden")
+
 }
 
-init();
+function showPDF(){
+
+document.getElementById("quizArea").classList.add("hidden")
+
+document.getElementById("pdfArea").innerHTML=
+`<iframe src="${pdfs[currentBook]}"></iframe>`
+
+}
+
+const questions=[
+
+{
+q:"What is 2 + 2?",
+a:["3","4","5","6"],
+c:1
+},
+
+{
+q:"What is sin(90°)?",
+a:["0","1","-1","2"],
+c:1
+},
+
+{
+q:"What is 10 × 5?",
+a:["20","40","50","60"],
+c:2
+},
+
+{
+q:"Capital of France?",
+a:["London","Berlin","Paris","Rome"],
+c:2
+}
+
+]
+
+let qIndex=0
+
+function showQuiz(){
+
+document.getElementById("pdfArea").innerHTML=""
+document.getElementById("quizArea").classList.remove("hidden")
+
+loadQuestion()
+
+}
+
+function loadQuestion(){
+
+let q=questions[qIndex]
+
+document.getElementById("question").innerText=q.q
+
+let answersHTML=""
+
+q.a.forEach((ans,i)=>{
+
+answersHTML+=`<button class="answer" onclick="check(${i})">${ans}</button>`
+
+})
+
+document.getElementById("answers").innerHTML=answersHTML
+
+document.getElementById("result").innerText=""
+
+}
+
+function check(i){
+
+if(i===questions[qIndex].c)
+document.getElementById("result").innerText="Correct!"
+else
+document.getElementById("result").innerText="Wrong"
+
+}
+
+function nextQuestion(){
+
+qIndex++
+
+if(qIndex>=questions.length)
+qIndex=0
+
+loadQuestion()
+
+}
+
 </script>
+
 </body>
 </html>
